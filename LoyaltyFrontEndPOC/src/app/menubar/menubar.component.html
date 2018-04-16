@@ -12,9 +12,9 @@
             <li class="nav-item"><a routerLink="/faq" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async">Faq</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a routerLink="/login" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)">Login</a></li>
+            <li class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)">Login</a></li>
             <li class="nav-item"><a (click)="loyaltylogout()" class="nav-link" title="login" *ngIf="isLoggedIn$ | async">Logout</a></li>
-            <li class="nav-item"><a routerLink="/register" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)">Register</a></li>
+            <li class="nav-item"><a routerLink="/register" routerLinkActive="active" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)">Register</a></li>
         </ul>
     </div>
 </nav>
