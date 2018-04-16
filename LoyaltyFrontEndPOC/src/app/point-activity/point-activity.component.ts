@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./point-activity.component.css']
 })
 export class PointActivityComponent implements OnInit {
-
+  page = 1;
   constructor() { }
 
   ngOnInit() {

@@ -1,3 +1,51 @@
-<p>
-  leaderboard works!
-</p>
+<div class="container py-4 custom-pos">
+        <div class="row">
+            <div class="col-md-10 my-4 mx-auto">
+                <h2 class="text-center display-4">Leaderboard</h2>      
+                <hr>
+                <h2>Global Leaderboard</h2>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsve">
+                        <table class="table table-striped table-hover">
+                          <thead class="thead-inverse">
+                            <tr>
+                                <th class="w-25">Avatar</th>
+                                <th class="">Rank</th>
+                                <th class="">UserName</th>
+                                <th class="">Points</th>
+                                <th class="">Badges</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="w-25 option">Avatar1</td>
+                              <td class="">1</td>
+                              <td class="">Dave</td>
+                              <td class="">10000 PTS</td>
+                              <td class="">5</td>
+                            </tr>
+                            <tr>
+                               <td class="w-25 option">Avatar2</td>
+                               <td class="">2</td>
+                               <td class="">Aaronwatts</td>
+                               <td class="">8000 PTS</td>
+                               <td class="">2</td>
+                            </tr>
+                          </tbody>
+                          <tfoot class="thead-inverse">
+                            <tr>
+                                <th class="w-25"></th>
+                                <th class=""></th>
+                                <th class=""><ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination></th>
+                                <th class=""></th>
+                                <th class=""></th>
+                            </tr>
+                          </tfoot>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

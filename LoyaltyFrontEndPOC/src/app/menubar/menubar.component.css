@@ -1,5 +1,7 @@
-@media (max-width: 767px) {
-    .navbar-toggleable-sm {
-      clear: both;
-    }
-  }
+button:focus {
+  outline: 0;
+}
+
+.navbar .dropdown-menu .form-control {
+  width: 200px;
+}

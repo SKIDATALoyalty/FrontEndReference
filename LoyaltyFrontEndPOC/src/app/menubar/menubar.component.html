@@ -1,16 +1,22 @@
-<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
   <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#home">Loyalty Front End POC</a>
-    </div>
-    <button class="navbar-toggler hidden-md-up pull-xs-right" data-target="#collapsenav" data-toggle="collapse" type="button">
-        ☰
-    </button>
-    <div class="navbar-toggleable-sm collapse pull-md-right text-xs-center" id="collapsenav">
-      <ul class="nav navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
-      </ul>
-    </div>
+      <a class="navbar-brand" href="">Loyalty Front End POC</a>
+      <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
+          &#9776;
+      </button>
+      <div class="collapse navbar-collapse" id="exCollapsingNavbar">
+          <ul class="nav navbar-nav">
+              <li class="nav-item"><a routerLink="/home" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async">Home</a></li>
+              <li class="nav-item"><a routerLink="/product" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async">Products</a></li>
+              <li class="nav-item"><a routerLink="/points" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async">Points</a></li>
+              <li class="nav-item"><a routerLink="/leaderboard" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async">Leaderboard</a></li>
+              <li class="nav-item"><a routerLink="/faq" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async">Faq</a></li>
+          </ul>
+          <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+              <li class="nav-item order-2 order-md-1"><a routerLink="/login" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)">Login</a></li>
+              <li class="nav-item order-2 order-md-1"><a (click)="loyaltylogout()" class="nav-link" title="login" *ngIf="isLoggedIn$ | async">Logout</a></li>
+              <li class="nav-item order-1 order-md-2"><a routerLink="/register" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)">Register</a></li>
+          </ul>
+      </div>
   </div>
 </nav>

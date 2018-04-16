@@ -10,7 +10,12 @@ import { MenubarComponent } from './menubar/menubar.component';
 import { ProductComponent } from './product/product.component';
 import { PointActivityComponent } from './point-activity/point-activity.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FaqComponent } from './faq/faq.component';
+import { AuthGuardGuard } from './auth-guard.guard';
+import { AuthServiceService } from './auth-service.service';
+import './rxjs-operators';
 
 @NgModule({
   declarations: [
@@ -21,13 +26,19 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     MenubarComponent,
     ProductComponent,
     PointActivityComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    PageNotFoundComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthServiceService,
+    AuthGuardGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

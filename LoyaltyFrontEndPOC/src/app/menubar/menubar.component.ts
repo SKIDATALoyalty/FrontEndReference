@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import {AuthServiceService} from '../auth-service.service';
 
 @Component({
   selector: 'app-menubar',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menubar.component.css']
 })
 export class MenubarComponent implements OnInit {
-
-  constructor() { }
+  isLoggedIn$: Observable<boolean>;
+  constructor(private authService: AuthServiceService) { }
 
   ngOnInit() {
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+  }
+
+  loyaltylogout() {
+    this.authService.logout();
   }
 
 }
