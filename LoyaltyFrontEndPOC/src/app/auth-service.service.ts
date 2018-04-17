@@ -15,7 +15,7 @@ export class AuthServiceService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    public jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService
   ) {}
 
   get isLoggedIn() {
