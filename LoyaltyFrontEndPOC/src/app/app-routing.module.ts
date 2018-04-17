@@ -9,11 +9,12 @@ import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {FaqComponent} from './faq/faq.component';
 import {AuthGuardGuard} from '../app/auth-guard.guard';
+import {LoginRedirectGuard} from '../app/login-redirect.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginRedirectGuard] },
+  { path: 'register', component: RegistrationComponent,  canActivate: [LoginRedirectGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
   { path: 'product', component: ProductComponent, canActivate: [AuthGuardGuard] },
   { path: 'points', component: PointActivityComponent, canActivate: [AuthGuardGuard] },

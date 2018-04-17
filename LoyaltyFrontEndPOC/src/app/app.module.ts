@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FaqComponent } from './faq/faq.component';
 import { AuthGuardGuard } from './auth-guard.guard';
+import { LoginRedirectGuard } from './login-redirect.guard';
 import { AuthServiceService } from './auth-service.service';
 import './rxjs-operators';
 
@@ -32,12 +34,14 @@ import './rxjs-operators';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NgbModule.forRoot(),
     AppRoutingModule
   ],
   providers: [
     AuthServiceService,
-    AuthGuardGuard
+    AuthGuardGuard,
+    LoginRedirectGuard
   ],
   bootstrap: [AppComponent]
 })

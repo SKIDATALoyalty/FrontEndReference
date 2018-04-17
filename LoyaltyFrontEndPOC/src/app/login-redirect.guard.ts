@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import {AuthServiceService} from './auth-service.service';
 
 @Injectable()
-export class AuthGuardGuard implements CanActivate {
+export class LoginRedirectGuard implements CanActivate {
   constructor(
     private authService: AuthServiceService,
     private router: Router
@@ -22,8 +22,8 @@ export class AuthGuardGuard implements CanActivate {
     return this.authService.isLoggedIn
       .take(1)
       .map((isLoggedIn: boolean) => {
-        if (!isLoggedIn) {
-          this.router.navigate(['/login']);
+        if (isLoggedIn) {
+          this.router.navigate(['/home']);
           return false;
         }
         return true;

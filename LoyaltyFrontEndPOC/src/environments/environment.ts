@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiKey: 'gtkh01rtXwaQjLX2SZdZtHDoxM7IMm63g00BH3Hj',
+  portalId: 44,
+  redirectUrl: window.location.href,
+  getUrl: 'https://apidev.skidataus.com/44/auth/v1/url'
 };
