@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthServiceService} from '../auth-service.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthServiceService) { }
 
   ngOnInit() {
+    console.log(this.authService.isTokenExpired()); // true or false
+    console.log(this.authService.decodeJwtToken()); // token
   }
 
 }

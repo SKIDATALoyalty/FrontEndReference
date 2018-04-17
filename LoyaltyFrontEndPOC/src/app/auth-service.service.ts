@@ -4,35 +4,48 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {environment} from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response } from '@angular/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthServiceService {
 
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenAvailable());
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenAvailableOrExpired());
+  private isTokExpired: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isTokenExpired());
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    public jwtHelper: JwtHelperService
   ) {}
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
 
-  private tokenAvailable(): boolean {
-    return !!sessionStorage.getItem('loyaltyAuthToken');
+  public tokenAvailableOrExpired(): boolean {
+    return !!sessionStorage.getItem('access_token') && !this.jwtHelper.isTokenExpired();
+  }
+
+  isTokenExpired(): boolean {
+    return this.jwtHelper.isTokenExpired();
   }
 
   login() {
-      sessionStorage.setItem('loyaltyAuthToken', 'setauthtokenhere');
-      this.loggedIn.next(this.tokenAvailable());
+      this.loggedIn.next(this.tokenAvailableOrExpired());
       this.router.navigate(['/home']);
   }
 
   logout() {
-    sessionStorage.removeItem('loyaltyAuthToken');
-    this.loggedIn.next(this.tokenAvailable());
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('id_token');
+    sessionStorage.removeItem('token_type');
+    sessionStorage.removeItem('expires_in');
+    this.loggedIn.next(this.tokenAvailableOrExpired());
     this.router.navigate(['/login']);
+  }
+
+  decodeJwtToken() {
+    return this.jwtHelper.decodeToken(sessionStorage.getItem('id_token'));
   }
 
   getTokenUrl() {
@@ -41,10 +54,8 @@ export class AuthServiceService {
   }
 
   getAcessToken(url: string) {
-    // const reqHeader = new HttpHeaders({ 'Accept': 'application/json', 'x-api-key': environment.apiKey });
-    // const generateUrl = url + '?client_id=' + environment.apiKey + '&redirect_uri=' + 'http://localhost/lorient' + '&response_type=token';
-    const generateUrl = url + '?client_id=' + environment.apiKey + '&redirect_uri=' + environment.redirectUrl + '&response_type=token';
-    return this.http.get(generateUrl);
+    const generateAuthUrl = url + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + '&response_type=token';
+    window.location.href = generateAuthUrl;
   }
 
 }

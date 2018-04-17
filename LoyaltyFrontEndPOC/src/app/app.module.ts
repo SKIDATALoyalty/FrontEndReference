@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -17,7 +18,12 @@ import { FaqComponent } from './faq/faq.component';
 import { AuthGuardGuard } from './auth-guard.guard';
 import { LoginRedirectGuard } from './login-redirect.guard';
 import { AuthServiceService } from './auth-service.service';
+
 import './rxjs-operators';
+
+export function tokenGetter() {
+  return sessionStorage.getItem('id_token');
+}
 
 @NgModule({
   declarations: [
@@ -35,6 +41,12 @@ import './rxjs-operators';
   imports: [
     BrowserModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        skipWhenExpired: true
+      }
+    }),
     NgbModule.forRoot(),
     AppRoutingModule
   ],
