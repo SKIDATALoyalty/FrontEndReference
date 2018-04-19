@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   apiKey: 'gtkh01rtXwaQjLX2SZdZtHDoxM7IMm63g00BH3Hj',
-  portalId: 44,
+  portalId: 31,
   redirectUrl: window.location.href + '&response_type=token',
   getUrl: 'https://apidev.skidataus.com/44/auth/v1/url',
   clientId: '7qdnkn70qn5apo3aish8b2aqn3'
