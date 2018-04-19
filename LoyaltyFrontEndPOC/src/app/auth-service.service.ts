@@ -54,7 +54,7 @@ export class AuthServiceService {
   }
 
   getAcessToken(url: string) {
-    const generateAuthUrl = url + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + '&response_type=token';
+    const generateAuthUrl = url + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl;
     window.location.href = generateAuthUrl;
   }
 
