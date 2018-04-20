@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {ActivatedRoute, Router, Params } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -13,32 +14,63 @@ import {ActivatedRoute, Router, Params } from '@angular/router';
 export class LoginComponent implements OnInit {
   tokenUrl: any;
   accessToken: any;
+  hasAdminRole = false;
   constructor(private authService: AuthServiceService,
               private httpClient: HttpClient,
               private activeRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private spinner: NgxSpinnerService) {
 
    }
 
   ngOnInit() {
-    console.log(this.authService.isTokenExpired()); // true or false
-    console.log(this.authService.decodeJwtToken()); // token
     if ( window.location.href.indexOf('access_token') > -1) {
+      this.spinner.show();
       this.accessToken = this.getParameterByName('access_token');
       sessionStorage.setItem('access_token', this.getParameterByName('access_token'));
       sessionStorage.setItem('id_token', this.getParameterByName('id_token'));
       sessionStorage.setItem('token_type', this.getParameterByName('token_type'));
       sessionStorage.setItem('expires_in', this.getParameterByName('expires_in'));
-      this.authService.login();
+
+      // console.log(this.authService.decodeJwtToken()); // token
+      const hasGroups = this.authService.decodeJwtToken();
+      const availableGroups = hasGroups['cognito:groups'];
+
+      if (availableGroups !== undefined && availableGroups.length > 0) {
+          console.log('grps data', availableGroups); // token
+          for (const value of availableGroups) {
+            if (value === 'SuperUser' || value === 'Admin') {
+              this.hasAdminRole = true;
+            }
+          }
+          if ( this.hasAdminRole ) {
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 1000);
+            this.authService.unAuthorizedPage(this.hasAdminRole);
+          } else {
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 1000);
+            this.authService.login();
+          }
+      } else {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 1000);
+        this.authService.login();
+      }
+
     }
+
   }
 
   authenticateLoyaltyUser() {
-    this.authService.login();
+    // this.authService.login();
   }
 
   newLoyaltyAuth() {
-    console.log('new method called');
+    this.spinner.show();
     this.authService.getTokenUrl().subscribe((data: any) => {
       this.tokenUrl = data;
       this.getToken(this.tokenUrl);
@@ -59,7 +91,7 @@ export class LoginComponent implements OnInit {
   }
 
   getToken(url) {
-    console.log('token url', url);
+    // console.log('token url', url);
     this.authService.getAcessToken(url);
   }
 

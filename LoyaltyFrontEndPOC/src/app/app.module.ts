@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -16,10 +17,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FaqComponent } from './faq/faq.component';
 import { AuthGuardGuard } from './auth-guard.guard';
+import { RoleGuardService } from './services/role-guard.service';
 import { LoginRedirectGuard } from './login-redirect.guard';
 import { AuthServiceService } from './auth-service.service';
+import { TokenInterceptor } from './services/token.interceptor';
+import {PointsService} from './point-activity/points.service';
 
 import './rxjs-operators';
+import { ProfileComponent } from './profile/profile.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem('id_token');
@@ -36,7 +41,8 @@ export function tokenGetter() {
     PointActivityComponent,
     LeaderboardComponent,
     PageNotFoundComponent,
-    FaqComponent
+    FaqComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -48,12 +54,15 @@ export function tokenGetter() {
       }
     }),
     NgbModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    NgxSpinnerModule
   ],
   providers: [
     AuthServiceService,
+    PointsService,
     AuthGuardGuard,
-    LoginRedirectGuard
+    LoginRedirectGuard,
+    RoleGuardService
   ],
   bootstrap: [AppComponent]
 })

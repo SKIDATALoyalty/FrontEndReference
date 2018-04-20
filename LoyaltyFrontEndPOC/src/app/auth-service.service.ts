@@ -5,34 +5,83 @@ import {environment} from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class AuthServiceService {
-
+  hasAdminRole = false;
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenAvailableOrExpired());
-  private isTokExpired: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isTokenExpired());
+  private admintUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenHasAdminRole());
 
   constructor(
     private router: Router,
     private http: HttpClient,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private spinner: NgxSpinnerService
   ) {}
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
 
+  get isAdminUser() {
+    return this.admintUser.asObservable();
+  }
+
+  public tokenHasAdminRole(): boolean {
+    const hasGroups = this.decodeJwtToken();
+    if (hasGroups !== null) {
+      const availableGroups = hasGroups['cognito:groups'];
+      if (availableGroups !== undefined) {
+        console.log('grps data in auth', availableGroups);
+        for (const value of availableGroups) {
+          if (value === 'SuperUser' || value === 'Admin') {
+            this.hasAdminRole = true;
+            break;
+          }
+        }
+        if (this.hasAdminRole) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   public tokenAvailableOrExpired(): boolean {
-    return !!sessionStorage.getItem('access_token') && !this.jwtHelper.isTokenExpired();
+    return !!sessionStorage.getItem('access_token') && !this.jwtHelper.isTokenExpired(sessionStorage.getItem('id_token'));
   }
 
   isTokenExpired(): boolean {
-    return this.jwtHelper.isTokenExpired();
+    return this.jwtHelper.isTokenExpired(sessionStorage.getItem('id_token'));
   }
 
   login() {
       this.loggedIn.next(this.tokenAvailableOrExpired());
       this.router.navigate(['/home']);
+  }
+
+  getTokenExpirationDate(): Date {
+    const decoded = this.jwtHelper.decodeToken(sessionStorage.getItem('id_token'));
+    if (decoded === null) {
+      return null;
+    }
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+
+  getToken(): string {
+    return localStorage.getItem('id_token');
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('id_token', token);
   }
 
   logout() {
@@ -42,6 +91,25 @@ export class AuthServiceService {
     sessionStorage.removeItem('expires_in');
     this.loggedIn.next(this.tokenAvailableOrExpired());
     this.router.navigate(['/login']);
+  }
+
+  unAuthorizedPage(data: boolean) {
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('id_token');
+    sessionStorage.removeItem('token_type');
+    sessionStorage.removeItem('expires_in');
+    this.loggedIn.next(this.tokenAvailableOrExpired());
+    if (data) {
+      this.router.navigate(['/pagenotfound', {admin: data}]);
+    } else {
+      this.router.navigate(['/pagenotfound']);
+    }
+  }
+
+ isAuthenticated(): boolean {
+    const token = sessionStorage.getItem('id_token');
+    // Check whether the token is expired and return true or false
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   decodeJwtToken() {
@@ -55,6 +123,7 @@ export class AuthServiceService {
 
   getAcessToken(url: string) {
     const generateAuthUrl = url + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl;
+    this.spinner.hide();
     window.location.href = generateAuthUrl;
   }
 
