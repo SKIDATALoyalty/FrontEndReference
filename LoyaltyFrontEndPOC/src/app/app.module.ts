@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -22,6 +21,10 @@ import { LoginRedirectGuard } from './login-redirect.guard';
 import { AuthServiceService } from './auth-service.service';
 import { TokenInterceptor } from './services/token.interceptor';
 import {PointsService} from './point-activity/points.service';
+import {SimpleContentService} from './faq/simple-content.service';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import './rxjs-operators';
 import { ProfileComponent } from './profile/profile.component';
@@ -50,19 +53,27 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:3000'],
         skipWhenExpired: true
       }
     }),
-    NgbModule.forRoot(),
     AppRoutingModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ModalModule.forRoot(),
+    CarouselModule.forRoot()
   ],
   providers: [
     AuthServiceService,
     PointsService,
+    SimpleContentService,
     AuthGuardGuard,
     LoginRedirectGuard,
-    RoleGuardService
+    RoleGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

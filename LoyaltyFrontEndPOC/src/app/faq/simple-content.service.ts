@@ -3,11 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
 @Injectable()
-export class PointsService {
+export class SimpleContentService {
 
   constructor(private http: HttpClient) { }
 
-  getPointActivityAPi(url) {
+  getSimpleContentAPi(url) {
     return this.http.get(url);
   }
 

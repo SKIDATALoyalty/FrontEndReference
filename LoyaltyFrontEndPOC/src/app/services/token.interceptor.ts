@@ -22,14 +22,25 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authToken = sessionStorage.getItem('id_token');
 
-    request = request.clone({
-      setHeaders: {
-        // This is where you can use your various tokens
-        Authorization: `Bearer ` + authToken,
-        'Accept': 'application/json',
-        'x-api-key': environment.apiKey
-      }
-    });
+    if (authToken === null) {
+      request = request.clone({
+        setHeaders: {
+          // This is where you can use your various tokens
+          'Accept': 'application/json',
+          'x-api-key': environment.apiKey
+        }
+      });
+    } else {
+      request = request.clone({
+        setHeaders: {
+          // This is where you can use your various tokens
+          'Accept': 'application/json',
+           Authorization: authToken,
+          'x-api-key': environment.apiKey
+        }
+      });
+    }
+
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
