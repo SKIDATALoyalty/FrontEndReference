@@ -7,7 +7,7 @@
                     <hr class="mb-5">
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group btn-group-lg mr-2 mt-3" role="group" aria-label="Second group">
-                            <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities('', 'All Categories')">All Categories</button>
+                            <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(defaultCategory, 'All Categories')">All Categories</button>
                         </div>
                         <div class="btn-group btn-group-lg mr-2 mt-3" *ngFor="let types of pointCategories" role="group" aria-label="First group">
                             <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(types.PointActivityTypeId, types.PointActivityTypeName)">{{types.PointActivityTypeName}}</button>

@@ -13,7 +13,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   styleUrls: ['./point-activity.component.css']
 })
 export class PointActivityComponent implements OnInit, OnDestroy {
-  page = 1;
+  defaultCategory = 1;
   pointCategories: any ;
   pointActivities: any ;
   singlePointInfo: any;
