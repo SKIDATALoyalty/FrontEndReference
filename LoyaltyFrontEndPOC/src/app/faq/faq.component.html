@@ -18,6 +18,7 @@
                 <div id="{{simple.SimpleContentID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
                         {{simple.Teaser}}
+                        {{simple.Description}}
                     </div>
                 </div>
             </div>
@@ -25,15 +26,39 @@
     </div>
 
     <div class="row" *ngIf="toggleView === 'grid'">
-        <div class="col-sm-3 pr-1 mt-3" *ngFor="let simple of simpleContentInfo">
+        <div class="col-sm-4 mt-3" *ngFor="let simple of simpleContentInfo">
             <div class="card">
-                <img class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+                <img *ngIf="simple.Images.length === 0" class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+                <img *ngIf="simple.Images.length !== 0" class="card-img-top img-fluid" [src]="simple.Images[0].Src" alt="Card image cap">
                 <div class="card-body">
                     <h4 class="card-title">{{simple.Title}}</h4>
                     <p class="card-text"> {{simple.Teaser}}</p>
-                    <a class="btn btn-primary">View</a>
+                    <button class="btn btn-secondary" (click)="showSimpleContentInModal(simpleContentModal, simple)">View</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #simpleContentModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{singleContentInfo.Title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" *ngIf="singleContentInfo.Images.length === 0" >
+        <img class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+    </div>
+    <div class="modal-body" *ngIf="singleContentInfo.Images.length > 0">
+        <carousel [(activeSlide)]="activeSlideIndex" >
+            <slide *ngFor="let slide of singleContentInfo.Images; let index=index">
+                <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">              
+                <div class="carousel-caption">
+                <p>{{singleContentInfo.Description}}</p>
+                </div>
+            </slide>
+        </carousel>
+    </div>
+</ng-template>
+        

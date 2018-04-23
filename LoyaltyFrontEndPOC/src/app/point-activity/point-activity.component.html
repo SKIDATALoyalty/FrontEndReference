@@ -1,58 +1,57 @@
-<div class="container-fluid pt-3 custom-pos">
-        <div class="row">
-            <div class="col-12 col-sm-10 mx-auto">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Point Activity</h1>
-                        <hr class="mb-5">
-                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group btn-group-lg mr-2 mt-3" role="group" aria-label="Second group">
-                                <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities('', 'All Categories')">All Categories</button>
-                            </div>
-                            <div class="btn-group btn-group-lg mr-2 mt-3" *ngFor="let types of pointCategories" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(types.PointActivityTypeId, types.PointActivityTypeName)">{{types.PointActivityTypeName}}</button>
-                            </div>
+<div class="container custom-pos">
+    <div class="row">
+        <div class="col-12 col-sm-10 mx-auto">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Point Activity</h1>
+                    <hr class="mb-5">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group btn-group-lg mr-2 mt-3" role="group" aria-label="Second group">
+                            <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities('', 'All Categories')">All Categories</button>
                         </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-4 mt-3" *ngFor="let points of pointActivities">
-                        <div class="card">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-6 d-flex p-5">
-                                        <img src="//via.placeholder.com/300x150" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-6 py-3">
-                                        <h3 class="card-title">{{points.Title}}</h3>
-                                        <p class="card-text">{{points.TeaserText}}</p>
-                                        <a class="btn btn-outline-success btn-block" (click)="showPointActivityInModal(pointModal, points)" >Earn</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="btn-group btn-group-lg mr-2 mt-3" *ngFor="let types of pointCategories" role="group" aria-label="First group">
+                            <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(types.PointActivityTypeId, types.PointActivityTypeName)">{{types.PointActivityTypeName}}</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
-    <ng-template #pointModal>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">{{singlePointInfo.Title}}</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-            </button>
+
+    <div class="row">
+        <div class="col-sm-4 mt-3" *ngFor="let points of pointActivities">
+            <div class="card">
+                <img *ngIf="points.Images.length === 0" class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+                <img *ngIf="points.Images.length !== 0" class="card-img-top img-fluid" [src]="points.Images[0].Src" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title">{{points.Title}}</h4>
+                    <p class="card-text"> {{points.TeaserText}}</p>
+                    <button class="btn btn-secondary" (click)="showPointActivityInModal(pointModal, points)">Earn</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <carousel [(activeSlide)]="activeSlideIndex" >
-                <slide *ngFor="let slide of singlePointInfo.Images; let index=index">
-                    <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">
-                
-                    <div class="carousel-caption">
-                    <p>{{singlePointInfo.Description}}</p>
-                    </div>
-                </slide>
-            </carousel>
-        </div>
-    </ng-template>
-        
+    </div>
+</div>
+    
+<ng-template #pointModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{singlePointInfo.Title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" *ngIf="singlePointInfo.Images.length === 0" >
+        <img class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+    </div>
+    <div class="modal-body" *ngIf="singlePointInfo.Images.length > 0" >
+        <carousel [(activeSlide)]="activeSlideIndex" >
+            <slide *ngFor="let slide of singlePointInfo.Images; let index=index">
+                <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">  
+                <div class="carousel-caption">
+                <p>{{singlePointInfo.Description}}</p>
+                </div>
+            </slide>
+        </carousel>
+    </div>
+</ng-template>
+            

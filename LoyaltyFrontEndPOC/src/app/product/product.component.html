@@ -1,44 +1,72 @@
 <div class="container pt-3 custom-pos">
-    <div class="row">
-        <div class="col-12 col-sm-10 mx-auto">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Loyalty Products/Rewards</h1>
-                    <p class="lead">Product Category goes here</p>
+        <div class="row">
+            <div class="col-12 col-sm-10 mx-auto">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Loyalty Products/Rewards</h1>
+                        <p class="lead">Product Categories goes here</p>
+                    </div>
                 </div>
             </div>
-                <div class="row">
-                <div class="col-lg-6">
-                    <div class="card" id="card_sponsor">
-                        <div class="card-body">
-                            <div class="row p-3">
-                                <div class="col-12">
-                                    <h3>T-shirt Demo</h3>
-                                    <img src="//via.placeholder.com/400x200" class="img-fluid">
-                                    <hr>
-                                    <p class="">Sample T-shirt</p>
-                                    <button class="btn btn-secondary">Redeem</button>
-                                </div>
-                            </div>
-                        </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-4 mt-3"  *ngFor="let product of productList">
+                <div class="card">
+                    <img *ngIf="product.Images.length === 0" class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+                    <img *ngIf="product.Images.length !== 0" class="card-img-top img-fluid" [src]="product.Images[0].Src" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">{{product.RewardCategoryName}}</h4>
+                        <p class="card-text"> {{product.Title}}</p>
+                        <button class="btn btn-secondary" (click)="openProductInModal(productModal, product)">Redeem</button>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card" id="card_sponsor">
-                            <div class="card-body">
-                                <div class="row p-3">
-                                    <div class="col-12">
-                                        <h3>Auction</h3>
-                                        <img src="//via.placeholder.com/400x200" class="img-fluid">
-                                        <hr>
-                                        <p class="">Sample Product</p>
-                                        <button class="btn btn-secondary">Bid</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div><!--/row-->
-        </div><!--col-->
-    </div><!--row--> 
-</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="row">
+        <div class="col-xs-12 col-12 col-md-6">
+            <pagination
+            [directionLinks]="false"
+            [totalItems]="totalItems"
+            [(ngModel)]="currentPage"
+            (numPages)="smallnumPages = $event">
+            </pagination>
+        </div>
+        
+        <div class="col-xs-12 col-12 col-md-6">
+            <pager
+            [totalItems]="totalItems"
+            [(ngModel)]="currentPage"
+            (pageChanged)="pageChanged($event)"
+            pageBtnClass="btn"
+            [itemsPerPage]="10"
+            class="pull-left">
+            </pager>
+        </div>
+    </div> -->
+    
+<ng-template #productModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{singleProductInfo.Title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" *ngIf="singleProductInfo.Images.length === 0">
+        <img class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+    </div>
+    <div class="modal-body" *ngIf="singleProductInfo.Images.length > 0">
+        <p>{{singleProductInfo.Description}}</p>
+        <carousel [(activeSlide)]="activeSlideIndex" >
+            <slide *ngFor="let slide of singleProductInfo.Images; let index=index">
+                <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">       
+                <div class="carousel-caption">
+                <p>{{singleProductInfo.Description}}</p>
+                </div>
+            </slide>
+        </carousel>
+    </div>
+</ng-template>
+                

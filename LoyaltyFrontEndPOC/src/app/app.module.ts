@@ -22,9 +22,11 @@ import { AuthServiceService } from './auth-service.service';
 import { TokenInterceptor } from './services/token.interceptor';
 import {PointsService} from './point-activity/points.service';
 import {SimpleContentService} from './faq/simple-content.service';
+import {ProductService} from './product/product.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import './rxjs-operators';
 import { ProfileComponent } from './profile/profile.component';
@@ -60,12 +62,14 @@ export function tokenGetter() {
     AppRoutingModule,
     NgxSpinnerModule,
     ModalModule.forRoot(),
-    CarouselModule.forRoot()
+    CarouselModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [
     AuthServiceService,
     PointsService,
     SimpleContentService,
+    ProductService,
     AuthGuardGuard,
     LoginRedirectGuard,
     RoleGuardService,
