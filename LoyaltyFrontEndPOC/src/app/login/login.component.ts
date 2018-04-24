@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
     if ( window.location.href.indexOf('access_token') > -1) {
       this.spinner.show();
       this.accessToken = this.getParameterByName('access_token');
-      sessionStorage.setItem('access_token', this.getParameterByName('access_token'));
-      sessionStorage.setItem('id_token', this.getParameterByName('id_token'));
-      sessionStorage.setItem('token_type', this.getParameterByName('token_type'));
-      sessionStorage.setItem('expires_in', this.getParameterByName('expires_in'));
+      localStorage.setItem('access_token', this.getParameterByName('access_token'));
+      localStorage.setItem('id_token', this.getParameterByName('id_token'));
+      localStorage.setItem('token_type', this.getParameterByName('token_type'));
+      localStorage.setItem('expires_in', this.getParameterByName('expires_in'));
 
       // console.log(this.authService.decodeJwtToken()); // token
       const hasGroups = this.authService.decodeJwtToken();
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     // this.authService.login();
   }
 
-  newLoyaltyAuth() {
+  loyaltyOAuth() {
     this.spinner.show();
     this.authService.getTokenUrl().subscribe((data: any) => {
       this.tokenUrl = data;

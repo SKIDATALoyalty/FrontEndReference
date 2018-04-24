@@ -16,7 +16,54 @@
             <li class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)">Login</a></li>
             <li class="nav-item"><a (click)="loyaltylogout()" class="nav-link" title="login" *ngIf="isLoggedIn$ | async">Logout</a></li>
             <li class="nav-item"><a routerLink="/register" routerLinkActive="active" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)">Register</a></li>
-            <li class="nav-item"><a class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)"><i class="fa fa-cog"></i></a></li>
+            <li class="nav-item"><a (click)="openSettings(content)" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)"><i class="fa fa-cog"></i></a></li>
         </ul>
     </div>
 </nav>
+
+    <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+    <h4 class="modal-title">App Settings</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <form novalidate [formGroup]="settingsForm" (ngSubmit)="onSubmitSaveLocal()"> 
+    <fieldset formGroupName="settings">
+        <div class="form-group">
+            <label>API Key</label>
+            <input type="text" class="form-control" formControlName="apiKey">
+        </div>
+        <div class="form-group">
+            <label>Client ID</label>
+            <input type="text" class="form-control" formControlName="clientId">
+        </div>
+        <div class="form-group">
+            <label>Portal ID</label>
+            <input type="text" class="form-control" formControlName="portalId">
+        </div>
+        <div class="form-group">
+            <label>Redirect Url</label>
+            <input type="text" class="form-control" formControlName="redirectUrl">
+        </div>
+        <div class="form-group">
+            <label>API Url</label>
+            <input type="text" class="form-control" formControlName="apiUrl">
+        </div>
+        <div class="form-group">
+            <label>Portal API Docs Url</label>
+            <input type="text" class="form-control" formControlName="portalApiDocsUrl">
+        </div>
+    </fieldset>
+    <button type="submit" [disabled]="settingsForm.pristine" class="btn btn-success">Save</button> 
+    <p>{{settingsSuccessMsg}}</p>
+    <!-- <pre>{{settingsForm.value | json}}</pre> -->
+    </form>
+
+    </div>
+    <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div> -->
+</ng-template>
+    

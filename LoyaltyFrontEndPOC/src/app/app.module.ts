@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import {
+  ReactiveFormsModule,
+  FormsModule
+} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -61,6 +67,9 @@ export function tokenGetter() {
     }),
     AppRoutingModule,
     NgxSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule.forRoot(),
     ModalModule.forRoot(),
     CarouselModule.forRoot(),
     PaginationModule.forRoot()

@@ -54,11 +54,11 @@ export class AuthServiceService {
   }
 
   public tokenAvailableOrExpired(): boolean {
-    return !!sessionStorage.getItem('access_token') && !this.jwtHelper.isTokenExpired(sessionStorage.getItem('id_token'));
+    return !!localStorage.getItem('access_token') && !this.jwtHelper.isTokenExpired(localStorage.getItem('id_token'));
   }
 
   isTokenExpired(): boolean {
-    return this.jwtHelper.isTokenExpired(sessionStorage.getItem('id_token'));
+    return this.jwtHelper.isTokenExpired(localStorage.getItem('id_token'));
   }
 
   login() {
@@ -67,7 +67,7 @@ export class AuthServiceService {
   }
 
   getTokenExpirationDate(): Date {
-    const decoded = this.jwtHelper.decodeToken(sessionStorage.getItem('id_token'));
+    const decoded = this.jwtHelper.decodeToken(localStorage.getItem('id_token'));
     if (decoded === null) {
       return null;
     }
@@ -85,19 +85,19 @@ export class AuthServiceService {
   }
 
   logout() {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('id_token');
-    sessionStorage.removeItem('token_type');
-    sessionStorage.removeItem('expires_in');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('token_type');
+    localStorage.removeItem('expires_in');
     this.loggedIn.next(this.tokenAvailableOrExpired());
     this.router.navigate(['/login']);
   }
 
   unAuthorizedPage(data: boolean) {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('id_token');
-    sessionStorage.removeItem('token_type');
-    sessionStorage.removeItem('expires_in');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('token_type');
+    localStorage.removeItem('expires_in');
     this.loggedIn.next(this.tokenAvailableOrExpired());
     if (data) {
       this.router.navigate(['/pagenotfound', {admin: data}]);
@@ -107,13 +107,12 @@ export class AuthServiceService {
   }
 
  isAuthenticated(): boolean {
-    const token = sessionStorage.getItem('id_token');
-    // Check whether the token is expired and return true or false
-    return !this.jwtHelper.isTokenExpired(token);
+    const token = localStorage.getItem('id_token');
+    return !this.jwtHelper.isTokenExpired(token);     // Check whether the token is expired and return true or false
   }
 
   decodeJwtToken() {
-    return this.jwtHelper.decodeToken(sessionStorage.getItem('id_token'));
+    return this.jwtHelper.decodeToken(localStorage.getItem('id_token'));
   }
 
   getTokenUrl() {
@@ -122,7 +121,7 @@ export class AuthServiceService {
   }
 
   getAcessToken(url: string) {
-    const generateAuthUrl = url + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl;
+    const generateAuthUrl = url + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + environment.responseType;
     this.spinner.hide();
     window.location.href = generateAuthUrl;
   }
