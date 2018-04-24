@@ -5,3 +5,15 @@ button:focus {
 .navbar .dropdown-menu .form-control {
   width: 200px;
 }
+
+li p {
+  color: white;
+}
+
+ng2-odometer {
+  font-size: 20px;
+}
+
+.show-cursor{
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { Ng2OdometerModule } from 'ng2-odometer';
 
 import {
   ReactiveFormsModule,
@@ -29,6 +30,7 @@ import { TokenInterceptor } from './services/token.interceptor';
 import {PointsService} from './point-activity/points.service';
 import {SimpleContentService} from './faq/simple-content.service';
 import {ProductService} from './product/product.service';
+import {ProfileService} from './profile/profile.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -72,13 +74,15 @@ export function tokenGetter() {
     NgbModule.forRoot(),
     ModalModule.forRoot(),
     CarouselModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    Ng2OdometerModule.forRoot()
   ],
   providers: [
     AuthServiceService,
     PointsService,
     SimpleContentService,
     ProductService,
+    ProfileService,
     AuthGuardGuard,
     LoginRedirectGuard,
     RoleGuardService,
