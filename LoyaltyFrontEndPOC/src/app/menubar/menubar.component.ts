@@ -27,6 +27,7 @@ export class MenubarComponent implements OnInit {
   settingsForm: FormGroup;
   settingsSuccessMsg: string;
   profileInfo: any;
+  avatarUrl: any = 'http://placehold.it/30x30';
 
   public pointsRemaining = 0;
   public pointsSpent = 0;
@@ -65,6 +66,7 @@ export class MenubarComponent implements OnInit {
             // console.log('data---', data);
             this.pointsRemaining = data['CurrentPoints']['PointsRemaining'];
             this.pointsSpent = data['CurrentPoints']['PointsSpent'];
+            this.avatarUrl = data['Avatar'];
           },
           error => {
             this.spinner.hide();

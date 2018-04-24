@@ -13,6 +13,11 @@
             <li class="nav-item"><a routerLink="/profile" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async">My Profile</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
+            <li *ngIf="isLoggedIn$ | async">
+                <div class="inset">
+                    <img [src]="avatarUrl">
+                </div>
+            </li>
             <li class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)">Login</a></li>
             <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link"><span>Points Remaining</span><br><ng2-odometer [number]="pointsRemaining" [theme]="'digital'"></ng2-odometer></a></li>
             <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link"><span>Points Spent</span><br><ng2-odometer [number]="pointsSpent" [theme]="'digital'"></ng2-odometer></a></li>

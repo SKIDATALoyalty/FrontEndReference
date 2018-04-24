@@ -31,6 +31,7 @@ export class PointActivityComponent implements OnInit, OnDestroy {
     this.pointService.getPointActivityAPi(pointTypes).subscribe(
       data => {
         this.pointCategories = data;
+        this.spinner.hide();
         this.getPointActivities();
       },
       error => {
@@ -69,6 +70,7 @@ export class PointActivityComponent implements OnInit, OnDestroy {
   }
 
   getPointActivities () {
+    this.spinner.show();
     const pointTypes = environment.apidocs + 'v1/API/pointActivities';
     this.pointService.getPointActivityAPi(pointTypes).subscribe(
       data => {
