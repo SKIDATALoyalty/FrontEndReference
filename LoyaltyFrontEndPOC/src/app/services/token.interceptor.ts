@@ -44,11 +44,18 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
+        // console.log('res details:', event);
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
-        if (err.status === 401 || err.status === 403) {
-          console.log('handle error here');
+        if (err.status === 403) {
+          console.log('403 error details:', err);
+        } else if (err.status === 401) {
+          console.log('401 error details:', err);
+          this.authService.logout();
+        } else if (err.status === 419) {
+          console.log('419 error details:', err);
+          this.authService.logout();
         }
       }
     });
