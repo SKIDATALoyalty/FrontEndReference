@@ -74,6 +74,10 @@ export class LoginComponent implements OnInit {
     this.authService.getTokenUrl().subscribe((data: any) => {
       this.tokenUrl = data;
       this.getToken(this.tokenUrl);
+    },
+    error => {
+      this.spinner.hide();
+      console.log(error);
     });
   }
 
