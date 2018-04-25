@@ -76,8 +76,8 @@ export class LoginComponent implements OnInit {
       this.getToken(this.tokenUrl);
     },
     error => {
+      console.log('error', error);
       this.spinner.hide();
-      console.log(error);
     });
   }
 
@@ -95,8 +95,7 @@ export class LoginComponent implements OnInit {
   }
 
   getToken(url) {
-    // console.log('token url', url);
+    this.spinner.show();
     this.authService.getAcessToken(url);
   }
-
 }

@@ -156,6 +156,7 @@ export class AuthServiceService {
 
   getTokenUrl() {
     const reqHeader = new HttpHeaders({ 'Accept': 'application/json', 'x-api-key': environment.apiKey });
+    this.spinner.hide();
     return this.http.get(environment.getUrl, { headers: reqHeader });
   }
 

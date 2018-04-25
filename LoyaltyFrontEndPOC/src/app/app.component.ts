@@ -45,8 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.authService.isLoggedIn.subscribe(status => {
-      console.log('logged in status', status);
-      console.log('jwt token', this.authService.decodeJwtToken());
+      // console.log('logged in status', status);
+      // console.log('jwt token', this.authService.decodeJwtToken());
       if (status) {
         this.startCounter();
         this.authService.startTimer();
