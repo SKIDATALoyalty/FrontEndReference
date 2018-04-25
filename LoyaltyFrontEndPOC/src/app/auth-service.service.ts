@@ -6,6 +6,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
+import { Subject} from 'rxjs/Subject';
+import 'rxjs/add/observable/timer';
 
 @Injectable()
 export class AuthServiceService {
@@ -13,12 +17,45 @@ export class AuthServiceService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenAvailableOrExpired());
   private admintUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenHasAdminRole());
 
+  private _count = 0;
+  private _timeoutSeconds = 10;
+  private timerSubscription: Subscription;
+  private timer: Observable<number>;
+  public timeoutExpired: Subject<number> = new Subject<number>();
+
   constructor(
     private router: Router,
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) {
+    this.timeoutExpired.subscribe(n => {
+        console.log('timeoutExpired subject next.. ' + n.toString());
+    });
+  }
+
+  public startTimer() {
+    if (this.timerSubscription) {
+        this.timerSubscription.unsubscribe();
+    }
+    this._timeoutSeconds = parseInt(localStorage.getItem('expires_in'), 10);
+    this.timer = Observable.timer(this._timeoutSeconds * 1000);
+    this.timerSubscription = this.timer.subscribe(n => {
+        this.timerComplete(n);
+    });
+  }
+
+  private timerComplete(n: number) {
+    console.log('timer complete log', n);
+    if (n === 0) {
+      this.stopTimer();
+      this.logout();
+    }
+  }
+
+  public stopTimer() {
+    this.timerSubscription.unsubscribe();
+  }
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -89,6 +126,7 @@ export class AuthServiceService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('token_type');
     localStorage.removeItem('expires_in');
+    localStorage.removeItem('timer');
     this.loggedIn.next(this.tokenAvailableOrExpired());
     this.router.navigate(['/login']);
   }
@@ -98,6 +136,7 @@ export class AuthServiceService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('token_type');
     localStorage.removeItem('expires_in');
+    localStorage.removeItem('timer');
     this.loggedIn.next(this.tokenAvailableOrExpired());
     if (data) {
       this.router.navigate(['/pagenotfound', {admin: data}]);

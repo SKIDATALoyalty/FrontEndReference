@@ -61,7 +61,6 @@ export class ProductComponent implements OnInit {
   }
 
   openProductInModal(productModal: TemplateRef<any>, data) {
-    // console.log('data---', data);
      this.singleProductInfo = data;
      this.modalRef = this.modalService.show(productModal);
    }
