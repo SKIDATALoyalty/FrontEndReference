@@ -31,13 +31,16 @@ import {PointsService} from './point-activity/points.service';
 import {SimpleContentService} from './faq/simple-content.service';
 import {ProductService} from './product/product.service';
 import {ProfileService} from './profile/profile.service';
+import {BadgeService} from './badge/badge.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ProgressbarModule } from 'ngx-bootstrap';
 
 import './rxjs-operators';
 import { ProfileComponent } from './profile/profile.component';
+import { BadgeComponent } from './badge/badge.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem('id_token');
@@ -55,7 +58,8 @@ export function tokenGetter() {
     LeaderboardComponent,
     PageNotFoundComponent,
     FaqComponent,
-    ProfileComponent
+    ProfileComponent,
+    BadgeComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +79,7 @@ export function tokenGetter() {
     ModalModule.forRoot(),
     CarouselModule.forRoot(),
     PaginationModule.forRoot(),
+    ProgressbarModule.forRoot(),
     Ng2OdometerModule.forRoot()
   ],
   providers: [
@@ -83,6 +88,7 @@ export function tokenGetter() {
     SimpleContentService,
     ProductService,
     ProfileService,
+    BadgeService,
     AuthGuardGuard,
     LoginRedirectGuard,
     RoleGuardService,
