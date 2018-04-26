@@ -11,12 +11,14 @@ import {AuthServiceService} from '../auth-service.service';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private spinner: NgxSpinnerService
     ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -47,6 +49,7 @@ export class TokenInterceptor implements HttpInterceptor {
         // console.log('res details:', event);
       }
     }, (err: any) => {
+      this.spinner.hide();
       if (err instanceof HttpErrorResponse) {
         if (err.status === 403) {
           console.log('403 error details:', err);

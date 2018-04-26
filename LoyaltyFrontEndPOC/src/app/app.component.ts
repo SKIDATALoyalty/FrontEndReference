@@ -36,9 +36,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this._timerSubscription = this._timer.subscribe(n => {
         this._counter++;
         // console.log('timer log',  this._counter);
-        const time_to_login =  parseInt(localStorage.getItem('expires_in'), 10) - 1 ;
-        localStorage.setItem('expires_in', JSON.stringify(time_to_login));
-        this.changeRef.markForCheck();
+        if (this.authService.getToken() !== null) {
+          const time_to_login =  parseInt(localStorage.getItem('expires_in'), 10) - 1 ;
+          localStorage.setItem('expires_in', JSON.stringify(time_to_login));
+          this.changeRef.markForCheck();
+        }
     });
   }
 
