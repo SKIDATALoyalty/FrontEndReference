@@ -26,11 +26,13 @@
                                             <input type="checkbox" class="form-check-input"> <span>Remember me on this computer</span>
                                         </label>
                                     </div>
-                                    <button type="button" (click)="authenticateLoyaltyUser()"  class="btn btn-success btn-lg float-right ml-3" id="btnLogin">Login</button>
-                                    <button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">OAuth Login</button>
+                                    <button type="button" (click)="authenticateLoyaltyUser()"  class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
                                 </form>
                             </div>
                             <!--/card-body-->
+                            <div class="card-header">
+                                <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">OAuth Login</button></p>                           
+                            </div>
                         </div>
                         <!-- /form card login -->    
                     </div>
