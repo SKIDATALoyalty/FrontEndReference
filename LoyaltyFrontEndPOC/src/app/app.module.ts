@@ -43,7 +43,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { BadgeComponent } from './badge/badge.component';
 
 export function tokenGetter() {
-  return sessionStorage.getItem('id_token');
+  return localStorage.getItem('id_token');
 }
 
 @NgModule({
