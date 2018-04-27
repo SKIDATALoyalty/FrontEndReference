@@ -28,6 +28,7 @@ export class MenubarComponent implements OnInit {
   settingsSuccessMsg: string;
   profileInfo: any;
   avatarUrl: any = 'http://placehold.it/30x30';
+  public navbarCollapsed = true;
 
   public pointsRemaining = 0;
   public pointsSpent = 0;
@@ -77,11 +78,12 @@ export class MenubarComponent implements OnInit {
   }
 
   loyaltylogout() {
+    this.navbarCollapsed = true;
     this.authService.logout();
   }
 
   openSettings(content) {
-
+    this.navbarCollapsed = true;
     this.settingsForm = new FormGroup({
       settings: new FormGroup({
         redirectUrl: new FormControl(localStorage.getItem('redirect_url'), Validators.required),

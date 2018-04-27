@@ -21,14 +21,14 @@
                                         <input type="password" class="form-control" id="pwd1" required="" autocomplete="new-password">
                                         <div class="invalid-feedback">Please enter a password</div>
                                     </div>
-                                    <button type="button" (click)="authenticateLoyaltyUser()"  class="btn btn-success btn-lg float-left" id="btnLogin">Login</button>
-                                    <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p>                                                             
+                                    <button type="button" (click)="authenticateLoyaltyUser()"  class="btn btn-success btn-md float-left" id="btnLogin">Login</button>
+                                    <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-md float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p>                                                             
                                 </form>                            
                             </div>
                             <!--/card-body-->
                             <div class="card-header">
                                 <!-- <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p> -->
-                                <span class="text-info">{{loginMsg}}</span>  
+                                <span class="text-danger">{{loginMsg}}</span>  
                             </div>
                         </div>
                         <!-- /form card login -->    

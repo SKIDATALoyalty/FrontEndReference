@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       const availableGroups = hasGroups['cognito:groups'];
 
       if (availableGroups !== undefined && availableGroups.length > 0) {
-          console.log('grps data', availableGroups); // token
+          // console.log('grps data', availableGroups); // token
           for (const value of availableGroups) {
             if (value === 'SuperUser' || value === 'Admin') {
               this.hasAdminRole = true;
@@ -69,9 +69,6 @@ export class LoginComponent implements OnInit {
   authenticateLoyaltyUser() {
     // this.authService.login();
     this.loginMsg = 'Login is not implemented. Please use Loyalty OAuth Login';
-    setTimeout(() => {
-      this.loginMsg = '';
-    }, 2000);
   }
 
   loyaltyOAuth() {
