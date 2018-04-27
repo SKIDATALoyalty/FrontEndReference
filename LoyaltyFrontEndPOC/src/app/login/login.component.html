@@ -10,7 +10,7 @@
                                 <h3 class="mb-0">Login</h3>
                             </div>
                             <div class="card-body">
-                                <form class="form" role="form" autocomplete="off" id="loginForm" novalidate="" method="POST">
+                                <form class="form" role="form" autocomplete="off" id="loginForm" novalidate="novalidate">
                                     <div class="form-group">
                                         <label for="uname1">Username</label>
                                         <input type="text" class="form-control" name="uname1" id="uname1" required="">
@@ -21,17 +21,14 @@
                                         <input type="password" class="form-control" id="pwd1" required="" autocomplete="new-password">
                                         <div class="invalid-feedback">Please enter a password</div>
                                     </div>
-                                    <div class="form-check small">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input"> <span>Remember me on this computer</span>
-                                        </label>
-                                    </div>
-                                    <button type="button" (click)="authenticateLoyaltyUser()"  class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
-                                </form>
+                                    <button type="button" (click)="authenticateLoyaltyUser()"  class="btn btn-success btn-lg float-left" id="btnLogin">Login</button>
+                                    <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p>                                                             
+                                </form>                            
                             </div>
                             <!--/card-body-->
                             <div class="card-header">
-                                <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">OAuth Login</button></p>                           
+                                <!-- <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p> -->
+                                <span class="text-info">{{loginMsg}}</span>  
                             </div>
                         </div>
                         <!-- /form card login -->    

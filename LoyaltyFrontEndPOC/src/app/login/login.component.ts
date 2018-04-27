@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   tokenUrl: any;
   accessToken: any;
   hasAdminRole = false;
+  loginMsg: any;
   constructor(private authService: AuthServiceService,
               private httpClient: HttpClient,
               private activeRoute: ActivatedRoute,
@@ -67,6 +68,10 @@ export class LoginComponent implements OnInit {
 
   authenticateLoyaltyUser() {
     // this.authService.login();
+    this.loginMsg = 'Login is not implemented. Please use Loyalty OAuth Login';
+    setTimeout(() => {
+      this.loginMsg = '';
+    }, 2000);
   }
 
   loyaltyOAuth() {
