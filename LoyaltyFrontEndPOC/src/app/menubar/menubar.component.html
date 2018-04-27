@@ -17,8 +17,8 @@
                   <a href="" class="nav-link"><p class="text-white">Welcome,  {{profileInfo.DisplayName}}</p></a>
                 </li>
                 <li class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)">Login</a></li>
-                <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link"><span>Points Remaining</span><br><ng2-odometer [number]="pointsRemaining" [theme]="'digital'"></ng2-odometer></a></li>
-                <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link"><span>Points Spent</span><br><ng2-odometer [number]="pointsSpent" [theme]="'digital'"></ng2-odometer></a></li>
+                <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link"><span>Points Remaining</span><br><ng2-odometer [number]="pointsRemaining" [format]="'d'" [theme]="'digital'"></ng2-odometer></a></li>
+                <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link"><span>Points Spent</span><br><ng2-odometer [number]="pointsSpent" [format]="'d'" [theme]="'digital'"></ng2-odometer></a></li>
                 <li *ngIf="isLoggedIn$ | async">
                     <div class="inset">
                         <img [src]="avatarUrl">

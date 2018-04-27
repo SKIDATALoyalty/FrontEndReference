@@ -19,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public _counter = 0;
   private _timer: Observable<number>;
   private _idleTimerSubscription: Subscription;
+  copyRight = new Date().getFullYear();
 
   constructor(private authService: AuthServiceService,
               private router: Router,
