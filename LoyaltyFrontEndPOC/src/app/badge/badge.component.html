@@ -19,8 +19,8 @@
             <button class="btn btn-secondary" (click)="showBadgeInModal(badgeModal, badge)">View</button>
           </div>
           <div class="col d-flex">
-            <img *ngIf="badge.Images.length === 0" class="card-img-top img-fluid" src="//via.placeholder.com/200x100" alt="Card image cap">
-            <img *ngIf="badge.Images.length !== 0" class="card-img-top img-fluid" [src]="badge.Images[0].Src" alt="Card image cap">
+            <img *ngIf="badge.Images.length === 0" class="card-img-top img-fluid grid-img" src="//via.placeholder.com/200x100" alt="Card image cap" (click)="showBadgeInModal(badgeModal, badge)">
+            <img *ngIf="badge.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="badge.Images[0].Src" alt="Card image cap" (click)="showBadgeInModal(badgeModal, badge)">
           </div>
         </div>
       </div>

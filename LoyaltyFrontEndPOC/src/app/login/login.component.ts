@@ -32,36 +32,36 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('id_token', this.getParameterByName('id_token'));
       localStorage.setItem('token_type', this.getParameterByName('token_type'));
       localStorage.setItem('expires_in', this.getParameterByName('expires_in'));
+      this.spinner.hide();
+      this.authService.login();
 
-      // console.log(this.authService.decodeJwtToken()); // token
-      const hasGroups = this.authService.decodeJwtToken();
-      const availableGroups = hasGroups['cognito:groups'];
+      // admin role condition check
+      // const hasGroups = this.authService.decodeJwtToken();
+      // const availableGroups = hasGroups['cognito:groups'];
 
-      if (availableGroups !== undefined && availableGroups.length > 0) {
-          // console.log('grps data', availableGroups); // token
-          for (const value of availableGroups) {
-            if (value === 'SuperUser' || value === 'Admin') {
-              this.hasAdminRole = true;
-            }
-          }
-          if ( this.hasAdminRole ) {
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 1000);
-            this.authService.unAuthorizedPage(this.hasAdminRole);
-          } else {
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 1000);
-            this.authService.login();
-          }
-      } else {
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 1000);
-        this.authService.login();
-      }
-
+      // if (availableGroups !== undefined && availableGroups.length > 0) {
+      //     for (const value of availableGroups) {
+      //       if (value === 'SuperUser' || value === 'Admin') {
+      //         this.hasAdminRole = true;
+      //       }
+      //     }
+      //     if ( this.hasAdminRole ) {
+      //       setTimeout(() => {
+      //         this.spinner.hide();
+      //       }, 1000);
+      //       this.authService.unAuthorizedPage(this.hasAdminRole);
+      //     } else {
+      //       setTimeout(() => {
+      //         this.spinner.hide();
+      //       }, 1000);
+      //       this.authService.login();
+      //     }
+      // } else {
+      //   setTimeout(() => {
+      //     this.spinner.hide();
+      //   }, 1000);
+      //   this.authService.login();
+      // }
     }
 
   }

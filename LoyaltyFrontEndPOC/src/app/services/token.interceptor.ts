@@ -12,6 +12,7 @@ import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -59,8 +60,16 @@ export class TokenInterceptor implements HttpInterceptor {
         } else if (err.status === 419) {
           console.log('419 error details:', err);
           this.authService.logout();
+        } else if (err.status === 500) {
+          console.log('500 error details:', err);
         }
       }
-    });
+    })
+    .catch(this.handleError);
+  }
+
+  private handleError(error: Response) {
+    console.log('Error', error);
+    return Observable.throw(error);
   }
 }

@@ -1,51 +1,29 @@
 <div class="container pt-3 custom-pos">
-        <div class="row">
-            <div class="col-12 col-sm-10 mx-auto">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Loyalty Products/Rewards</h1>
-                        <p class="lead">Product Categories goes here</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <div class="row">
-            <div class="col-sm-4 mt-3"  *ngFor="let product of productList">
-                <div class="card">
-                    <img *ngIf="product.Images.length === 0" class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
-                    <img *ngIf="product.Images.length !== 0" class="card-img-top img-fluid" [src]="product.Images[0].Src" alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title">{{product.RewardCategoryName}}</h4>
-                        <p class="card-text"> {{product.Title}}</p>
-                        <button class="btn btn-secondary" (click)="openProductInModal(productModal, product)">Redeem</button>
-                    </div>
+    <div class="row">
+        <div class="col-12 col-sm-10 mx-auto">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Loyalty Products/Rewards</h1>
+                    <p class="lead">Product Categories goes here</p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- <div class="row">
-        <div class="col-xs-12 col-12 col-md-6">
-            <pagination
-            [directionLinks]="false"
-            [totalItems]="totalItems"
-            [(ngModel)]="currentPage"
-            (numPages)="smallnumPages = $event">
-            </pagination>
+
+    <div class="row">
+        <div class="col-sm-4 mt-3"  *ngFor="let product of productList">
+            <div class="card">
+                <img *ngIf="product.Images.length === 0" class="card-img-top img-fluid grid-img" src="//via.placeholder.com/400x300" alt="Card image cap" (click)="openProductInModal(productModal, product)">
+                <img *ngIf="product.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="product.Images[0].Src" alt="Card image cap" (click)="openProductInModal(productModal, product)">
+                <div class="card-body">
+                    <h4 class="card-title">{{product.RewardCategoryName}}</h4>
+                    <p class="card-text"> {{product.Title}}</p>
+                    <button class="btn btn-secondary" (click)="openProductInModal(productModal, product)">Redeem</button>
+                </div>
+            </div>
         </div>
-        
-        <div class="col-xs-12 col-12 col-md-6">
-            <pager
-            [totalItems]="totalItems"
-            [(ngModel)]="currentPage"
-            (pageChanged)="pageChanged($event)"
-            pageBtnClass="btn"
-            [itemsPerPage]="10"
-            class="pull-left">
-            </pager>
-        </div>
-    </div> -->
+    </div>
+</div>
     
 <ng-template #productModal>
     <div class="modal-header">

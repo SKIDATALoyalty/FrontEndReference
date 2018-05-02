@@ -28,8 +28,8 @@
     <div class="row" *ngIf="toggleView === 'grid'">
         <div class="col-sm-4 mt-3" *ngFor="let simple of simpleContentInfo">
             <div class="card">
-                <img *ngIf="simple.Images.length === 0" class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
-                <img *ngIf="simple.Images.length !== 0" class="card-img-top img-fluid" [src]="simple.Images[0].Src" alt="Card image cap">
+                <img *ngIf="simple.Images.length === 0" class="card-img-top img-fluid grid-img" src="//via.placeholder.com/400x300" alt="Card image cap" (click)="showSimpleContentInModal(simpleContentModal, simple)">
+                <img *ngIf="simple.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="simple.Images[0].Src" alt="Card image cap" (click)="showSimpleContentInModal(simpleContentModal, simple)">
                 <div class="card-body">
                     <h4 class="card-title">{{simple.Title}}</h4>
                     <p class="card-text"> {{simple.Teaser}}</p>
