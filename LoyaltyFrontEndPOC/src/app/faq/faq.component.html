@@ -3,6 +3,7 @@
     <div class="btn-group btn-group-sm justify-content-between" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-secondary" (click)="toggleView = 'list'">List</button>
         <button type="button" class="btn btn-secondary" (click)="toggleView = 'grid'">Grid</button>
+        <button type="button" class="btn btn-secondary" (click)="toggleView = 'carousel'">Carousel</button>
     </div>
     <hr class="mb-5">
     <div class="row" *ngIf="toggleView === 'list'">
@@ -32,11 +33,35 @@
                 <img *ngIf="simple.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="simple.Images[0].Src" alt="Card image cap" (click)="showSimpleContentInModal(simpleContentModal, simple)">
                 <div class="card-body">
                     <h4 class="card-title">{{simple.Title}}</h4>
-                    <p class="card-text"> {{simple.Teaser}}</p>
+                    <p class="card-text">{{simple.Teaser}}</p>
                     <button class="btn btn-secondary" (click)="showSimpleContentInModal(simpleContentModal, simple)">View</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="toggleView === 'carousel'" id="carouselFaqIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselFaqIndicators" *ngFor="let simple of simpleContentInfo; let i = index" [attr.data-slide-to]="i" [ngClass]="{'active':i == 0}"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let simple of simpleContentInfo; let i = index" [ngClass]="{'active':i == 0}">
+            <img *ngIf="simple.Images.length === 0" class="card-img-top img-fluid grid-img" src="//via.placeholder.com/300x120" alt="Card image cap" (click)="showSimpleContentInModal(simpleContentModal, simple)">
+            <img *ngIf="simple.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="simple.Images[0].Src" alt="Card image cap" (click)="showSimpleContentInModal(simpleContentModal, simple)">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{simple.Title}}</h5>
+                <p>{{simple.Teaser}}</p>
+              </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselFaqIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselFaqIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
     </div>
 </div>
 

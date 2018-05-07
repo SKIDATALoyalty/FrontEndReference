@@ -70,7 +70,7 @@ export class AuthServiceService {
     if (hasGroups !== null) {
       const availableGroups = hasGroups['cognito:groups'];
       if (availableGroups !== undefined) {
-        console.log('grps data in auth', availableGroups);
+        // console.log('grps data in auth', availableGroups);
         for (const value of availableGroups) {
           if (value === 'SuperUser' || value === 'Admin') {
             this.hasAdminRole = true;
