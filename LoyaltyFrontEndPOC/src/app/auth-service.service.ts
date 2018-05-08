@@ -128,7 +128,9 @@ export class AuthServiceService {
     localStorage.removeItem('expires_in');
     localStorage.removeItem('timer');
     this.loggedIn.next(this.tokenAvailableOrExpired());
-    this.router.navigate(['/login']);
+    const logoutUrl = environment.apiUrl.replace('oauth2/authorize', 'logout');
+    const generateAuthUrl = logoutUrl + '?client_id=' + environment.clientId + '&logout_uri=' + environment.redirectUrl;
+    window.location.href = generateAuthUrl;
   }
 
   unAuthorizedPage(data: boolean) {
