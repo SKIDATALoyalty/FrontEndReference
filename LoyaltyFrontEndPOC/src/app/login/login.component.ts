@@ -71,17 +71,17 @@ export class LoginComponent implements OnInit {
     this.loginMsg = 'Login is not implemented. Please use Loyalty OAuth Login';
   }
 
-  loyaltyOAuth() {
-    this.spinner.show();
-    this.authService.getTokenUrl().subscribe((data: any) => {
-      this.tokenUrl = data;
-      this.getToken(this.tokenUrl);
-    },
-    error => {
-      console.log('error', error);
-      this.spinner.hide();
-    });
-  }
+  // loyaltyOAuth() {
+  //   this.spinner.show();
+  //   this.authService.getTokenUrl().subscribe((data: any) => {
+  //     this.tokenUrl = data;
+  //     this.getToken(this.tokenUrl);
+  //   },
+  //   error => {
+  //     console.log('error', error);
+  //     this.spinner.hide();
+  //   });
+  // }
 
   // url param value extractor
   getParameterByName(name) {
@@ -96,8 +96,8 @@ export class LoginComponent implements OnInit {
     return vars[name];
   }
 
-  getToken(url) {
+  getToken() {
     this.spinner.show();
-    this.authService.getAcessToken(url);
+    this.authService.getAcessToken();
   }
 }

@@ -154,14 +154,13 @@ export class AuthServiceService {
     return this.jwtHelper.decodeToken(localStorage.getItem('id_token'));
   }
 
-  getTokenUrl() {
-    // const reqHeader = new HttpHeaders({ 'Accept': 'application/json', 'x-api-key': environment.apiKey });
-    this.spinner.hide();
-    return this.http.get(environment.getUrl);
-  }
+  // getTokenUrl() {
+  //   this.spinner.hide();
+  //   return this.http.get(environment.apiUrl);
+  // }
 
-  getAcessToken(url: string) {
-    const generateAuthUrl = url + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + environment.responseType;
+  getAcessToken() {
+    const generateAuthUrl = environment.apiUrl + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + environment.responseType;
     this.spinner.hide();
     window.location.href = generateAuthUrl;
   }
