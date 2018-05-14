@@ -9,6 +9,10 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "js",
+        "images",
+        "i18n",
+        "static-data",
         "favicon.ico"
       ],
       "index": "index.html",
@@ -25,8 +29,7 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "assets/js/navBarMobileAutoCollapse.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

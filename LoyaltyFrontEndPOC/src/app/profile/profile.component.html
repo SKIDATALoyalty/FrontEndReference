@@ -1,21 +1,18 @@
 <div class="container py-5 custom-pos">
     <div class="row">
-      <div class="col-md-6">
-        <!-- <div class="row"> -->
-            <div>
-                <img [src]="avatarUrl" class="img-thumbnail rounded" alt="user_avatar">
+      <div class="col-md-3">
+        <div class="userImage">
+            <img [src]="avatarUrl" class="img-thumbnail rounded" alt="user_avatar">
+        </div>
+        <div class="userImageUpload">
+            <div class="form-group inputDnD">
+            <label class="sr-only" for="inputFile">File Upload</label>
+            <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" (change)="handleFileInput($event.target.files)" data-title="Drag and drop a file">
             </div>
-            <div>
-              <!-- <button type="button" class="btn btn-primary btn-block" onclick="document.getElementById('inputFile').click()">Upload Image</button> -->
-              <div class="form-group inputDnD">
-                <label class="sr-only" for="inputFile">File Upload</label>
-                <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" (change)="handleFileInput($event.target.files)" data-title="Drag and drop a file">
-              </div>
-              <button type="button" class="btn btn-primary btn-block" (click)="uploadFileToActivity()">Upload</button>
-            </div>
-          <!-- </div> -->
+            <button type="button" class="btn btn-primary btn-block" (click)="uploadFileToActivity()">Upload</button>
+        </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-9">
           <span class="anchor" id="formUserEdit"></span>
           <div class="card card-outline-secondary">
               <div class="card-header">
@@ -26,33 +23,32 @@
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label">First name</label>
                           <div class="col-lg-9">
-                              <input class="form-control" type="text" value="Jane">
+                              <input class="form-control" type="text" value="Aaron">
                           </div>
                       </div>
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label">Last name</label>
                           <div class="col-lg-9">
-                              <input class="form-control" type="text" value="Bishop">
+                              <input class="form-control" type="text" value="Watts">
                           </div>
                       </div>
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label">Email</label>
                           <div class="col-lg-9">
-                              <input class="form-control" type="email" value="email@gmail.com">
+                              <input class="form-control" type="email" value="aaron@skidata.com">
                           </div>
                       </div>
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label">Favourite Player</label>
                           <div class="col-lg-9">
                               <select id="user_time_zone" class="form-control" size="0">
-                                  <option value="Hawaii">Select your favourite player</option>
+                                  <option value="">Select your favourite player</option>
                               </select>
                           </div>
                       </div>
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label"></label>
                           <div class="col-lg-9">
-                              <input type="reset" class="btn btn-secondary" value="Cancel">
                               <input type="button" class="btn btn-primary" value="Save Changes">
                           </div>
                       </div>

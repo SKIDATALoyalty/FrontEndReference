@@ -6,6 +6,7 @@ import {AuthServiceService} from './auth-service.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
               private router: Router,
               private jwtHelper: JwtHelperService,
               private spinner: NgxSpinnerService,
-              private changeRef: ChangeDetectorRef) { }
+              private changeRef: ChangeDetectorRef,
+              private translateService: TranslateService) {
+                translateService.setDefaultLang('en');
+                translateService.use('en');
+              }
 
   public startCounter() {
     if (this._timerSubscription) {
@@ -36,7 +41,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this._timer = Observable.timer(1000, 1000);
     this._timerSubscription = this._timer.subscribe(n => {
         this._counter++;
-        // console.log('timer log',  this._counter);
         if (this.authService.getToken() !== null) {
           const time_to_login =  parseInt(localStorage.getItem('expires_in'), 10) - 1 ;
           localStorage.setItem('expires_in', JSON.stringify(time_to_login));
@@ -48,19 +52,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.authService.isLoggedIn.subscribe(status => {
-      // console.log('logged in status', status);
-      // console.log('jwt token', this.authService.decodeJwtToken());
       if (status) {
         this.startCounter();
         this.authService.startTimer();
-        // const exp = parseInt(localStorage.getItem('expires_in'), 10);
-        // const time_to_login = Date.now() + exp; // one hour
-        // localStorage.setItem('timer', JSON.stringify(time_to_login));
-        // // console.log('time_to_login', time_to_login);
-        // const timer = JSON.parse(localStorage.getItem('timer'));
-        // if (timer && (Date.now() > timer)) {
-        //   this.authService.logout();
-        // }
 
         this._idleTimerSubscription = this.authService.timeoutExpired.subscribe(
           res => {
@@ -83,6 +77,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public stopTimer() {
     this._timerSubscription.unsubscribe();
+  }
+
+  switchLanguage(language: string) {
+    this.translateService.use(language);
   }
 
   ngOnDestroy() {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {LeaderboardService} from './leaderboard.service';
+import {AuthServiceService} from '../auth-service.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -7,11 +9,40 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./leaderboard.component.css']
 })
 export class LeaderboardComponent implements OnInit {
-  page = 1;
-  constructor(private spinner: NgxSpinnerService) { }
+  leaderBoardData: any[] = [];
+  leaderBoardListData: any[] = [];
+
+  constructor(private leaderboardService: LeaderboardService,
+    private spinner: NgxSpinnerService,
+    private authService: AuthServiceService) { }
 
   ngOnInit() {
-    // this.spinner.hide();
+    this.spinner.show();
+    const listUrl = '../assets/static-data/leaderboardList.json';
+    this.leaderboardService.getLeaderBoardListAPi(listUrl).subscribe(data => {
+      // console.log('success in leaderboard list', data);
+      this.leaderBoardListData = data;
+      for (const value of data) {
+        // console.log('list obj', value.LeaderboardID);
+        this.getLeaderboardData(value.LeaderboardID);
+      }
+    },
+    error => {
+      this.spinner.hide();
+      console.log('error in leaderboard list', error);
+    });
+  }
+  getLeaderboardData(id) {
+    const dataUrl = '../assets/static-data/' + id + '.json';
+    this.leaderboardService.getLeaderBoardDataAPi(dataUrl).subscribe(data => {
+      this.spinner.hide();
+      this.leaderBoardData.push(data);
+      // console.log('success in leaderboard data', this.leaderBoardData);
+    },
+    error => {
+      this.spinner.hide();
+      console.log('error in leaderboard data', error);
+    });
   }
 
 }

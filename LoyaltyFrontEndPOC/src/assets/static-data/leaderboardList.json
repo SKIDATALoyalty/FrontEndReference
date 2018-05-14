@@ -1,0 +1,208 @@
+[
+  {
+    "LeaderboardID": 44,
+    "PortalID": 54,
+    "CriteriaSetID": 39,
+    "StartDate": "1990-01-16T01:00:00",
+    "EndDate": "2050-01-20T01:00:00",
+    "Title": "Classement général",
+    "Locked": 0,
+    "PreviousLeaderboardID": null,
+    "DateCreated": "2017-01-18T00:34:54.99",
+    "DateUpdated": "2017-02-07T09:47:37.54",
+    "UpdatedBy": "Leaderboard Editor-UserID:190",
+    "PreCalculated": true,
+    "ErrorCount": 0,
+    "CriteriaSet": {
+      "CriteriaSetID": 39,
+      "PortalID": 54,
+      "Title": "Global",
+      "DateCreated": "2017-01-18T00:19:31.417",
+      "DateUpdated": "2017-01-18T00:23:29.02",
+      "UpdatedBy": "CriteriaSet_Editor UserID:1",
+      "Criteria": [
+        {
+          "CriteriaID": 56,
+          "CriteriaSetID": 39,
+          "FilterID": 3,
+          "FilterValue": 1,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-01-18T00:22:07.46",
+          "DateUpdated": "2017-01-18T00:22:07.473",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 57,
+          "CriteriaSetID": 39,
+          "FilterID": 3,
+          "FilterValue": 62,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-01-18T00:22:21.677",
+          "DateUpdated": "2017-01-18T00:22:21.677",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 63,
+          "CriteriaSetID": 39,
+          "FilterID": 3,
+          "FilterValue": 190,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-03-27T17:06:14.36",
+          "DateUpdated": "2017-03-27T17:06:14.36",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 65,
+          "CriteriaSetID": 39,
+          "FilterID": 3,
+          "FilterValue": 140,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-03-27T17:06:45.123",
+          "DateUpdated": "2017-03-27T17:06:45.123",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 68,
+          "CriteriaSetID": 39,
+          "FilterID": 3,
+          "FilterValue": 143,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-03-27T17:11:03.807",
+          "DateUpdated": "2017-03-27T17:11:03.807",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 70,
+          "CriteriaSetID": 39,
+          "FilterID": 3,
+          "FilterValue": 3457,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-04-03T16:51:13.853",
+          "DateUpdated": "2017-04-03T16:51:13.853",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        }
+      ]
+    }
+  },
+  {
+    "LeaderboardID": 45,
+    "PortalID": 54,
+    "CriteriaSetID": 40,
+    "StartDate": "1990-01-16T04:00:00",
+    "EndDate": "2018-06-30T04:00:00",
+    "Title": "Abonnés",
+    "Locked": 0,
+    "PreviousLeaderboardID": null,
+    "DateCreated": "2017-01-18T00:35:50.677",
+    "DateUpdated": "2017-09-27T08:25:25.583",
+    "UpdatedBy": "Leaderboard Editor-UserID:140",
+    "PreCalculated": true,
+    "ErrorCount": 0,
+    "CriteriaSet": {
+      "CriteriaSetID": 40,
+      "PortalID": 54,
+      "Title": "STH only",
+      "DateCreated": "2017-01-18T00:23:44.66",
+      "DateUpdated": "2017-01-18T00:32:56.133",
+      "UpdatedBy": "CriteriaSet_Editor UserID:1",
+      "Criteria": [
+        {
+          "CriteriaID": 58,
+          "CriteriaSetID": 40,
+          "FilterID": 1,
+          "FilterValue": 1258,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-01-18T00:32:11.15",
+          "DateUpdated": "2017-01-18T00:32:11.15",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "ROLEID"
+        },
+        {
+          "CriteriaID": 59,
+          "CriteriaSetID": 40,
+          "FilterID": 3,
+          "FilterValue": 1,
+          "TestOrder": 1,
+          "TestFailCount": -1,
+          "DateCreated": "2017-01-18T00:32:36.633",
+          "DateUpdated": "2017-01-18T00:32:36.633",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 60,
+          "CriteriaSetID": 40,
+          "FilterID": 3,
+          "FilterValue": 62,
+          "TestOrder": 2,
+          "TestFailCount": -1,
+          "DateCreated": "2017-01-18T00:32:47.96",
+          "DateUpdated": "2017-01-18T00:32:47.96",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 66,
+          "CriteriaSetID": 40,
+          "FilterID": 3,
+          "FilterValue": 190,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-03-27T17:07:15.593",
+          "DateUpdated": "2017-03-27T17:07:15.593",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 67,
+          "CriteriaSetID": 40,
+          "FilterID": 3,
+          "FilterValue": 140,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-03-27T17:07:26.39",
+          "DateUpdated": "2017-03-27T17:07:26.39",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 69,
+          "CriteriaSetID": 40,
+          "FilterID": 3,
+          "FilterValue": 143,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-03-27T17:11:24.213",
+          "DateUpdated": "2017-03-27T17:11:24.213",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        },
+        {
+          "CriteriaID": 71,
+          "CriteriaSetID": 40,
+          "FilterID": 3,
+          "FilterValue": 3457,
+          "TestOrder": 0,
+          "TestFailCount": -1,
+          "DateCreated": "2017-04-03T16:51:37.87",
+          "DateUpdated": "2017-04-03T16:51:37.87",
+          "UpdatedBy": "Criteria_Editor UserID:1",
+          "FilterTitle": "NOTUSERID"
+        }
+      ]
+    }
+  }
+]

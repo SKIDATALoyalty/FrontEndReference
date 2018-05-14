@@ -1,0 +1,10 @@
+{
+    "Title": "Welcome to Loyalty Platform",
+    "Intro": "Welcome to Loyalty Front End",
+    "Productpage": {
+        "Title": "Products"
+    },
+    "Pointspage": {
+        "Title": "Points"
+    }
+}

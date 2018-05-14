@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Ng2OdometerModule } from 'ng2-odometer';
+import {TranslateModule, TranslateLoader, TranslateService} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {
   ReactiveFormsModule,
@@ -32,6 +34,7 @@ import {SimpleContentService} from './faq/simple-content.service';
 import {ProductService} from './product/product.service';
 import {ProfileService} from './profile/profile.service';
 import {BadgeService} from './badge/badge.service';
+import {LeaderboardService} from './leaderboard/leaderboard.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -44,6 +47,11 @@ import { BadgeComponent } from './badge/badge.component';
 
 export function tokenGetter() {
   return localStorage.getItem('id_token');
+}
+
+// AoT requires an exported function for factories 'https://github.com/ngx-translate'
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -72,6 +80,13 @@ export function tokenGetter() {
       }
     }),
     AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
     NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
@@ -92,6 +107,8 @@ export function tokenGetter() {
     AuthGuardGuard,
     LoginRedirectGuard,
     RoleGuardService,
+    LeaderboardService,
+    TranslateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
