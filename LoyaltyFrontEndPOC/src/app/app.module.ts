@@ -5,7 +5,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Ng2OdometerModule } from 'ng2-odometer';
-import {TranslateModule, TranslateLoader, TranslateService} from '@ngx-translate/core';
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {
@@ -49,9 +49,11 @@ export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
 
-// AoT requires an exported function for factories 'https://github.com/ngx-translate'
+// required for AOT compilation
+// library - 'https://github.com/ngx-translate'
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+  // return new TranslateHttpLoader(http, '/assets/i18n/' , '.json');
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
@@ -108,7 +110,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginRedirectGuard,
     RoleGuardService,
     LeaderboardService,
-    TranslateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -117,4 +118,4 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

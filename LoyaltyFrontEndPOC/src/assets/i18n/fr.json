@@ -6,5 +6,8 @@
     },
     "Pointspage": {
         "Title": "Points"
+    },
+    "Badgespage": {
+        "Title": "Badges de l'utilisateur"
     }
 }

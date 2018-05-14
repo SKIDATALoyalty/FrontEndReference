@@ -1,60 +1,61 @@
 <div class="container pt-3">
-  <div class="row">
-    <div class="col-12 col-sm-10 mx-auto">
-      <div class="row">
-        <div class="col-lg-12">
-          <h1>User Badges</h1>
-          <p class="lead">Badge Categories goes here</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4">
-      <div class="card mb-3" *ngFor="let badge of badgeContentInfo">
-        <div class="row no-gutters">
-          <div class="col-6 p-3">
-            <h3>{{badge.Title}}</h3>
-            <p>{{badge.Teaser}}</p>
-            <button class="btn btn-secondary" (click)="showBadgeInModal(badgeModal, badge)">View</button>
-          </div>
-          <div class="col d-flex">
-            <img *ngIf="badge.Images.length === 0" class="card-img-top img-fluid grid-img" src="//via.placeholder.com/200x100" alt="Card image cap" (click)="showBadgeInModal(badgeModal, badge)">
-            <img *ngIf="badge.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="badge.Images[0].Src" alt="Card image cap" (click)="showBadgeInModal(badgeModal, badge)">
+    <div class="row">
+      <div class="col-12 col-sm-10 mx-auto">
+        <div class="row">
+          <div class="col-lg-12">         
+            <h1>{{ 'Badgespage.Title' | translate }}</h1>
+            <p class="lead">Badge Categories goes here</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <ng-template #badgeModal>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">{{singleBadgeContentInfo.Title}}</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body" *ngIf="singleBadgeContentInfo.Images.length === 0" >
-            <img class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
-            <p>{{singleBadgeContentInfo.Description}}</p>
-        </div>
-        <div class="modal-body" *ngIf="singleBadgeContentInfo.Images.length > 0">
-            <carousel [(activeSlide)]="activeSlideIndex" >
-                <slide *ngFor="let slide of singleBadgeContentInfo.Images; let index=index">
-                    <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">              
-                    <div class="carousel-caption">
-                    <p>{{singleBadgeContentInfo.Description}}</p>
-                    </div>
-                </slide>
-            </carousel>
-        </div>
-        <div class="modal-footer">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="mb-3">
-                        <progressbar class="progress" [value]="50" [max]="100"></progressbar>
-                    </div>
-                </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-3" *ngFor="let badge of badgeContentInfo">
+          <div class="row no-gutters">
+            <div class="col-6 p-3">
+              <h3>{{badge.Title}}</h3>
+              <p>{{badge.Teaser}}</p>
+              <button class="btn btn-secondary" (click)="showBadgeInModal(badgeModal, badge)">View</button>
             </div>
+            <div class="col d-flex">
+              <img *ngIf="badge.Images.length === 0" class="card-img-top img-fluid grid-img" src="//via.placeholder.com/200x100" alt="Card image cap" (click)="showBadgeInModal(badgeModal, badge)">
+              <img *ngIf="badge.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="badge.Images[0].Src" alt="Card image cap" (click)="showBadgeInModal(badgeModal, badge)">
+            </div>
+          </div>
         </div>
-    </ng-template>
+      </div>
+    </div>
+  
+    <ng-template #badgeModal>
+          <div class="modal-header">
+              <h4 class="modal-title pull-left">{{singleBadgeContentInfo.Title}}</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body" *ngIf="singleBadgeContentInfo.Images.length === 0" >
+              <img class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+              <p>{{singleBadgeContentInfo.Description}}</p>
+          </div>
+          <div class="modal-body" *ngIf="singleBadgeContentInfo.Images.length > 0">
+              <carousel [(activeSlide)]="activeSlideIndex" >
+                  <slide *ngFor="let slide of singleBadgeContentInfo.Images; let index=index">
+                      <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">              
+                      <div class="carousel-caption">
+                      <p>{{singleBadgeContentInfo.Description}}</p>
+                      </div>
+                  </slide>
+              </carousel>
+          </div>
+          <div class="modal-footer">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="mb-3">
+                          <progressbar class="progress" [value]="50" [max]="100"></progressbar>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </ng-template>
+  

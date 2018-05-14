@@ -31,7 +31,8 @@ export class BadgeComponent implements OnInit {
   constructor(private badgeService: BadgeService,
               private spinner: NgxSpinnerService,
               private modalService: BsModalService,
-              private authService: AuthServiceService) { }
+              private authService: AuthServiceService) {
+              }
 
   ngOnInit() {
 
@@ -42,7 +43,6 @@ export class BadgeComponent implements OnInit {
       data => {
         this.spinner.hide();
         this.badgeContentInfo = data;
-        // console.log('badge res', data);
       },
       error => {
         this.spinner.hide();
@@ -51,7 +51,6 @@ export class BadgeComponent implements OnInit {
   }
 
   showBadgeInModal(badgeModal: TemplateRef<any>, data) {
-    // console.log('data---', data);
      this.singleBadgeContentInfo = data;
      this.modalRef = this.modalService.show(badgeModal);
   }

@@ -6,7 +6,7 @@ import {AuthServiceService} from './auth-service.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -27,9 +27,8 @@ export class AppComponent implements OnInit, OnDestroy {
               private jwtHelper: JwtHelperService,
               private spinner: NgxSpinnerService,
               private changeRef: ChangeDetectorRef,
-              private translateService: TranslateService) {
-                translateService.setDefaultLang('en');
-                translateService.use('en');
+              public translate: TranslateService) {
+                translate.setDefaultLang('en');
               }
 
   public startCounter() {
@@ -77,10 +76,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public stopTimer() {
     this._timerSubscription.unsubscribe();
-  }
-
-  switchLanguage(language: string) {
-    this.translateService.use(language);
   }
 
   ngOnDestroy() {
