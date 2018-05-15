@@ -12,6 +12,7 @@ import {AuthServiceService} from '../auth-service.service';
 export class ProfileComponent implements OnInit {
   fileToUpload: File = null;
   profileInfo: any;
+  profileMsg: any;
   avatarUrl: any = 'https://placehold.it/235x235';
 
   constructor(private profileService: ProfileService,
@@ -24,20 +25,26 @@ export class ProfileComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    console.log('image this.fileToUpload --', this.fileToUpload);
+    this.profileMsg = '';
+    // console.log('image this.fileToUpload --', this.fileToUpload);
   }
 
   uploadFileToActivity() {
-    this.spinner.show();
     const imageUploadApiUrl = environment.apidocs + 'v1/API/ProfileImage/Upload/' + this.authService.decodeJwtToken()['custom:UserId'];
-    this.profileService.postFile(this.fileToUpload, imageUploadApiUrl).subscribe(data => {
+    if (this.fileToUpload !== null) {
+      this.spinner.show();
+      this.profileService.postFile(this.fileToUpload, imageUploadApiUrl).subscribe(data => {
         // do something, if upload success
-        console.log('image data--', data);
+        // console.log('image data--', data);
         // this.spinner.hide();
         this.getProfileInformation();
       }, error => {
         console.log(error);
+        this.spinner.hide();
       });
+    } else {
+      this.profileMsg = 'Please select image';
+    }
   }
 
   getProfileInformation() {
@@ -48,7 +55,7 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
         this.profileInfo = data;
         this.avatarUrl = data['Avatar'] || 'http://placehold.it/235x235';
-        console.log('profileInfo data--', data);
+        // console.log('profileInfo data--', data);
       },
       error => {
         this.spinner.hide();

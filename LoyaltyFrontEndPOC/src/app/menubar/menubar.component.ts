@@ -91,6 +91,7 @@ export class MenubarComponent implements OnInit {
             }
           },
           error => {
+            this.spinner.hide();
             console.log('error in default lang API', error);
           });
 
@@ -112,6 +113,7 @@ export class MenubarComponent implements OnInit {
           // console.log('lang list', this.languageList);
         },
         error => {
+          this.spinner.hide();
           console.log('lang list', error);
         });
       }
@@ -189,6 +191,7 @@ export class MenubarComponent implements OnInit {
       window.location.reload();
     },
     error => {
+      this.spinner.hide();
       console.log('error in language preferences', error);
     });
   }

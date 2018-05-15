@@ -10,6 +10,7 @@
             <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" (change)="handleFileInput($event.target.files)" data-title="Drag and drop a file">
             </div>
             <button type="button" class="btn btn-primary btn-block" (click)="uploadFileToActivity()">Upload</button>
+            <span>{{profileMsg}}</span>
         </div>
       </div>
       <div class="col-md-9">
