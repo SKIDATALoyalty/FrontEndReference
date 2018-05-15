@@ -7,6 +7,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';
 import {TranslateService } from '@ngx-translate/core';
+import {LocalizationService} from './services/localization.service';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -21,14 +23,17 @@ export class AppComponent implements OnInit, OnDestroy {
   private _timer: Observable<number>;
   private _idleTimerSubscription: Subscription;
   copyRight = new Date().getFullYear();
+  userDefaultlang: any;
 
   constructor(private authService: AuthServiceService,
               private router: Router,
               private jwtHelper: JwtHelperService,
               private spinner: NgxSpinnerService,
               private changeRef: ChangeDetectorRef,
-              public translate: TranslateService) {
-                translate.setDefaultLang('en');
+              public translate: TranslateService,
+              private localizationService: LocalizationService) {
+                const defaultLang = navigator.language;
+                translate.setDefaultLang(defaultLang);
               }
 
   public startCounter() {
@@ -67,10 +72,23 @@ export class AppComponent implements OnInit, OnDestroy {
             this.changeRef.markForCheck();
           });
 
+          const defaultLangUrl = environment.apidocs + 'v2/API/Localization/UseLocalization';
+          this.localizationService.getUserDefaultLanguage(defaultLangUrl).subscribe(data => {
+            // console.log('lang default in app component', data);
+            this.userDefaultlang = data;
+            if (this.userDefaultlang !== '') {
+              this.translate.setDefaultLang(this.userDefaultlang);
+            } else {
+              this.translate.setDefaultLang(navigator.language);
+            }
+          },
+          error => {
+            console.log('error in default lang API', error);
+          });
+
       } else {
         this.spinner.hide();
       }
-
     });
   }
 

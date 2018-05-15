@@ -13,6 +13,11 @@
             <li class="nav-item"><a routerLink="/profile" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">My Profile</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
+            <li *ngIf="isLoggedIn$ | async">
+                <select (change) = "useLanguage($event)" [(ngModel)]="languageSelected" class="form-control">
+                    <option *ngFor="let lang of languageList" [value]="lang.value">{{lang.name}}</option>
+                </select>
+            </li>
             <li class="nav-item" *ngIf="(isLoggedIn$ | async) && profileInfo !== undefined">
                 <a href="" class="nav-link"><p class="text-white" (click)="navbarCollapsed = true">Welcome,  {{profileInfo.DisplayName}}</p></a>
             </li>

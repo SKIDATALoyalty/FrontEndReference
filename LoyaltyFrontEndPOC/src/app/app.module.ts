@@ -35,6 +35,7 @@ import {ProductService} from './product/product.service';
 import {ProfileService} from './profile/profile.service';
 import {BadgeService} from './badge/badge.service';
 import {LeaderboardService} from './leaderboard/leaderboard.service';
+import {LocalizationService} from './services/localization.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -52,8 +53,8 @@ export function tokenGetter() {
 // required for AOT compilation
 // library - 'https://github.com/ngx-translate'
 export function HttpLoaderFactory(http: HttpClient) {
-  // return new TranslateHttpLoader(http, '/assets/i18n/' , '.json');
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, '/assets/i18n/resources_' , '.json');
+  // return new TranslateHttpLoader(http);
 }
 
 @NgModule({
@@ -110,6 +111,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginRedirectGuard,
     RoleGuardService,
     LeaderboardService,
+    LocalizationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

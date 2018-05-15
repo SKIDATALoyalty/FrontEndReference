@@ -8,6 +8,8 @@ import {ProfileService} from '../profile/profile.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/share';
+import {TranslateService } from '@ngx-translate/core';
+import {LocalizationService} from '../services/localization.service';
 
 import {
   FormGroup,
@@ -28,7 +30,10 @@ export class MenubarComponent implements OnInit {
   settingsSuccessMsg: string;
   profileInfo: any;
   avatarUrl: any = 'http://placehold.it/30x30';
+  languageList: any[] = [];
+  languageSelected = undefined;
   public navbarCollapsed = true;
+  tempLangCode: string;
 
   public pointsRemaining = 0;
   public pointsSpent = 0;
@@ -38,7 +43,9 @@ export class MenubarComponent implements OnInit {
   constructor(private authService: AuthServiceService,
     private modalService: NgbModal,
     private profileService: ProfileService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private translate: TranslateService,
+    private localizationService: LocalizationService) {
       this.observable = new Observable<boolean>((observer: any) => this.observer = observer).share();
      }
 
@@ -73,8 +80,43 @@ export class MenubarComponent implements OnInit {
             this.spinner.hide();
             console.log(error);
           });
+
+          const defaultLangUrl = environment.apidocs + 'v2/API/Localization/UseLocalization';
+          this.localizationService.getUserDefaultLanguage(defaultLangUrl).subscribe(data => {
+            // console.log('lang default', data);
+            if (data !== '') {
+              this.languageSelected = data;
+            } else {
+              this.languageSelected = navigator.language;
+            }
+          },
+          error => {
+            console.log('error in default lang API', error);
+          });
+
+        const langApiUrl = environment.apidocs + 'v2/API/Localization/RequestLocales';
+        this.localizationService.getLocalizationListAPi(langApiUrl).subscribe(data => {
+          let tempObj = {
+            'value': undefined,
+            'name': 'Select Language'
+          };
+          this.languageList.push(tempObj);
+          for (const [key, value] of Object.entries(data)) {
+            // console.log(value);
+             tempObj = {
+              'value': value,
+              'name': key
+            };
+            this.languageList.push(tempObj);
+          }
+          // console.log('lang list', this.languageList);
+        },
+        error => {
+          console.log('lang list', error);
+        });
       }
     });
+
   }
 
   loyaltylogout() {
@@ -125,6 +167,30 @@ export class MenubarComponent implements OnInit {
    setTimeout(() => {
     this.settingsSuccessMsg = '';
    }, 3000);
+  }
+
+  useLanguage(event) {
+    // console.log(event.target.value);
+    this.tempLangCode = event.target.value;
+    this.translate.use(this.tempLangCode);
+    const langApiUrl = environment.apidocs + 'v1/API/user/' + this.authService.decodeJwtToken()['custom:UserId'] + '/properties';
+    const propObj = {
+      'UserID': Number(this.authService.decodeJwtToken()['custom:UserId']),
+      'PortalID': Number(this.authService.decodeJwtToken()['custom:PortalId']),
+      'ProfileProperties': [{
+       'PropertyName': 'PreferredLocale',
+       'PropertyValue': this.tempLangCode
+      }]
+    };
+
+    this.localizationService.updateLocalePreferences(langApiUrl, propObj).subscribe(data => {
+      console.log('language preferences updated successfully', data);
+      this.languageSelected = this.tempLangCode;
+      window.location.reload();
+    },
+    error => {
+      console.log('error in language preferences', error);
+    });
   }
 
 }
