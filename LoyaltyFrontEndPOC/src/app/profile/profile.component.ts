@@ -3,6 +3,7 @@ import {ProfileService} from './profile.service';
 import {environment} from '../../environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {AuthServiceService} from '../auth-service.service';
+import {LocalizationService} from '../services/localization.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private profileService: ProfileService,
               private spinner: NgxSpinnerService,
-              private authService: AuthServiceService) { }
+              private authService: AuthServiceService,
+              private localizationService: LocalizationService) { }
 
   ngOnInit() {
    this.getProfileInformation();
@@ -43,7 +45,7 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
       });
     } else {
-      this.profileMsg = 'Please select image';
+      this.profileMsg =  this.localizationService.getTranslatedValue('ProfilePage.uploadmsg');
     }
   }
 

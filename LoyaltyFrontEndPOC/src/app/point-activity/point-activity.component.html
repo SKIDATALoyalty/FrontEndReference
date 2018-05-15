@@ -3,7 +3,7 @@
         <div class="col-12 col-sm-10 mx-auto">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Point Activity</h1>
+                    <h1>{{'Pointspage.pointactivity' | translate}}</h1>
                     <hr class="mb-5">
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group btn-group-lg mr-2 mt-3" role="group" aria-label="Second group" *ngIf="pointCategories !== undefined">
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{points.Title}}</h4>
                     <p class="card-text"> {{points.TeaserText}}</p>
-                    <button class="btn btn-secondary" (click)="showPointActivityInModal(pointModal, points)">Earn</button>
+                    <button class="btn btn-secondary" (click)="showPointActivityInModal(pointModal, points)">{{'Pointspage.earnbtn' | translate}}</button>
                 </div>
             </div>
         </div>

@@ -5,12 +5,12 @@
     </button>
     <div class="navbar-collapse collapse justify-content-stretch" [ngbCollapse]="navbarCollapsed" id="loyaltyMenuBar">
         <ul class="navbar-nav">
-            <li class="nav-item"><a routerLink="/home" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">Home</a></li>
-            <li class="nav-item"><a routerLink="/product" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">Products</a></li>
-            <li class="nav-item"><a routerLink="/points" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">Points</a></li>
-            <li class="nav-item"><a routerLink="/leaderboard" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">Leaderboard</a></li>
-            <li class="nav-item"><a routerLink="/faq" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">Faq</a></li>
-            <li class="nav-item"><a routerLink="/profile" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">My Profile</a></li>
+            <li class="nav-item"><a routerLink="/home" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">{{'Header.home' | translate}}</a></li>
+            <li class="nav-item"><a routerLink="/product" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">{{'Header.products' | translate}}</a></li>
+            <li class="nav-item"><a routerLink="/points" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">{{'Header.points' | translate}}</a></li>
+            <li class="nav-item"><a routerLink="/leaderboard" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">{{'Header.leaderboard' | translate}}</a></li>
+            <li class="nav-item"><a routerLink="/faq" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">{{'Header.faq' | translate}}</a></li>
+            <li class="nav-item"><a routerLink="/profile" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true">{{'Header.profile' | translate}}</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li *ngIf="isLoggedIn$ | async">
@@ -19,17 +19,17 @@
                 </select>
             </li>
             <li class="nav-item" *ngIf="(isLoggedIn$ | async) && profileInfo !== undefined">
-                <a href="" class="nav-link"><p class="text-white" (click)="navbarCollapsed = true">Welcome,  {{profileInfo.DisplayName}}</p></a>
+                <a href="" class="nav-link"><p class="text-white" (click)="navbarCollapsed = true">{{'Header.welcometitle' | translate}}  {{profileInfo.DisplayName}}</p></a>
             </li>
             <li class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)" (click)="navbarCollapsed = true">Login</a></li>
-            <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="navbarCollapsed = true"><span>Points Remaining</span><br><ng2-odometer [number]="pointsRemaining" [format]="'d'" [theme]="'digital'"></ng2-odometer></a></li>
-            <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="navbarCollapsed = true"><span>Points Spent</span><br><ng2-odometer [number]="pointsSpent" [format]="'d'" [theme]="'digital'"></ng2-odometer></a></li>
+            <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="navbarCollapsed = true"><span>{{'Header.pointsremain' | translate}}</span><br><ng2-odometer [number]="pointsRemaining" [format]="'d'" [theme]="'digital'"></ng2-odometer></a></li>
+            <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="navbarCollapsed = true"><span>{{'Header.pointsavail' | translate}}</span><br><ng2-odometer [number]="pointsSpent" [format]="'d'" [theme]="'digital'"></ng2-odometer></a></li>
             <li *ngIf="isLoggedIn$ | async">
                 <div class="inset">
                     <img [src]="avatarUrl" (click)="navbarCollapsed = true">
                 </div>
             </li>
-            <li class="nav-item"><a (click)="loyaltylogout()" class="nav-link show-cursor" title="login" *ngIf="isLoggedIn$ | async">Logout</a></li>
+            <li class="nav-item"><a (click)="loyaltylogout()" class="nav-link show-cursor" title="login" *ngIf="isLoggedIn$ | async">{{'Header.logout' | translate}}</a></li>
             <li class="nav-item"><a routerLink="/register" routerLinkActive="active" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)" (click)="navbarCollapsed = true">Register</a></li>
             <li class="nav-item"><a (click)="openSettings(content)" class="nav-link show-cursor" title="register" *ngIf="!(isLoggedIn$ | async)"><i class="fa fa-cog"></i></a></li>
         </ul>

@@ -2,12 +2,31 @@
     "Title": "Welcome to Loyalty Platform",
     "Intro": "Welcome to Loyalty Front End",
     "Productpage": {
-        "Title": "Products"
+        "Title": "Loyalty Products/Rewards",
+        "productbtn": "Redeem"
     },
     "Pointspage": {
-        "Title": "Points"
+        "Title": "Points",
+        "pointactivity": "Point Activity",
+        "earnbtn": "Earn"
     },
     "Badgespage": {
         "Title": "User Badges"
+    },
+    "ProfilePage": {
+        "uploadmsg": "Please select image",
+        "Profilesection": "User Profile Information"
+    },
+    "Header": {
+        "welcometitle": "Bienvenue, ",
+        "pointsremain":"Points Remaining",
+        "pointsavail":"Points Spent",
+        "logout":"Sign Out",
+        "home": "Home",
+        "products": "Products",
+        "points": "Points",
+        "leaderboard": "Leaderboard",
+        "faq": "Faq",
+        "profile": "My Profile"
     }
 }

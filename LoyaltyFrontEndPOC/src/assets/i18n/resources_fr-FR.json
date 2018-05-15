@@ -2,12 +2,31 @@
     "Title": "Welcome to Loyalty Platform",
     "Intro": "Welcome to Loyalty Front End",
     "Productpage": {
-        "Title": "Products"
+        "Title": "Produits de fidélisation / récompenses",
+        "productbtn": "Racheter"
     },
     "Pointspage": {
-        "Title": "Points"
+        "Title": "Points",
+        "pointactivity": "Activité ponctuelle",
+        "earnbtn": "Gagner"
     },
     "Badgespage": {
         "Title": "Badges de l'utilisateur"
+    },
+    "ProfilePage": {
+        "uploadmsg": "veuillez sélectionner une image",
+        "Profilesection": "Informations sur le profil utilisateur"
+    },
+    "Header": {
+        "welcometitle": "Bienvenue, ",
+        "pointsremain":"Points restants",
+        "pointsavail":"Points dépensés",
+        "logout":"Déconnexion",
+        "home": "Accueil",
+        "products": "Des produits",
+        "points": "Points",
+        "leaderboard": "Classement",
+        "faq": "Faq",
+        "profile": "Mon profil"
     }
 }

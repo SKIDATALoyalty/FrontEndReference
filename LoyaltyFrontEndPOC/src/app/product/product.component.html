@@ -3,7 +3,7 @@
         <div class="col-12 col-sm-10 mx-auto">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Loyalty Products/Rewards</h1>
+                    <h1>{{'Productpage.Title' | translate}}</h1>
                     <p class="lead">Product Categories goes here</p>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{product.RewardCategoryName}}</h4>
                     <p class="card-text"> {{product.Title}}</p>
-                    <button class="btn btn-secondary" (click)="openProductInModal(productModal, product)">Redeem</button>
+                    <button class="btn btn-secondary" (click)="openProductInModal(productModal, product)">{{'Productpage.productbtn' | translate}}</button>
                 </div>
             </div>
         </div>
