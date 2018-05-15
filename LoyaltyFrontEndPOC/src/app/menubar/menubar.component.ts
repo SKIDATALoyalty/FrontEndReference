@@ -185,7 +185,7 @@ export class MenubarComponent implements OnInit {
       }]
     };
 
-    this.localizationService.updateLocalePreferences(langApiUrl, propObj).subscribe(data => {
+    this.localizationService.updateUserPreferences(langApiUrl, propObj).subscribe(data => {
       console.log('language preferences updated successfully', data);
       this.languageSelected = this.tempLangCode;
       window.location.reload();

@@ -10,7 +10,7 @@
             <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" (change)="handleFileInput($event.target.files)" data-title="Drag and drop a file">
             </div>
             <button type="button" class="btn btn-primary btn-block" (click)="uploadFileToActivity()">Upload</button>
-            <span>{{profileMsg}}</span>
+            <span class="text-danger">{{profileImageMsg}}</span>
         </div>
       </div>
       <div class="col-md-9">
@@ -19,39 +19,50 @@
               <div class="card-header">
                   <h3 class="mb-0">{{'ProfilePage.Profilesection' | translate}}</h3>
               </div>
-              <div class="card-body">
-                  <form class="form" role="form" autocomplete="off">
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="text" value="Aaron">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="text" value="Watts">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                          <div class="col-lg-9">
-                              <input class="form-control" type="email" value="aaron@skidata.com">
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label class="col-lg-3 col-form-label form-control-label">Favourite Player</label>
-                          <div class="col-lg-9">
-                              <select id="user_time_zone" class="form-control" size="0">
-                                  <option value="">Select your favourite player</option>
-                              </select>
-                          </div>
-                      </div>
+              <div class="card-body" *ngIf="profileForm">
+                  <form class="form" role="form" novalidate (ngSubmit)="onSubmit(profileForm.value)" [formGroup]="profileForm">
+                    <div *ngFor="let prop of profile">
+                        <div class="form-group row"  [ngSwitch]="prop.type">
+                            <label class="col-lg-3 col-form-label form-control-label" [attr.for]="prop.label">{{prop.label}}</label>
+                            <div class="col-lg-9" *ngSwitchCase="'text'">
+                                <input class="form-control" 
+                                [formControlName]="prop.label" 
+                                [id]="prop.label" 
+                                [type]="prop.type">
+                            </div>
+                            <div class="col-lg-9" *ngSwitchCase="'radio'">
+                                <label *ngFor="let option of prop.options">
+                                    <input class="form-control" 
+                                    [name]="prop.label"
+                                    [formControlName]="prop.label"
+                                    [type]="prop.type"
+                                    [value]="option.value">{{option.Text}}
+                                </label>
+                            </div>
+                            <div class="col-lg-9" *ngSwitchCase="'checkbox'">
+                                    <label>
+                                        <input class="form-control" 
+                                        [name]="prop.label"
+                                        [formControlName]="prop.label"
+                                        [type]="prop.type">{{prop.label}}
+                                    </label>
+                                </div>
+                            <div class="col-lg-9" *ngSwitchCase="'select'">
+                                <select class="form-control" [formControlName]="prop.label">
+                                    <option value="">(choose one)</option>
+                                    <option *ngFor="let option of prop.options" [value]="option.value">
+                                        {{ option.Text }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label"></label>
                           <div class="col-lg-9">
-                              <input type="button" class="btn btn-primary" value="Save Changes">
-                          </div>
+                              <input type="submit" class="btn btn-primary" value="Save Changes"><br>
+                              <span class="text-success">{{profileMsg}}</span>
+                          </div>              
                       </div>
                   </form>
               </div>

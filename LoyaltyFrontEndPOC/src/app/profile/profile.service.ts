@@ -18,4 +18,7 @@ export class ProfileService {
     return this.http.post(imageUrl, formData);
   }
 
+  getListDataAPi(url) {
+    return this.http.get(url);
+  }
 }

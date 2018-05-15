@@ -12,7 +12,7 @@ export class LocalizationService {
     return this.http.get(url);
   }
 
- updateLocalePreferences(url, data) {
+  updateUserPreferences(url, data) {
     return this.http.post(url, data);
   }
 
