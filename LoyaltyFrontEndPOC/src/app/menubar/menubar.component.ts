@@ -29,7 +29,7 @@ export class MenubarComponent implements OnInit {
   settingsForm: FormGroup;
   settingsSuccessMsg: string;
   profileInfo: any;
-  avatarUrl: any = 'http://placehold.it/30x30';
+  avatarUrl: any = 'https://placehold.it/30x30';
   languageList: any[] = [];
   languageSelected = undefined;
   public navbarCollapsed = true;

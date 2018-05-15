@@ -12,7 +12,7 @@ import {AuthServiceService} from '../auth-service.service';
 export class ProfileComponent implements OnInit {
   fileToUpload: File = null;
   profileInfo: any;
-  avatarUrl: any = 'http://placehold.it/235x235';
+  avatarUrl: any = 'https://placehold.it/235x235';
 
   constructor(private profileService: ProfileService,
               private spinner: NgxSpinnerService,
