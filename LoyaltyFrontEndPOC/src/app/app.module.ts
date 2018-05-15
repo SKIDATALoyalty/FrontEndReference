@@ -53,7 +53,7 @@ export function tokenGetter() {
 // required for AOT compilation
 // library - 'https://github.com/ngx-translate'
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/assets/i18n/resources_' , '.json');
+  return new TranslateHttpLoader(http, '/poc/assets/i18n/resources_' , '.json');
   // return new TranslateHttpLoader(http);
 }
 
