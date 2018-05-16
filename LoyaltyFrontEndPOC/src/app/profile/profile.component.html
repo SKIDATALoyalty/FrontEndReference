@@ -23,7 +23,7 @@
                   <form class="form" role="form" novalidate (ngSubmit)="onSubmit(profileForm.value)" [formGroup]="profileForm">
                     <div *ngFor="let prop of profile">
                         <div class="form-group row"  [ngSwitch]="prop.type">
-                            <label class="col-lg-3 col-form-label form-control-label" [attr.for]="prop.label">{{prop.label}}</label>
+                            <label class="col-lg-3 col-form-label form-control-label" [attr.for]="prop.label">{{prop.name}}</label>
                             <div class="col-lg-9" *ngSwitchCase="'text'">
                                 <input class="form-control" 
                                 [formControlName]="prop.label" 
@@ -39,13 +39,11 @@
                                     [value]="option.Value">{{option.Text}}
                                 </label>
                             </div>
-                            <div class="col-lg-9" *ngSwitchCase="'checkbox'">
-                                <label>
-                                    <input class="form-control" 
-                                    type="checkbox"
-                                    [name]="prop.label"
-                                    [formControlName]="prop.label">{{prop.label}}
-                                </label>
+                            <div class="col-lg-2" *ngSwitchCase="'checkbox'">
+                                <input class="form-control float-right" 
+                                type="checkbox"
+                                [name]="prop.label"
+                                [formControlName]="prop.label">
                             </div>
                             <div class="col-lg-9" *ngSwitchCase="'select'">
                                 <select class="form-control" [formControlName]="prop.label">

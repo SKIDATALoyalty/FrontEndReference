@@ -72,6 +72,7 @@ export class ProfileComponent implements OnInit {
           if (value['DataType'] === 'DataType:Text') {
             this.profile.push({
               label: tempName,
+              name: temp,
               id: value['PropertyDefinitionId'],
               val: value['PropertyValue'],
               type: 'text',
@@ -85,6 +86,7 @@ export class ProfileComponent implements OnInit {
               // this.listData = res['Data'];
               this.profile.push({
                 label: tempName,
+                name: temp,
                 id: value['PropertyDefinitionId'],
                 val: value['PropertyValue'],
                 type: 'select',
@@ -104,6 +106,7 @@ export class ProfileComponent implements OnInit {
               // this.listData = res['Data'];
               this.profile.push({
                 label: tempName,
+                name: temp,
                 id: value['PropertyDefinitionId'],
                 val: value['PropertyValue'],
                 type: 'radio',
@@ -120,6 +123,7 @@ export class ProfileComponent implements OnInit {
           } else if (value['DataType'] === 'DataType:Checkbox' || value['DataType'] === 'DataType:Checkbox ') {
             this.profile.push({
               label: tempName,
+              name: temp,
               id: value['PropertyDefinitionId'],
               val: value['PropertyValue'],
               type: 'checkbox',
