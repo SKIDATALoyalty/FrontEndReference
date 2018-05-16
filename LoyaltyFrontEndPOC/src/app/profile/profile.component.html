@@ -33,34 +33,39 @@
                             <div class="col-lg-9" *ngSwitchCase="'radio'">
                                 <label *ngFor="let option of prop.options">
                                     <input class="form-control" 
+                                    type="radio"
                                     [name]="prop.label"
                                     [formControlName]="prop.label"
-                                    [type]="prop.type"
-                                    [value]="option.value">{{option.Text}}
+                                    [value]="option.Value">{{option.Text}}
                                 </label>
                             </div>
                             <div class="col-lg-9" *ngSwitchCase="'checkbox'">
-                                    <label>
-                                        <input class="form-control" 
-                                        [name]="prop.label"
-                                        [formControlName]="prop.label"
-                                        [type]="prop.type">{{prop.label}}
-                                    </label>
-                                </div>
+                                <label>
+                                    <input class="form-control" 
+                                    type="checkbox"
+                                    [name]="prop.label"
+                                    [formControlName]="prop.label">{{prop.label}}
+                                </label>
+                            </div>
                             <div class="col-lg-9" *ngSwitchCase="'select'">
                                 <select class="form-control" [formControlName]="prop.label">
-                                    <option value="">(choose one)</option>
-                                    <option *ngFor="let option of prop.options" [value]="option.value">
+                                    <option value="">Select {{prop.label}}</option>
+                                    <option *ngFor="let option of prop.options" [value]="option.Value">
                                         {{ option.Text }}
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="error" *ngIf="profileForm.get(prop.label).invalid && (profileForm.get(prop.label).dirty || profileForm.get(prop.label).touched)">
+                            <div *ngIf="profileForm.get(prop.label).errors.required">
+                              {{ prop.label }} is required.
                             </div>
                         </div>
                     </div>
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label"></label>
                           <div class="col-lg-9">
-                              <input type="submit" class="btn btn-primary" value="Save Changes"><br>
+                              <input type="submit" class="btn btn-primary" value="Update"><br>
                               <span class="text-success">{{profileMsg}}</span>
                           </div>              
                       </div>

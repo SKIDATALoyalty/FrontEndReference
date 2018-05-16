@@ -60,7 +60,6 @@ export class ProfileComponent implements OnInit {
     const profileInfoApiUrl = environment.apidocs + 'v1/API/user';
     this.profileService.getProfileAPi(profileInfoApiUrl).subscribe(
       data => {
-        this.spinner.hide();
         this.profileInfo = data;
 
         this.avatarUrl = data['Avatar'] + '?v=' + Date.now() || 'http://placehold.it/235x235';
@@ -77,39 +76,55 @@ export class ProfileComponent implements OnInit {
               val: value['PropertyValue'],
               type: 'text',
               validation: {
-                required: value['PropertyValue']
+                required: value['Required']
               }
             });
           } else if (value['DataType'] === 'DataType:Country' || value['DataType'] === 'DataType:List') {
-            this.profile.push({
-              label: tempName,
-              id: value['PropertyDefinitionId'],
-              val: value['PropertyValue'],
-              type: 'select',
-              options:  [], // this.getListData(tempName),
-              validation: {
-                required: value['PropertyValue']
-              }
+            const listURL = environment.apidocs + 'v1/API/List/GetList?listName=' + tempName;
+            this.profileService.getListDataAPi(listURL).subscribe(res => {
+              // this.listData = res['Data'];
+              this.profile.push({
+                label: tempName,
+                id: value['PropertyDefinitionId'],
+                val: value['PropertyValue'],
+                type: 'select',
+                options:  res['Data'],
+                validation: {
+                  required: value['Required']
+                }
+              });
+            },
+            error => {
+              this.listData = [];
+              console.log('error in list api', error);
             });
           } else if (value['DataType'] === 'DataType:Radio') {
-            this.profile.push({
-              label: tempName,
-              id: value['PropertyDefinitionId'],
-              val: value['PropertyValue'],
-              type: 'radio',
-              options: [], // this.getListData(tempName),
-              validation: {
-                required: value['PropertyValue']
-              }
+            const listURL = environment.apidocs + 'v1/API/List/GetList?listName=' + tempName;
+            this.profileService.getListDataAPi(listURL).subscribe(res => {
+              // this.listData = res['Data'];
+              this.profile.push({
+                label: tempName,
+                id: value['PropertyDefinitionId'],
+                val: value['PropertyValue'],
+                type: 'radio',
+                options:  res['Data'],
+                validation: {
+                  required: value['Required']
+                }
+              });
+            },
+            error => {
+              this.listData = [];
+              console.log('error in list api', error);
             });
-          } else if (value['DataType'] === 'DataType:Checkbox') {
+          } else if (value['DataType'] === 'DataType:Checkbox' || value['DataType'] === 'DataType:Checkbox ') {
             this.profile.push({
               label: tempName,
               id: value['PropertyDefinitionId'],
               val: value['PropertyValue'],
               type: 'checkbox',
               validation: {
-                required: value['PropertyValue']
+                required: value['Required']
               }
             });
           }
@@ -117,13 +132,15 @@ export class ProfileComponent implements OnInit {
         // console.log('profileInfo data after parse--', this.profile);
 
         // setup the profileForm
-        const formGroup = {};
-        for (const prop of this.profile) {
-          // console.log('this.profile[prop[val]]', prop['val']);
-          formGroup[prop['label']] = new FormControl(prop['val'] || '', this.mapValidators(prop['validation']));
-        }
-        // console.log('formGroup', formGroup);
-        this.profileForm = new FormGroup(formGroup);
+        setTimeout(() => {
+          const formGroup = {};
+          for (const prop of this.profile) {
+            formGroup[prop['label']] = new FormControl(prop['val'] || '', this.mapValidators(prop['validation']));
+          }
+          this.profileForm = new FormGroup(formGroup);
+          // console.log('profilform', this.profileForm);
+          this.spinner.hide();
+        }, 500);
       },
       error => {
         this.spinner.hide();
@@ -167,7 +184,7 @@ export class ProfileComponent implements OnInit {
       'PortalID': Number(this.authService.decodeJwtToken()['custom:PortalId']),
       'ProfileProperties': []
     };
-
+    // console.log('profile form', form);
     for (const [key, value] of Object.entries(form)) {
        const tempObj = {
         'PropertyName': key,
