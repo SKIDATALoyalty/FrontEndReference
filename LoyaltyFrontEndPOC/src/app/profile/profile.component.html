@@ -30,6 +30,12 @@
                                 [id]="prop.label" 
                                 [type]="prop.type">
                             </div>
+                            <div class="col-lg-9" *ngSwitchCase="'date'">
+                                <input class="form-control" 
+                                type="date"
+                                [formControlName]="prop.label" 
+                                [id]="prop.label">
+                            </div>
                             <div class="col-lg-9" *ngSwitchCase="'radio'">
                                 <label *ngFor="let option of prop.options">
                                     <input class="form-control" 

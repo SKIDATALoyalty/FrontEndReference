@@ -131,6 +131,17 @@ export class ProfileComponent implements OnInit {
                 required: value['Required']
               }
             });
+          } else if (value['DataType'] === 'DataType:Date') {
+            this.profile.push({
+              label: tempName,
+              name: temp,
+              id: value['PropertyDefinitionId'],
+              val: value['PropertyValue'],
+              type: 'date',
+              validation: {
+                required: value['Required']
+              }
+            });
           }
         }
         // console.log('profileInfo data after parse--', this.profile);
