@@ -1,10 +1,10 @@
-<div class="container py-5 custom-pos">
+<!-- <div class="container py-5 custom-pos">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <span class="anchor" id="formLogin"></span>
-                        <!-- form card login with validation feedback -->
+      
                         <div class="card card-outline-secondary">
                             <div class="card-header">
                                 <h3 class="mb-0">Login</h3>
@@ -25,16 +25,28 @@
                                     <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="getToken()"  class="btn btn-success btn-md float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p>                                                             
                                 </form>                            
                             </div>
-                            <!--/card-body-->
+             
                             <div class="card-header">
-                                <!-- <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p> -->
+                                <p class="float-right">or Sign in With &nbsp;&nbsp;<button type="button" (click)="loyaltyOAuth()"  class="btn btn-success btn-lg float-right" id="btnNewAuthLogin">Loyalty OAuth</button></p>
                                 <span class="text-danger">{{loginMsg}}</span>  
                             </div>
                         </div>
-                        <!-- /form card login -->    
+                     
                     </div>
                 </div>
             </div>
         </div>     
-    </div>
+    </div> -->
     <!--/container-->
+
+  <section class="h-100">
+    <header class="container h-100">
+      <div class="d-flex align-items-center justify-content-center h-100">
+        <div class="d-flex flex-column custom-align">
+          <h1 class="text align-self-center p-2">Welcome To Loyalty</h1>
+          <h4 class="text align-self-center p-2">This is a reference site</h4>
+          <button type="button" (click)="getToken()"  class="btn btn-success btn-md float-right" id="btnNewAuthLogin">Loyalty OAuth</button>
+        </div>
+      </div>
+    </header>
+  </section>
