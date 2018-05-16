@@ -62,7 +62,9 @@ export class ProfileComponent implements OnInit {
       data => {
         this.spinner.hide();
         this.profileInfo = data;
+
         this.avatarUrl = data['Avatar'] + '?v=' + Date.now() || 'http://placehold.it/235x235';
+        this.profileService.setImageUrl(this.avatarUrl);
         // console.log('profileInfo data--', data);
         for (const value of data['ProfileProperties']) {
           const temp: string = value['PropertyName'];

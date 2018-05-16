@@ -74,7 +74,10 @@ export class MenubarComponent implements OnInit {
             // console.log('data---', data);
             this.pointsRemaining = data['CurrentPoints']['PointsRemaining'];
             this.pointsSpent = data['CurrentPoints']['PointsSpent'];
-            this.avatarUrl = data['Avatar'];
+
+            this.avatarUrl = data['Avatar'] + '?v=' + Date.now();
+            this.profileService.setImageUrl(this.avatarUrl);
+            this.profileService.imageUrl.subscribe(currentData => this.avatarUrl = currentData);
           },
           error => {
             this.spinner.hide();
