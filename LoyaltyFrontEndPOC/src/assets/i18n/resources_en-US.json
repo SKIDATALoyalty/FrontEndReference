@@ -18,7 +18,7 @@
         "Profilesection": "User Profile Information"
     },
     "Header": {
-        "welcometitle": "Bienvenue, ",
+        "welcometitle": "Welcome, ",
         "pointsremain":"Points Remaining",
         "pointsavail":"Points Spent",
         "logout":"Sign Out",
