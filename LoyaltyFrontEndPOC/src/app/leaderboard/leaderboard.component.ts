@@ -18,7 +18,7 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    const listUrl = '../poc/assets/static-data/leaderboardList.json';
+    const listUrl = '../assets/static-data/leaderboardList.json';
     this.leaderboardService.getLeaderBoardListAPi(listUrl).subscribe(data => {
       // console.log('success in leaderboard list', data);
       this.leaderBoardListData = data;
@@ -33,7 +33,7 @@ export class LeaderboardComponent implements OnInit {
     });
   }
   getLeaderboardData(id) {
-    const dataUrl = '../poc/assets/static-data/' + id + '.json';
+    const dataUrl = '../assets/static-data/' + id + '.json';
     this.leaderboardService.getLeaderBoardDataAPi(dataUrl).subscribe(data => {
       this.spinner.hide();
       this.leaderBoardData.push(data);
