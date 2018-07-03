@@ -35,8 +35,8 @@ export class MenubarComponent implements OnInit {
   public navbarCollapsed = true;
   tempLangCode: string;
 
-  public pointsRemaining = 0;
-  public pointsSpent = 0;
+  public pointsRemaining: any = 0;
+  public pointsSpent: any = 0;
   public observable: Observable<boolean>;
   private observer: Observer<boolean>;
 

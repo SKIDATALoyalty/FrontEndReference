@@ -36,6 +36,7 @@ import {ProfileService} from './profile/profile.service';
 import {BadgeService} from './badge/badge.service';
 import {LeaderboardService} from './leaderboard/leaderboard.service';
 import {LocalizationService} from './services/localization.service';
+import { MembervalueService } from './member-value/membervalue.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -45,6 +46,10 @@ import { ProgressbarModule } from 'ngx-bootstrap';
 import './rxjs-operators';
 import { ProfileComponent } from './profile/profile.component';
 import { BadgeComponent } from './badge/badge.component';
+import { BenefitsComponent } from './member-value/benefits/benefits.component';
+import { MemberValueComponent } from './member-value/member-value.component';
+import { LoadedValueComponent } from './member-value/loaded-value/loaded-value.component';
+import { StoredValueComponent } from './member-value/stored-value/stored-value.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -70,7 +75,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     PageNotFoundComponent,
     FaqComponent,
     ProfileComponent,
-    BadgeComponent
+    BadgeComponent,
+    BenefitsComponent,
+    MemberValueComponent,
+    LoadedValueComponent,
+    StoredValueComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +121,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoleGuardService,
     LeaderboardService,
     LocalizationService,
+    MembervalueService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class ProductService {
+export class MembervalueService {
 
   constructor(private http: HttpClient) { }
 
-  getProductAPi(url) {
+  getMemberBenefitsAPi(url) {
     return this.http.get(url);
   }
 

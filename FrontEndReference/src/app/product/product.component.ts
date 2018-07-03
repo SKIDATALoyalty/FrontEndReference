@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import {ProductService} from './product.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -27,7 +26,6 @@ export class ProductComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private spinner: NgxSpinnerService,
-              private http: HttpClient,
               private modalService: BsModalService) { }
 
   ngOnInit() {

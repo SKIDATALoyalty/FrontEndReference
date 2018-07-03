@@ -11,7 +11,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {FaqComponent} from './faq/faq.component';
 import {AuthGuardGuard} from '../app/auth-guard.guard';
 import {LoginRedirectGuard} from '../app/login-redirect.guard';
-import { RoleGuardService } from './services/role-guard.service';
+import { MemberValueComponent } from './member-value/member-value.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent, canActivate: [AuthGuardGuard] },
   { path: 'points', component: PointActivityComponent, canActivate: [AuthGuardGuard] },
   { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuardGuard] },
-  { path: 'pagenotfound', component: PageNotFoundComponent },
+  { path: 'member', component: MemberValueComponent, canActivate: [AuthGuardGuard]},
   { path: 'faq', component: FaqComponent, canActivate: [AuthGuardGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardGuard]},
   { path: 'pagenotfound/:admin', component: PageNotFoundComponent },
