@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
 
       this.tokens = this.getUrlParams(window.location.href);
       localStorage.setItem('access_token', this.tokens['access_token']);
-      localStorage.setItem('token_type', this.tokens['amp;response_type']);
-      localStorage.setItem('expires_in', this.tokens['amp;expires_in']);
+      localStorage.setItem('token_type', this.tokens['response_type']);
+      localStorage.setItem('expires_in', this.tokens['expires_in']);
       this.spinner.hide();
       this.authService.login();
 
