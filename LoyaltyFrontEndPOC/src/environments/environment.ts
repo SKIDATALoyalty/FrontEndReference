@@ -6,10 +6,10 @@
 export const environment = {
   production: false,
   apiKey: localStorage.getItem('api_key') || 'gtkh01rtXwaQjLX2SZdZtHDoxM7IMm63g00BH3Hj',
-  portalId: localStorage.getItem('portal_id') || 31, // 31 is default
+  portalId: localStorage.getItem('portal_id') || 83, // 31 is default
   redirectUrl: localStorage.getItem('redirect_url') || 'http://localhost:4200/login',
   responseType: '&response_type=token',
-  apiUrl: localStorage.getItem('api_url') || 'https://b2e.auth.us-west-2.amazoncognito.com/oauth2/authorize',
-  clientId: localStorage.getItem('client_id') || '25q6j2av3n48e7vgpfmm7qn46t',
-  apidocs: localStorage.getItem('portal_api_docs_url') || 'https://b2edev.skidataus.com/DesktopModules/'
+  apiUrl: localStorage.getItem('api_url') || 'https://iddev.skidataus.com/oauth2/login/',
+  clientId: localStorage.getItem('client_id') || 'fn28073h283fg2378f2g3',
+  apidocs: localStorage.getItem('portal_api_docs_url') || 'https://developerdev.skidataus.com/DesktopModules/'
 };

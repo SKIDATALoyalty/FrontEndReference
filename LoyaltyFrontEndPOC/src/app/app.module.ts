@@ -47,7 +47,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { BadgeComponent } from './badge/badge.component';
 
 export function tokenGetter() {
-  return localStorage.getItem('id_token');
+  return localStorage.getItem('access_token');
 }
 
 // required for AOT compilation

@@ -37,7 +37,7 @@ export class BadgeComponent implements OnInit {
   ngOnInit() {
 
     this.spinner.show();
-    this.userID =  this.authService.decodeJwtToken()['custom:UserId'];
+    this.userID =  this.authService.decodeJwtToken()['uid'];
     const badgeApiUrl = environment.apidocs + 'v1/API/Badge/GetBadges?userID=' + this.userID;
     this.badgeService.getBadgeAPi(badgeApiUrl).subscribe(
       data => {

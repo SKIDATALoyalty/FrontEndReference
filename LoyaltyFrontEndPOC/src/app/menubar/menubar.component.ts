@@ -51,7 +51,7 @@ export class MenubarComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
-    const authToken = localStorage.getItem('id_token');
+    const authToken = localStorage.getItem('access_token');
     this.settingsForm = new FormGroup({
       settings: new FormGroup({
         redirectUrl: new FormControl('', Validators.required),
@@ -178,10 +178,10 @@ export class MenubarComponent implements OnInit {
     // console.log(event.target.value);
     this.tempLangCode = event.target.value;
     this.translate.use(this.tempLangCode);
-    const langApiUrl = environment.apidocs + 'v1/API/user/' + this.authService.decodeJwtToken()['custom:UserId'] + '/properties';
+    const langApiUrl = environment.apidocs + 'v1/API/user/' + this.authService.decodeJwtToken()['uid'] + '/properties';
     const propObj = {
-      'UserID': Number(this.authService.decodeJwtToken()['custom:UserId']),
-      'PortalID': Number(this.authService.decodeJwtToken()['custom:PortalId']),
+      'UserID': Number(this.authService.decodeJwtToken()['uid']),
+      'PortalID': Number(this.authService.decodeJwtToken()['pid']),
       'ProfileProperties': [{
        'PropertyName': 'PreferredLocale',
        'PropertyValue': this.tempLangCode

@@ -68,7 +68,7 @@ export class AuthServiceService {
   public tokenHasAdminRole(): boolean {
     const hasGroups = this.decodeJwtToken();
     if (hasGroups !== null) {
-      const availableGroups = hasGroups['cognito:groups'];
+      const availableGroups = hasGroups['rol'];
       if (availableGroups !== undefined) {
         // console.log('grps data in auth', availableGroups);
         for (const value of availableGroups) {
@@ -91,11 +91,11 @@ export class AuthServiceService {
   }
 
   public tokenAvailableOrExpired(): boolean {
-    return !!localStorage.getItem('access_token') && !this.jwtHelper.isTokenExpired(localStorage.getItem('id_token'));
+    return !!localStorage.getItem('access_token'); // && !this.jwtHelper.isTokenExpired(localStorage.getItem('access_token'));
   }
 
   isTokenExpired(): boolean {
-    return this.jwtHelper.isTokenExpired(localStorage.getItem('id_token'));
+    return this.jwtHelper.isTokenExpired(localStorage.getItem('access_token'));
   }
 
   login() {
@@ -104,7 +104,7 @@ export class AuthServiceService {
   }
 
   getTokenExpirationDate(): Date {
-    const decoded = this.jwtHelper.decodeToken(localStorage.getItem('id_token'));
+    const decoded = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
     if (decoded === null) {
       return null;
     }
@@ -114,28 +114,26 @@ export class AuthServiceService {
   }
 
   getToken(): string {
-    return localStorage.getItem('id_token');
+    return localStorage.getItem('access_token');
   }
 
   setToken(token: string): void {
-    localStorage.setItem('id_token', token);
+    localStorage.setItem('access_token', token);
   }
 
   logout() {
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
     localStorage.removeItem('token_type');
     localStorage.removeItem('expires_in');
     localStorage.removeItem('timer');
     this.loggedIn.next(this.tokenAvailableOrExpired());
-    const logoutUrl = environment.apiUrl.replace('oauth2/authorize', 'logout');
-    const generateAuthUrl = logoutUrl + '?client_id=' + environment.clientId + '&logout_uri=' + environment.redirectUrl;
+    const logoutUrl = environment.apiUrl.replace('login', 'logout');
+    const generateAuthUrl = logoutUrl + environment.portalId + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl;
     window.location.href = generateAuthUrl;
   }
 
   unAuthorizedPage(data: boolean) {
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
     localStorage.removeItem('token_type');
     localStorage.removeItem('expires_in');
     localStorage.removeItem('timer');
@@ -148,12 +146,12 @@ export class AuthServiceService {
   }
 
  isAuthenticated(): boolean {
-    const token = localStorage.getItem('id_token');
+    const token = localStorage.getItem('access_token');
     return !this.jwtHelper.isTokenExpired(token);     // Check whether the token is expired and return true or false
   }
 
   decodeJwtToken() {
-    return this.jwtHelper.decodeToken(localStorage.getItem('id_token'));
+    return this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
   }
 
   // getTokenUrl() {
@@ -162,7 +160,7 @@ export class AuthServiceService {
   // }
 
   getAcessToken() {
-    const generateAuthUrl = environment.apiUrl + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + environment.responseType;
+    const generateAuthUrl = environment.apiUrl + environment.portalId + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + environment.responseType;
     this.spinner.hide();
     window.location.href = generateAuthUrl;
   }

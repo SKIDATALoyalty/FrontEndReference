@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadFileToActivity() {
-    const imageUploadApiUrl = environment.apidocs + 'v1/API/ProfileImage/Upload/' + this.authService.decodeJwtToken()['custom:UserId'];
+    const imageUploadApiUrl = environment.apidocs + 'v1/API/ProfileImage/Upload/' + this.authService.decodeJwtToken()['uid'];
     if (this.fileToUpload !== null) {
       this.spinner.show();
       this.profileService.postFile(this.fileToUpload, imageUploadApiUrl).subscribe(data => {
@@ -193,10 +193,10 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(form) {
-    const userProfileUpdateApiUrl = environment.apidocs + 'v1/API/user/' + this.authService.decodeJwtToken()['custom:UserId'] + '/properties';
+    const userProfileUpdateApiUrl = environment.apidocs + 'v1/API/user/' + this.authService.decodeJwtToken()['uid'] + '/properties';
     const propObj = {
-      'UserID': Number(this.authService.decodeJwtToken()['custom:UserId']),
-      'PortalID': Number(this.authService.decodeJwtToken()['custom:PortalId']),
+      'UserID': Number(this.authService.decodeJwtToken()['uid']),
+      'PortalID': Number(this.authService.decodeJwtToken()['pid']),
       'ProfileProperties': []
     };
     // console.log('profile form', form);

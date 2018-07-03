@@ -13,12 +13,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LoginComponent implements OnInit {
   tokenUrl: any;
-  accessToken: any;
+  tokens: any;
   hasAdminRole = false;
   loginMsg: any;
   constructor(private authService: AuthServiceService,
               private httpClient: HttpClient,
-              private activeRoute: ActivatedRoute,
+              private activatedRoute: ActivatedRoute,
               private router: Router,
               private spinner: NgxSpinnerService) {
 
@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if ( window.location.href.indexOf('access_token') > -1) {
       this.spinner.show();
-      this.accessToken = this.getParameterByName('access_token');
-      localStorage.setItem('access_token', this.getParameterByName('access_token'));
-      localStorage.setItem('id_token', this.getParameterByName('id_token'));
-      localStorage.setItem('token_type', this.getParameterByName('token_type'));
-      localStorage.setItem('expires_in', this.getParameterByName('expires_in'));
+
+      this.tokens = this.getUrlParams(window.location.href);
+      localStorage.setItem('access_token', this.tokens['access_token']);
+      localStorage.setItem('token_type', this.tokens['amp;response_type']);
+      localStorage.setItem('expires_in', this.tokens['amp;expires_in']);
       this.spinner.hide();
       this.authService.login();
 
@@ -84,10 +84,21 @@ export class LoginComponent implements OnInit {
   // }
 
   // url param value extractor
+  getUrlParams(url) {
+    const params = {};
+    (url + '?').split('?')[1].split('&').forEach(function (pair: any) {
+      pair = (pair + '=').split('=').map(decodeURIComponent);
+      if (pair[0].length) {
+        params[pair[0]] = pair[1];
+      }
+    });
+    return params;
+  }
+
   getParameterByName(name) {
     const vars = [];
     let hash: any = '';
-    const hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
+    const hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     for (let i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');
         vars.push(hash[0]);
