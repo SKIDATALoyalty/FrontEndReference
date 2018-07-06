@@ -21,7 +21,7 @@
             <li class="nav-item" *ngIf="(isLoggedIn$ | async) && profileInfo !== undefined">
                 <a href="" class="nav-link"><p class="text-white" (click)="navbarCollapsed = true">{{'Header.welcometitle' | translate}}  {{profileInfo.DisplayName}}</p></a>
             </li>
-            <li class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)" (click)="navbarCollapsed = true">Login</a></li>
+            <!-- <li class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link" title="login" *ngIf="!(isLoggedIn$ | async)" (click)="navbarCollapsed = true">Login</a></li> -->
             <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="navbarCollapsed = true"><span>{{'Header.pointsremain' | translate}}</span><br><ng2-odometer [number]="pointsRemaining" [format]="'(,ddd)'" [theme]="'digital'"></ng2-odometer></a></li>
             <li class="nav-item"><a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="navbarCollapsed = true"><span>{{'Header.pointsavail' | translate}}</span><br><ng2-odometer [number]="pointsSpent" [format]="'(,ddd)'" [theme]="'digital'"></ng2-odometer></a></li>
             <li *ngIf="isLoggedIn$ | async">
