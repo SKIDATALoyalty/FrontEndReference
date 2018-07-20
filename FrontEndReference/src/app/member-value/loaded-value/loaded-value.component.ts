@@ -54,7 +54,7 @@ export class LoadedValueComponent implements OnInit {
       data => {
         this.spinner.hide();
         this.loadedHistory = data['Records'];
-        console.log('data', data['Records']);
+        // console.log('data', data['Records']);
       },
       error => {
         this.spinner.hide();
