@@ -10,4 +10,11 @@ export class MembervalueService {
     return this.http.get(url);
   }
 
+  getLoadedValueAPi(url) {
+    return this.http.get(url);
+  }
+
+  getLoadedValueHistoryAPi(url) {
+    return this.http.get(url);
+  }
 }

@@ -9,7 +9,7 @@ export const environment = {
   portalId: localStorage.getItem('portal_id') || 83, // 31 is default
   redirectUrl: localStorage.getItem('redirect_url') || 'http://localhost:4200/login',
   responseType: '&response_type=token',
-  apiUrl: localStorage.getItem('api_url') || 'https://iddev.skidataus.com/oauth2/login/',
+  apiUrl: localStorage.getItem('api_url') || 'https://idstage.skidataus.com/oauth2/login/',
   clientId: localStorage.getItem('client_id') || 'fn28073h283fg2378f2g3',
-  apidocs: localStorage.getItem('portal_api_docs_url') || 'https://developerdev.skidataus.com/DesktopModules/'
+  apidocs: localStorage.getItem('portal_api_docs_url') || 'https://developerstage.skidataus.com/DesktopModules/'
 };
