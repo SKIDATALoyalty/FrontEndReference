@@ -22,21 +22,21 @@
                             <p class="card-text">{{item.Description}}</p>
                         </div>
                         <div class="tab-pane fade" id="transaction{{item.LoadedValueID}}" role="tabpanel" aria-labelledby="transaction-tab">
-                            Transaction History -{{item.LoadedValueID}}
+                            Loaded Value Transaction History - {{item.LoadedValueID}}
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                     <th scope="col">Transaction Id</th>
-                                    <th scope="col">Amount</th>
                                     <th scope="col">Remaining Balance</th>
+                                    <th scope="col">Amount Spent</th>
                                     <th scope="col">Date Updated</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let tItem of loadedHistory">
                                         <th scope="row">{{tItem.LoadedValueTransactionID}}</th>
-                                        <td>{{tItem.Amount | currency}}</td>
                                         <td>{{tItem.RemainingBalance | currency}}</td>
+                                        <td>{{tItem.Amount | currency}}</td>
                                         <td>{{tItem.DateUpdated | date}}</td>
                                     </tr>
                                 </tbody>

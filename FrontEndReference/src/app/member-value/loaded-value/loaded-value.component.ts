@@ -35,7 +35,7 @@ export class LoadedValueComponent implements OnInit {
   getLoadedData() {
     this.userID =  this.authService.decodeJwtToken()['uid'];
     const loadedApiUrl = environment.apidocs + 'v3/API/LoadedValue/u/' + this.userID + '/LoadedValue';
-    this.membervalueService.getLoadedValueAPi(loadedApiUrl).subscribe(
+    this.membervalueService.getValueAPi(loadedApiUrl).subscribe(
       data => {
         this.spinner.hide();
         this.loadedList = data['Data']['Records'];
@@ -50,7 +50,7 @@ export class LoadedValueComponent implements OnInit {
   getLoadedValueHistory(lId: Number) {
     this.userID =  this.authService.decodeJwtToken()['uid'];
     const loadedTransactionApiUrl = environment.apidocs + 'v2/API/MemberValue/u/' + this.userID + '/LoadedValueTransactions/' + lId;
-    this.membervalueService.getLoadedValueHistoryAPi(loadedTransactionApiUrl).subscribe(
+    this.membervalueService.getValueHistoryAPi(loadedTransactionApiUrl).subscribe(
       data => {
         this.spinner.hide();
         this.loadedHistory = data['Records'];
@@ -62,8 +62,4 @@ export class LoadedValueComponent implements OnInit {
       });
   }
 
-  openBenefitInModal(benefitModal: TemplateRef<any>, data) {
-    this.singleLoadedInfo = data;
-    this.modalRef = this.modalService.show(benefitModal);
-  }
 }
