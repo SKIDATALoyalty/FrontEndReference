@@ -37,6 +37,7 @@ import {BadgeService} from './badge/badge.service';
 import {LeaderboardService} from './leaderboard/leaderboard.service';
 import {LocalizationService} from './services/localization.service';
 import { MembervalueService } from './member-value/membervalue.service';
+import { OrderCheckoutService } from './order-checkout/order-checkout.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -50,6 +51,7 @@ import { BenefitsComponent } from './member-value/benefits/benefits.component';
 import { MemberValueComponent } from './member-value/member-value.component';
 import { LoadedValueComponent } from './member-value/loaded-value/loaded-value.component';
 import { StoredValueComponent } from './member-value/stored-value/stored-value.component';
+import { OrderCheckoutComponent } from './order-checkout/order-checkout.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -79,7 +81,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BenefitsComponent,
     MemberValueComponent,
     LoadedValueComponent,
-    StoredValueComponent
+    StoredValueComponent,
+    OrderCheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -122,6 +125,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LeaderboardService,
     LocalizationService,
     MembervalueService,
+    OrderCheckoutService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

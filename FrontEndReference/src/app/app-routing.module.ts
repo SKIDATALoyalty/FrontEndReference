@@ -12,6 +12,7 @@ import {FaqComponent} from './faq/faq.component';
 import {AuthGuardGuard} from '../app/auth-guard.guard';
 import {LoginRedirectGuard} from '../app/login-redirect.guard';
 import { MemberValueComponent } from './member-value/member-value.component';
+import { OrderCheckoutComponent } from './order-checkout/order-checkout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'points', component: PointActivityComponent, canActivate: [AuthGuardGuard] },
   { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuardGuard] },
   { path: 'member', component: MemberValueComponent, canActivate: [AuthGuardGuard]},
+  { path: 'order', component: OrderCheckoutComponent, canActivate: [AuthGuardGuard]},
   { path: 'faq', component: FaqComponent, canActivate: [AuthGuardGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardGuard]},
   { path: 'pagenotfound/:admin', component: PageNotFoundComponent },

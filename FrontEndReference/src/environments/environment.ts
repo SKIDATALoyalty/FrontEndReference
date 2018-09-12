@@ -6,10 +6,10 @@
 export const environment = {
   production: false,
   apiKey: localStorage.getItem('api_key') || 'gtkh01rtXwaQjLX2SZdZtHDoxM7IMm63g00BH3Hj',
-  portalId: localStorage.getItem('portal_id') || 83, // 31 is default
+  portalId: localStorage.getItem('portal_id') || 83,
   redirectUrl: localStorage.getItem('redirect_url') || 'http://localhost:4200/login',
   responseType: '&response_type=token',
   apiUrl: localStorage.getItem('api_url') || 'https://idstage.skidataus.com/oauth2/login/',
-  clientId: localStorage.getItem('client_id') || 'fn28073h283fg2378f2g3',
+  clientId: localStorage.getItem('client_id') || 'efdb87ca9489fa199663',
   apidocs: localStorage.getItem('portal_api_docs_url') || 'https://developerstage.skidataus.com/DesktopModules/'
 };

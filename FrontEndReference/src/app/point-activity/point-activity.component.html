@@ -21,7 +21,7 @@
     <div class="row" *ngIf="pointCategories !== undefined">
         <div class="col-sm-4 mt-3" *ngFor="let points of pointActivities">
             <div class="card">
-                <img *ngIf="points.Images.length === 0" class="card-img-top img-fluid grid-img" src="//via.placeholder.com/400x300" alt="Card image cap" (click)="showPointActivityInModal(pointModal, points)">
+                <img *ngIf="points.Images.length === 0" class="card-img-top img-fluid grid-img" src="//placehold.jp/400x300.png" alt="Card image cap" (click)="showPointActivityInModal(pointModal, points)">
                 <img *ngIf="points.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="points.Images[0].Src" alt="Card image cap" (click)="showPointActivityInModal(pointModal, points)">
                 <div class="card-body">
                     <h4 class="card-title">{{points.Title}}</h4>
@@ -42,7 +42,7 @@
         </button>
     </div>
     <div class="modal-body" *ngIf="singlePointInfo.Images.length === 0" >
-        <img class="card-img-top img-fluid" src="//via.placeholder.com/400x300" alt="Card image cap">
+        <img class="card-img-top img-fluid" src="//placehold.jp/800x600.png" alt="Card image cap">
     </div>
     <div class="modal-body" *ngIf="singlePointInfo.Images.length > 0" >
         <carousel [(activeSlide)]="activeSlideIndex" >

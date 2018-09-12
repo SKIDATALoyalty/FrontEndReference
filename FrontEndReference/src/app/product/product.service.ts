@@ -6,7 +6,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProductAPi(url) {
+  getAPi(url) {
     return this.http.get(url);
   }
 

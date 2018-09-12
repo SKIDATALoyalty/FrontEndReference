@@ -87,7 +87,7 @@ export class PointActivityComponent implements OnInit, OnDestroy {
   showPointActivityInModal(pointModal: TemplateRef<any>, data) {
    // console.log('data---', data);
     this.singlePointInfo = data;
-    this.modalRef = this.modalService.show(pointModal);
+    this.modalRef = this.modalService.show(pointModal, {class: 'modal-lg'});
   }
 
   ngOnDestroy() {

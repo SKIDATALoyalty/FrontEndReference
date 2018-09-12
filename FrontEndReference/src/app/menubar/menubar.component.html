@@ -50,6 +50,7 @@
                 <li class="nav-item"><a routerLink="/faq" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true"><i class="fa fa-question"></i><br>{{'Header.faq' | translate}}</a></li>
                 <li class="nav-item"><a routerLink="/profile" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true"><i class="fa fa-user"></i><br>{{'Header.profile' | translate}}</a></li>
                 <li class="nav-item"><a routerLink="/member" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true"><i class="fa fa-money"></i><br>Member Value</a></li>
+                <li class="nav-item"><a routerLink="/order" routerLinkActive="active" class="nav-link" *ngIf="isLoggedIn$ | async" (click)="navbarCollapsed = true"><i class="fa fa-shopping-cart"></i><br>Order[0]</a></li>
                 <li class="nav-item"><a (click)="loyaltylogout()" class="nav-link show-cursor" title="login" *ngIf="isLoggedIn$ | async"><i class="fa fa-sign-out"></i><br>{{'Header.logout' | translate}}</a></li>
             </ul>
         </div>
