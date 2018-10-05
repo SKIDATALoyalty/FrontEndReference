@@ -1,11 +1,9 @@
+import { LoaderService } from './services/loader.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {environment} from '../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response } from '@angular/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import { Subject} from 'rxjs/Subject';
@@ -17,7 +15,6 @@ export class AuthServiceService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenAvailableOrExpired());
   private admintUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.tokenHasAdminRole());
 
-  private _count = 0;
   private _timeoutSeconds = 10;
   private timerSubscription: Subscription;
   private timer: Observable<number>;
@@ -25,9 +22,8 @@ export class AuthServiceService {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private jwtHelper: JwtHelperService,
-    private spinner: NgxSpinnerService
+    private loaderService: LoaderService
   ) {
     this.timeoutExpired.subscribe(n => {
         console.log('timeoutExpired subject next.. ' + n.toString());
@@ -155,13 +151,13 @@ export class AuthServiceService {
   }
 
   // getTokenUrl() {
-  //   this.spinner.hide();
+  //   this.loaderService.display(false);
   //   return this.http.get(environment.apiUrl);
   // }
 
   getAcessToken() {
     const generateAuthUrl = environment.apiUrl + environment.portalId + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + environment.responseType;
-    this.spinner.hide();
+    this.loaderService.display(false);
     window.location.href = generateAuthUrl;
   }
 

@@ -1,3 +1,4 @@
+import { LoaderService } from './../services/loader.service';
 import { Component, OnInit, Pipe } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -5,11 +6,12 @@ import 'rxjs/add/operator/debounceTime';
 import {AuthServiceService} from '../auth-service.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileService} from '../profile/profile.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+
 import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/share';
 import {TranslateService } from '@ngx-translate/core';
 import {LocalizationService} from '../services/localization.service';
+import {OrderCheckoutService} from '../order-checkout/order-checkout.service';
 
 import {
   FormGroup,
@@ -34,20 +36,21 @@ export class MenubarComponent implements OnInit {
   languageSelected = undefined;
   public navbarCollapsed = true;
   tempLangCode: string;
-
+  orderlength = 0;
   public pointsRemaining: any = 0;
   public pointsSpent: any = 0;
   public observable: Observable<boolean>;
   private observer: Observer<boolean>;
 
   constructor(private authService: AuthServiceService,
+    private orderCheckoutService: OrderCheckoutService,
     private modalService: NgbModal,
     private profileService: ProfileService,
-    private spinner: NgxSpinnerService,
+    private loaderService: LoaderService,
     private translate: TranslateService,
     private localizationService: LocalizationService) {
       this.observable = new Observable<boolean>((observer: any) => this.observer = observer).share();
-     }
+    }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
@@ -65,11 +68,11 @@ export class MenubarComponent implements OnInit {
     this.authService.isLoggedIn.subscribe(status => {
       // console.log('logged in status', status);
       if (status) {
-        this.spinner.show();
+        this.loaderService.display(true);
         const profileInfoApiUrl = environment.apidocs + 'v1/API/user';
         this.profileService.getProfileAPi(profileInfoApiUrl).subscribe(
           data => {
-            this.spinner.hide();
+            this.loaderService.display(false);
             this.profileInfo = data;
             // console.log('data---', data);
             this.pointsRemaining = data['CurrentPoints']['PointsRemaining'];
@@ -80,7 +83,7 @@ export class MenubarComponent implements OnInit {
             this.profileService.imageUrl.subscribe(currentData => this.avatarUrl = currentData);
           },
           error => {
-            this.spinner.hide();
+            this.loaderService.display(false);
             console.log(error);
           });
 
@@ -94,7 +97,7 @@ export class MenubarComponent implements OnInit {
             }
           },
           error => {
-            this.spinner.hide();
+            this.loaderService.display(false);
             console.log('error in default lang API', error);
           });
 
@@ -107,7 +110,7 @@ export class MenubarComponent implements OnInit {
           this.languageList.push(tempObj);
           for (const [key, value] of Object.entries(data)) {
             // console.log(value);
-             tempObj = {
+            tempObj = {
               'value': value,
               'name': key
             };
@@ -116,8 +119,20 @@ export class MenubarComponent implements OnInit {
           // console.log('lang list', this.languageList);
         },
         error => {
-          this.spinner.hide();
+          this.loaderService.display(false);
           console.log('lang list', error);
+        });
+
+        const params = [];
+        const userID =  this.authService.decodeJwtToken()['uid'];
+        const currentorderurl = environment.apidocs + 'v2/API/Orders/' + userID + '/Current';
+        this.orderCheckoutService.get<any>(currentorderurl, params).subscribe(res => {
+          for (let i = 0; i < res.Items.length; i++) {
+            this.orderlength += res.Items[i].Quantity;
+          }
+        },
+        error => {
+          console.log('error in get current order', error);
         });
       }
     });
@@ -160,18 +175,18 @@ export class MenubarComponent implements OnInit {
   }
 
   onSubmitSaveLocal() {
-   this.settingsSuccessMsg = '';
-  //  console.log('settings info', this.settingsForm.value.settings);
-   localStorage.setItem('redirect_url', this.settingsForm.value.settings.redirectUrl);
-   localStorage.setItem('api_key', this.settingsForm.value.settings.apiKey);
-   localStorage.setItem('client_id', this.settingsForm.value.settings.clientId);
-   localStorage.setItem('portal_id', this.settingsForm.value.settings.portalId);
-   localStorage.setItem('api_url', this.settingsForm.value.settings.apiUrl);
-   localStorage.setItem('portal_api_docs_url', this.settingsForm.value.settings.portalApiDocsUrl);
-   this.settingsSuccessMsg = 'Settings Successfully Saved';
-   setTimeout(() => {
     this.settingsSuccessMsg = '';
-   }, 3000);
+    //  console.log('settings info', this.settingsForm.value.settings);
+    localStorage.setItem('redirect_url', this.settingsForm.value.settings.redirectUrl);
+    localStorage.setItem('api_key', this.settingsForm.value.settings.apiKey);
+    localStorage.setItem('client_id', this.settingsForm.value.settings.clientId);
+    localStorage.setItem('portal_id', this.settingsForm.value.settings.portalId);
+    localStorage.setItem('api_url', this.settingsForm.value.settings.apiUrl);
+    localStorage.setItem('portal_api_docs_url', this.settingsForm.value.settings.portalApiDocsUrl);
+    this.settingsSuccessMsg = 'Settings Successfully Saved';
+    setTimeout(() => {
+      this.settingsSuccessMsg = '';
+    }, 3000);
   }
 
   useLanguage(event) {
@@ -183,8 +198,8 @@ export class MenubarComponent implements OnInit {
       'UserID': Number(this.authService.decodeJwtToken()['uid']),
       'PortalID': Number(this.authService.decodeJwtToken()['pid']),
       'ProfileProperties': [{
-       'PropertyName': 'PreferredLocale',
-       'PropertyValue': this.tempLangCode
+      'PropertyName': 'PreferredLocale',
+      'PropertyValue': this.tempLangCode
       }]
     };
 
@@ -194,7 +209,7 @@ export class MenubarComponent implements OnInit {
       window.location.reload();
     },
     error => {
-      this.spinner.hide();
+      this.loaderService.display(false);
       console.log('error in language preferences', error);
     });
   }

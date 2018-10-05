@@ -1,10 +1,8 @@
+import { LoaderService } from './services/loader.service';
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
-import { Router } from '@angular/router';
 import {AuthServiceService} from './auth-service.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { NgxSpinnerService } from 'ngx-spinner';
 import {Subscription} from 'rxjs/Subscription';
 import {TranslateService } from '@ngx-translate/core';
 import {LocalizationService} from './services/localization.service';
@@ -24,11 +22,10 @@ export class AppComponent implements OnInit, OnDestroy {
   private _idleTimerSubscription: Subscription;
   copyRight = new Date().getFullYear();
   userDefaultlang: any;
+  showLoader: boolean;
 
   constructor(private authService: AuthServiceService,
-              private router: Router,
-              private jwtHelper: JwtHelperService,
-              private spinner: NgxSpinnerService,
+              private loaderService: LoaderService,
               private changeRef: ChangeDetectorRef,
               public translate: TranslateService,
               private localizationService: LocalizationService) {
@@ -87,9 +84,13 @@ export class AppComponent implements OnInit, OnDestroy {
           });
 
       } else {
-        this.spinner.hide();
+
       }
     });
+
+    this.loaderService.status.subscribe((val: boolean) => {
+      this.showLoader = val;
+  });
   }
 
   public stopTimer() {
@@ -98,6 +99,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._idleTimerSubscription.unsubscribe();
-    this.spinner.hide();
   }
 }

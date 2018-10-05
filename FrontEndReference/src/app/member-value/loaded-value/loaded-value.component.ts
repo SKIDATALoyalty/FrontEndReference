@@ -1,9 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import {MembervalueService} from '../membervalue.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import {environment} from '../../../environments/environment';
 import {AuthServiceService} from '../../auth-service.service';
-
+import { LoaderService } from '../../services/loader.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -23,12 +22,12 @@ export class LoadedValueComponent implements OnInit {
   activeSlideIndex = 0;
 
   constructor(private membervalueService: MembervalueService,
-    private spinner: NgxSpinnerService,
+    private loaderService: LoaderService,
     private modalService: BsModalService,
     private authService: AuthServiceService) { }
 
   ngOnInit() {
-    this.spinner.show();
+    this.loaderService.display(true);
     this.getLoadedData();
   }
 
@@ -37,12 +36,12 @@ export class LoadedValueComponent implements OnInit {
     const loadedApiUrl = environment.apidocs + 'v3/API/LoadedValue/u/' + this.userID + '/LoadedValue';
     this.membervalueService.getValueAPi(loadedApiUrl).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.loadedList = data['Data']['Records'];
         // console.log('data', data['Data']['Records']);
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }
@@ -52,12 +51,12 @@ export class LoadedValueComponent implements OnInit {
     const loadedTransactionApiUrl = environment.apidocs + 'v2/API/MemberValue/u/' + this.userID + '/LoadedValueTransactions/' + lId;
     this.membervalueService.getValueHistoryAPi(loadedTransactionApiUrl).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.loadedHistory = data['Records'];
         // console.log('data', data['Records']);
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }

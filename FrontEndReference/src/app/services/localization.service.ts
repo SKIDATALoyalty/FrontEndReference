@@ -24,10 +24,10 @@ export class LocalizationService {
     this.translate.get(key).subscribe(value => {
       this.translatedKeyValue = value;
     },
-     error => {
-      this.translatedKeyValue = key;
-     });
-     return this.translatedKeyValue;
+    error => {
+    this.translatedKeyValue = key;
+    });
+    return this.translatedKeyValue;
   }
 
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import {MembervalueService} from '../membervalue.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import {environment} from '../../../environments/environment';
 import {AuthServiceService} from '../../auth-service.service';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-benefits',
@@ -22,12 +22,12 @@ export class BenefitsComponent implements OnInit {
   activeSlideIndex = 0;
 
   constructor(private membervalueService: MembervalueService,
-    private spinner: NgxSpinnerService,
+    private loaderService: LoaderService,
     private modalService: BsModalService,
     private authService: AuthServiceService) { }
 
   ngOnInit() {
-    this.spinner.show();
+    this.loaderService.display(true);
     this.getBenefitsData();
   }
 
@@ -36,11 +36,11 @@ export class BenefitsComponent implements OnInit {
     const benefitApiUrl = environment.apidocs + 'v2/API/MemberBenefits/' + this.userID;
     this.membervalueService.getMemberBenefitsAPi(benefitApiUrl).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.benefitsList = data;
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }

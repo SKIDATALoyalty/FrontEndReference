@@ -1,7 +1,7 @@
+import { LoaderService } from './../services/loader.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {BadgeService} from './badge.service';
 import {environment} from '../../environments/environment';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import {AuthServiceService} from '../auth-service.service';
 import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
@@ -29,30 +29,29 @@ export class BadgeComponent implements OnInit {
   userID: any;
 
   constructor(private badgeService: BadgeService,
-              private spinner: NgxSpinnerService,
+              private loaderService: LoaderService,
               private modalService: BsModalService,
               private authService: AuthServiceService) {
               }
 
   ngOnInit() {
-
-    this.spinner.show();
+    this.loaderService.display(true);
     this.userID =  this.authService.decodeJwtToken()['uid'];
     const badgeApiUrl = environment.apidocs + 'v1/API/Badge/GetBadges?userID=' + this.userID;
     this.badgeService.getBadgeAPi(badgeApiUrl).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.badgeContentInfo = data;
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log('error in badge get api', error);
       });
   }
 
   showBadgeInModal(badgeModal: TemplateRef<any>, data) {
-     this.singleBadgeContentInfo = data;
-     this.modalRef = this.modalService.show(badgeModal);
+      this.singleBadgeContentInfo = data;
+      this.modalRef = this.modalService.show(badgeModal);
   }
 
 }

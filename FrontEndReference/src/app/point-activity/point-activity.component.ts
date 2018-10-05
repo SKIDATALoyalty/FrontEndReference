@@ -1,7 +1,6 @@
+import { LoaderService } from './../services/loader.service';
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import {PointsService} from './points.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -21,21 +20,20 @@ export class PointActivityComponent implements OnInit, OnDestroy {
   activeSlideIndex = 0;
 
   constructor(private pointService: PointsService,
-              private spinner: NgxSpinnerService,
-              private http: HttpClient,
+              private loaderService: LoaderService,
               private modalService: BsModalService) { }
 
   ngOnInit() {
-    this.spinner.show();
+    this.loaderService.display(true);
     const pointTypes = environment.apidocs + 'v1/API/PointActivityType/GetTypes';
     this.pointService.getPointActivityAPi(pointTypes).subscribe(
       data => {
         this.pointCategories = data;
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.getPointActivities();
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }
@@ -46,52 +44,52 @@ export class PointActivityComponent implements OnInit, OnDestroy {
       const pointTypes = environment.apidocs + 'v1/API/pointActivities';
       this.pointService.getPointActivityAPi(pointTypes).subscribe(
         data => {
-          this.spinner.hide();
+          this.loaderService.display(false);
           this.pointActivities = data;
           // console.log('data---', data);
         },
         error => {
-          this.spinner.hide();
+          this.loaderService.display(false);
           console.log(error);
         });
     } else {
       const pointTypes = environment.apidocs + 'v1/API/pointActivities' + '?pointActivityTypeID=' + id;
       this.pointService.getPointActivityAPi(pointTypes).subscribe(
         data => {
-          this.spinner.hide();
+          this.loaderService.display(false);
           this.pointActivities = data;
           // console.log('data---', data);
         },
         error => {
-          this.spinner.hide();
+          this.loaderService.display(false);
           console.log(error);
         });
     }
   }
 
   getPointActivities () {
-    this.spinner.show();
+    this.loaderService.display(true);
     const pointTypes = environment.apidocs + 'v1/API/pointActivities';
     this.pointService.getPointActivityAPi(pointTypes).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.pointActivities = data;
         // console.log('data---', data);
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }
 
   showPointActivityInModal(pointModal: TemplateRef<any>, data) {
-   // console.log('data---', data);
+    // console.log('data---', data);
     this.singlePointInfo = data;
     this.modalRef = this.modalService.show(pointModal, {class: 'modal-lg'});
   }
 
   ngOnDestroy() {
-    this.spinner.hide();
+    this.loaderService.display(false);
   }
 
 }

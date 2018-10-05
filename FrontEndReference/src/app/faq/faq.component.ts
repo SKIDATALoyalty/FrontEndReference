@@ -1,9 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {SimpleContentService} from './simple-content.service';
 import {environment} from '../../environments/environment';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-
+import { LoaderService } from './../services/loader.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -21,29 +20,29 @@ export class FaqComponent implements OnInit {
   activeSlideIndex = 0;
 
   constructor(private simpleContentService: SimpleContentService,
-    private spinner: NgxSpinnerService,
+    private loaderService: LoaderService,
     private modalService: BsModalService) { }
 
   ngOnInit() {
     this.toggleView = 'list';
 
-    this.spinner.show();
+    this.loaderService.display(true);
     const simpleApiUrl = environment.apidocs + 'v1/API/SimpleContent/GetArticlesByCategory';
     this.simpleContentService.getSimpleContentAPi(simpleApiUrl).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.simpleContentInfo = data;
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }
 
   showSimpleContentInModal(simpleContentModal: TemplateRef<any>, data) {
     // console.log('data---', data);
-     this.singleContentInfo = data;
-     this.modalRef = this.modalService.show(simpleContentModal);
+      this.singleContentInfo = data;
+      this.modalRef = this.modalService.show(simpleContentModal);
   }
 
 }

@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Ng2OdometerModule } from 'ng2-odometer';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -26,6 +25,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FaqComponent } from './faq/faq.component';
 import { AuthGuardGuard } from './auth-guard.guard';
 import { RoleGuardService } from './services/role-guard.service';
+import { LoaderService } from './services/loader.service';
 import { LoginRedirectGuard } from './login-redirect.guard';
 import { AuthServiceService } from './auth-service.service';
 import { TokenInterceptor } from './services/token.interceptor';
@@ -102,7 +102,6 @@ export function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
       }
     }),
-    NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
@@ -126,6 +125,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LocalizationService,
     MembervalueService,
     OrderCheckoutService,
+    LoaderService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

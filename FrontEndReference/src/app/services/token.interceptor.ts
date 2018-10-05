@@ -1,3 +1,4 @@
+import { LoaderService } from './loader.service';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -11,7 +12,6 @@ import {AuthServiceService} from '../auth-service.service';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
-import { NgxSpinnerService } from 'ngx-spinner';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthServiceService,
-    private spinner: NgxSpinnerService
+    private loaderService: LoaderService
     ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -38,7 +38,7 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           // This is where you can use your various tokens
           'Accept': 'application/json',
-           Authorization: authToken,
+          Authorization: authToken,
           'x-api-key': environment.apiKey
         }
       });
@@ -50,7 +50,7 @@ export class TokenInterceptor implements HttpInterceptor {
         // console.log('res details:', event);
       }
     }, (err: any) => {
-      this.spinner.hide();
+      this.loaderService.display(false);
       if (err instanceof HttpErrorResponse) {
         if (err.status === 403) {
           console.log('403 error details:', err);
@@ -62,6 +62,8 @@ export class TokenInterceptor implements HttpInterceptor {
           this.authService.logout();
         } else if (err.status === 500) {
           console.log('500 error details:', err);
+        } else {
+          console.log('unknown error details:', err);
         }
       }
     })

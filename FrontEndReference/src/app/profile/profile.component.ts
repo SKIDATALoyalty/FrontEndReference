@@ -1,10 +1,12 @@
+import { LoaderService } from './../services/loader.service';
 import { Component, OnInit } from '@angular/core';
 import {ProfileService} from './profile.service';
 import {environment} from '../../environments/environment';
-import { NgxSpinnerService } from 'ngx-spinner';
+
 import {AuthServiceService} from '../auth-service.service';
 import {LocalizationService} from '../services/localization.service';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-profile',
@@ -22,32 +24,28 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
 
   constructor(private profileService: ProfileService,
-              private spinner: NgxSpinnerService,
+              private loaderService: LoaderService,
               private authService: AuthServiceService,
               private localizationService: LocalizationService) { }
 
   ngOnInit() {
-   this.getProfileInformation();
+    this.getProfileInformation();
   }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.profileImageMsg = '';
-    // console.log('image this.fileToUpload --', this.fileToUpload);
   }
 
   uploadFileToActivity() {
     const imageUploadApiUrl = environment.apidocs + 'v1/API/ProfileImage/Upload/' + this.authService.decodeJwtToken()['uid'];
     if (this.fileToUpload !== null) {
-      this.spinner.show();
+      this.loaderService.display(true);
       this.profileService.postFile(this.fileToUpload, imageUploadApiUrl).subscribe(data => {
-        // do something, if upload success
-        // console.log('image data--', data);
-        // this.spinner.hide();
         this.getProfileInformation();
       }, error => {
         console.log(error);
-        this.spinner.hide();
+        this.loaderService.display(false);
       });
     } else {
       this.profileImageMsg =  this.localizationService.getTranslatedValue('ProfilePage.uploadmsg');
@@ -56,7 +54,7 @@ export class ProfileComponent implements OnInit {
 
   getProfileInformation() {
     this.profile = [];
-    this.spinner.show();
+    this.loaderService.display(true);
     const profileInfoApiUrl = environment.apidocs + 'v1/API/user';
     this.profileService.getProfileAPi(profileInfoApiUrl).subscribe(
       data => {
@@ -154,11 +152,11 @@ export class ProfileComponent implements OnInit {
           }
           this.profileForm = new FormGroup(formGroup);
           // console.log('profilform', this.profileForm);
-          this.spinner.hide();
+          this.loaderService.display(false);
         }, 500);
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }
@@ -201,7 +199,7 @@ export class ProfileComponent implements OnInit {
     };
     // console.log('profile form', form);
     for (const [key, value] of Object.entries(form)) {
-       const tempObj = {
+      const tempObj = {
         'PropertyName': key,
         'PropertyValue': value
       };
@@ -209,14 +207,14 @@ export class ProfileComponent implements OnInit {
     }
     // console.log('profile update obj', propObj);
     this.localizationService.updateUserPreferences(userProfileUpdateApiUrl, propObj).subscribe(data => {
-     // console.log('profile updated successfully', data);
-     this.profileMsg =  'Profile information updated successfully';
-     setTimeout(() => {
-      this.profileMsg = '';
-     }, 3000);
+      // console.log('profile updated successfully', data);
+      this.profileMsg =  'Profile information updated successfully';
+      setTimeout(() => {
+        this.profileMsg = '';
+      }, 3000);
     },
     error => {
-      this.spinner.hide();
+      this.loaderService.display(false);
       console.log('error inprofile update', error);
     });
   }

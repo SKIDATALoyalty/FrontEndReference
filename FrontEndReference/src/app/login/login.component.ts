@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthServiceService} from '../auth-service.service';
-import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {ActivatedRoute, Router, Params } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { HttpClient } from '@angular/common/http';
+import {ActivatedRoute, Router } from '@angular/router';
+import { LoaderService } from './../services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -17,22 +15,19 @@ export class LoginComponent implements OnInit {
   hasAdminRole = false;
   loginMsg: any;
   constructor(private authService: AuthServiceService,
-              private httpClient: HttpClient,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private spinner: NgxSpinnerService) {
+              private loaderService: LoaderService) {
 
    }
 
   ngOnInit() {
     if ( window.location.href.indexOf('access_token') > -1) {
-      this.spinner.show();
+      this.loaderService.display(true);
 
       this.tokens = this.getUrlParams(window.location.href);
       localStorage.setItem('access_token', this.tokens['access_token']);
       localStorage.setItem('token_type', this.tokens['response_type']);
       localStorage.setItem('expires_in', this.tokens['expires_in']);
-      this.spinner.hide();
+      this.loaderService.display(false);
       this.authService.login();
 
       // admin role condition check
@@ -47,18 +42,18 @@ export class LoginComponent implements OnInit {
       //     }
       //     if ( this.hasAdminRole ) {
       //       setTimeout(() => {
-      //         this.spinner.hide();
+      //         this.loaderService.display(false);
       //       }, 1000);
       //       this.authService.unAuthorizedPage(this.hasAdminRole);
       //     } else {
       //       setTimeout(() => {
-      //         this.spinner.hide();
+      //         this.loaderService.display(false);
       //       }, 1000);
       //       this.authService.login();
       //     }
       // } else {
       //   setTimeout(() => {
-      //     this.spinner.hide();
+      //    this.loaderService.display(false);
       //   }, 1000);
       //   this.authService.login();
       // }
@@ -72,14 +67,14 @@ export class LoginComponent implements OnInit {
   }
 
   // loyaltyOAuth() {
-  //   this.spinner.show();
+  //   this.loaderService.display(true);
   //   this.authService.getTokenUrl().subscribe((data: any) => {
   //     this.tokenUrl = data;
   //     this.getToken(this.tokenUrl);
   //   },
   //   error => {
   //     console.log('error', error);
-  //     this.spinner.hide();
+  //     this.loaderService.display(false);
   //   });
   // }
 
@@ -108,7 +103,7 @@ export class LoginComponent implements OnInit {
   }
 
   getToken() {
-    this.spinner.show();
+    this.loaderService.display(true);
     this.authService.getAcessToken();
   }
 }

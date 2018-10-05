@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import {MembervalueService} from '../membervalue.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { LoaderService } from '../../services/loader.service';
 import {environment} from '../../../environments/environment';
 import {AuthServiceService} from '../../auth-service.service';
 
@@ -24,12 +24,12 @@ export class StoredValueComponent implements OnInit {
   activeSlideIndex = 0;
 
   constructor(private membervalueService: MembervalueService,
-    private spinner: NgxSpinnerService,
+    private loaderService: LoaderService,
     private modalService: BsModalService,
     private authService: AuthServiceService) { }
 
   ngOnInit() {
-    this.spinner.show();
+    this.loaderService.display(true);
     this.getStoredData();
   }
 
@@ -38,12 +38,12 @@ export class StoredValueComponent implements OnInit {
     const storedApiUrl = environment.apidocs + 'v2/API/MemberValue/u/' + this.userID + '/StoredValue?autoCreate=true';
     this.membervalueService.getValueAPi(storedApiUrl).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.storedList = data;
         // console.log('data', data);
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }
@@ -53,12 +53,12 @@ export class StoredValueComponent implements OnInit {
     const storedTransactionApiUrl = environment.apidocs + 'v2/API/MemberValue/u/' + this.userID + '/StoredValueTransactions/' + lId + '?successfulOnly=false&pageOffset=0&pageSize=20';
     this.membervalueService.getValueHistoryAPi(storedTransactionApiUrl).subscribe(
       data => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         this.storedHistory = data['Records'];
         // console.log('data', data['Records']);
       },
       error => {
-        this.spinner.hide();
+        this.loaderService.display(false);
         console.log(error);
       });
   }
