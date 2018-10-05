@@ -1,9 +1,8 @@
 import { LoaderService } from './services/loader.service';
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/debounceTime';
+import { Observable , Subscription} from 'rxjs';
+
 import {AuthServiceService} from './auth-service.service';
-import {Subscription} from 'rxjs/Subscription';
 import {TranslateService } from '@ngx-translate/core';
 import {LocalizationService} from './services/localization.service';
 import {environment} from '../environments/environment';

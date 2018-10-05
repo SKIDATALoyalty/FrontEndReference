@@ -5,9 +5,10 @@ import {
   RouterStateSnapshot,
   Router
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthServiceService } from '../auth-service.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { map, take } from 'rxjs/operators';
 
 @Injectable()
 export class RoleGuardService implements CanActivate {
@@ -20,13 +21,12 @@ export class RoleGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.authService.isAdminUser
-      .take(1)
-      .map((isAdminUser: boolean) => {
+    .pipe(take(1), map((isAdminUser: boolean) => {
         if (!isAdminUser) {
           this.router.navigate(['/home']);
           return false;
         }
         return true;
-      });
+      }));
   }
 }

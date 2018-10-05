@@ -1,14 +1,10 @@
 import { LoaderService } from './../services/loader.service';
-import { Component, OnInit, Pipe } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/operator/debounceTime';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import {AuthServiceService} from '../auth-service.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileService} from '../profile/profile.service';
-
 import {environment} from '../../environments/environment';
-import 'rxjs/add/operator/share';
 import {TranslateService } from '@ngx-translate/core';
 import {LocalizationService} from '../services/localization.service';
 import {OrderCheckoutService} from '../order-checkout/order-checkout.service';
@@ -39,8 +35,8 @@ export class MenubarComponent implements OnInit {
   orderlength = 0;
   public pointsRemaining: any = 0;
   public pointsSpent: any = 0;
-  public observable: Observable<boolean>;
-  private observer: Observer<boolean>;
+  // public observable: Observable<boolean>;
+  // private observer: Observer<boolean>;
 
   constructor(private authService: AuthServiceService,
     private orderCheckoutService: OrderCheckoutService,
@@ -49,7 +45,7 @@ export class MenubarComponent implements OnInit {
     private loaderService: LoaderService,
     private translate: TranslateService,
     private localizationService: LocalizationService) {
-      this.observable = new Observable<boolean>((observer: any) => this.observer = observer).share();
+      // this.observable = new Observable<boolean>((observer: any) => this.observer = observer).share();
     }
 
   ngOnInit() {

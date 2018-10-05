@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/switchMap';
+import { Observable } from 'rxjs';
+
+
 import {AuthServiceService} from '../auth-service.service';
 
 @Component({

@@ -1,13 +1,9 @@
 import { LoaderService } from './services/loader.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject , Observable, Subscription,  Subject} from 'rxjs';
 import {environment} from '../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
-import { Subject} from 'rxjs/Subject';
-import 'rxjs/add/observable/timer';
 
 @Injectable()
 export class AuthServiceService {
