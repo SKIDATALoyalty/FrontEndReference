@@ -1,12 +1,5 @@
-<div *ngIf="showLoader" class='Cube panelLoad'>
-    <div class='cube-face cube-face-front'>Loyalty</div>
-    <div class='cube-face cube-face-back'>Front</div>
-    <div class='cube-face cube-face-left'>End</div>
-    <div class='cube-face cube-face-right'>Reference</div>  
-    <div class='cube-face cube-face-bottom'>Site</div>
-    <div class='cube-face cube-face-top'>Loading...</div>
-</div>
 <app-menubar></app-menubar>
+<div *ngIf="showLoader" class="loader"></div>
 <router-outlet></router-outlet>
 <div class="row"></div><br><br>
 <footer class="container-fluid">

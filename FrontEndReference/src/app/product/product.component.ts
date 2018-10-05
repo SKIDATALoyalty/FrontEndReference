@@ -63,6 +63,7 @@ export class ProductComponent implements OnInit {
   }
 
   openProductInModal(productModal: TemplateRef<any>, product, productID) {
+    this.loaderService.display(true);
     const productRewardUrl = environment.apidocs + 'v2/API/Product/Rewards/' + productID;
     this.singleProductInfo = product;
     this.attributes = product['Attributes'];
@@ -131,8 +132,10 @@ export class ProductComponent implements OnInit {
             this.showAddToCart = false;
           }
         });
+        this.loaderService.display(false);
       },
       error => {
+        this.loaderService.display(false);
         console.log(error);
       });
   }

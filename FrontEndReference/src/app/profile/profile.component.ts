@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
               private localizationService: LocalizationService) { }
 
   ngOnInit() {
+    this.loaderService.display(true);
     this.getProfileInformation();
   }
 
@@ -54,12 +55,10 @@ export class ProfileComponent implements OnInit {
 
   getProfileInformation() {
     this.profile = [];
-    this.loaderService.display(true);
     const profileInfoApiUrl = environment.apidocs + 'v1/API/user';
     this.profileService.getProfileAPi(profileInfoApiUrl).subscribe(
       data => {
         this.profileInfo = data;
-
         this.avatarUrl = data['Avatar'] + '?v=' + Date.now() || 'http://placehold.it/235x235';
         this.profileService.setImageUrl(this.avatarUrl);
         // console.log('profileInfo data--', data);
@@ -152,8 +151,8 @@ export class ProfileComponent implements OnInit {
           }
           this.profileForm = new FormGroup(formGroup);
           // console.log('profilform', this.profileForm);
-          this.loaderService.display(false);
         }, 500);
+        this.loaderService.display(false);
       },
       error => {
         this.loaderService.display(false);
