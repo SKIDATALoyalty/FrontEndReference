@@ -1,7 +1,6 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Component, OnInit } from '@angular/core';
 import {AuthServiceService} from '../auth-service.service';
-import { HttpClient } from '@angular/common/http';
-import {ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from './../services/loader.service';
 
 @Component({
@@ -25,8 +24,16 @@ export class LoginComponent implements OnInit {
 
       this.tokens = this.getUrlParams(window.location.href);
       localStorage.setItem('access_token', this.tokens['access_token']);
+
+      const jwtHelper = new JwtHelperService();
+
+      const expirationDate = jwtHelper.getTokenExpirationDate(this.tokens['access_token']);
+
+      // 10 mins less than expiration.
+      const expirationDateEpoch = expirationDate.valueOf() - 600000;
       localStorage.setItem('token_type', this.tokens['response_type']);
       localStorage.setItem('expires_in', this.tokens['expires_in']);
+      localStorage.setItem('tokenExpiration', expirationDateEpoch.toString());
       this.loaderService.display(false);
       this.authService.login();
 

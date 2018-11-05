@@ -1,8 +1,8 @@
 import { LoaderService } from './services/loader.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject , Observable, Subscription,  Subject} from 'rxjs';
-import {environment} from '../environments/environment';
+import { BehaviorSubject, Observable, Subscription, Subject } from 'rxjs';
+import { environment } from '../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
@@ -22,18 +22,18 @@ export class AuthServiceService {
     private loaderService: LoaderService
   ) {
     this.timeoutExpired.subscribe(n => {
-        console.log('timeoutExpired subject next.. ' + n.toString());
+      console.log('timeoutExpired subject next.. ' + n.toString());
     });
   }
 
   public startTimer() {
     if (this.timerSubscription) {
-        this.timerSubscription.unsubscribe();
+      this.timerSubscription.unsubscribe();
     }
     this._timeoutSeconds = parseInt(localStorage.getItem('expires_in'), 10);
     this.timer = Observable.timer(this._timeoutSeconds * 1000);
     this.timerSubscription = this.timer.subscribe(n => {
-        this.timerComplete(n);
+      this.timerComplete(n);
     });
   }
 
@@ -91,8 +91,8 @@ export class AuthServiceService {
   }
 
   login() {
-      this.loggedIn.next(this.tokenAvailableOrExpired());
-      this.router.navigate(['/home']);
+    this.loggedIn.next(this.tokenAvailableOrExpired());
+    this.router.navigate(['/home']);
   }
 
   getTokenExpirationDate(): Date {
@@ -118,6 +118,7 @@ export class AuthServiceService {
     localStorage.removeItem('token_type');
     localStorage.removeItem('expires_in');
     localStorage.removeItem('timer');
+    localStorage.removeItem('tokenExpiration');
     this.loggedIn.next(this.tokenAvailableOrExpired());
     const logoutUrl = environment.apiUrl.replace('login', 'logout');
     const generateAuthUrl = logoutUrl + environment.portalId + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl;
@@ -131,13 +132,13 @@ export class AuthServiceService {
     localStorage.removeItem('timer');
     this.loggedIn.next(this.tokenAvailableOrExpired());
     if (data) {
-      this.router.navigate(['/pagenotfound', {admin: data}]);
+      this.router.navigate(['/pagenotfound', { admin: data }]);
     } else {
       this.router.navigate(['/pagenotfound']);
     }
   }
 
- isAuthenticated(): boolean {
+  isAuthenticated(): boolean {
     const token = localStorage.getItem('access_token');
     return !this.jwtHelper.isTokenExpired(token);     // Check whether the token is expired and return true or false
   }
@@ -146,10 +147,12 @@ export class AuthServiceService {
     return this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
   }
 
-  // getTokenUrl() {
-  //   this.loaderService.display(false);
-  //   return this.http.get(environment.apiUrl);
-  // }
+  isTokExpired(source) {
+    const tmpDateConv = Number(source);
+    const today = new Date();
+    const src: Date = new Date(tmpDateConv);
+    return src > today; // true or false
+  }
 
   getAcessToken() {
     const generateAuthUrl = environment.apiUrl + environment.portalId + '?client_id=' + environment.clientId + '&redirect_uri=' + environment.redirectUrl + environment.responseType;

@@ -6,6 +6,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Ng2OdometerModule } from 'ng2-odometer';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { CommonModule } from '@angular/common';
 
 import {
   ReactiveFormsModule,
@@ -52,6 +53,8 @@ import { MemberValueComponent } from './member-value/member-value.component';
 import { LoadedValueComponent } from './member-value/loaded-value/loaded-value.component';
 import { StoredValueComponent } from './member-value/stored-value/stored-value.component';
 import { OrderCheckoutComponent } from './order-checkout/order-checkout.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -85,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderCheckoutComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     JwtModule.forRoot({
@@ -109,7 +113,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CarouselModule.forRoot(),
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot(),
-    Ng2OdometerModule.forRoot()
+    Ng2OdometerModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AuthServiceService,

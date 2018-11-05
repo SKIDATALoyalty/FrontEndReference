@@ -56,7 +56,7 @@ export class OrderCheckoutComponent implements OnInit {
 
     const qtyRemaining = data.Reward.QuantityRemaining;
     const userCap = data.Reward.CurrentUserCap;
-    const cost = data.Reward.CostInPoints;
+
     if ((qtyRemaining > userCap) && (userCap > -1)) {
         limit = userCap;
     } else {
@@ -68,7 +68,7 @@ export class OrderCheckoutComponent implements OnInit {
     }
 
     if (limit < 0) {
-        limit = 50; // This reward has unlimited availability, but let's only show 50 or so. We might want to add this cap as a module setting.
+        limit = 50; // This reward has unlimited availability, but let's only show 50 or so.
     }
 
     for (let i = 1; i <= limit; i++) {

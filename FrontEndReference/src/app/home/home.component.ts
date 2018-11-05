@@ -13,6 +13,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // console.log(this.authService.isTokenExpired()); // true or false
     // console.log(this.authService.decodeJwtToken()); // token
+    if (this.authService.isTokExpired(localStorage.getItem('tokenExpiration'))) {
+      // token not expired
+    } else {
+      // token expired
+      this.authService.logout();
+    }
   }
 
 }
