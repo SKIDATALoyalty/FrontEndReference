@@ -39,6 +39,7 @@ import {LeaderboardService} from './leaderboard/leaderboard.service';
 import {LocalizationService} from './services/localization.service';
 import { MembervalueService } from './member-value/membervalue.service';
 import { OrderCheckoutService } from './order-checkout/order-checkout.service';
+import { AppUtilityService } from './shared/app-utility.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -55,6 +56,7 @@ import { StoredValueComponent } from './member-value/stored-value/stored-value.c
 import { OrderCheckoutComponent } from './order-checkout/order-checkout.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CountdownTimerComponent } from './shared/countdown-timer.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -85,7 +87,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MemberValueComponent,
     LoadedValueComponent,
     StoredValueComponent,
-    OrderCheckoutComponent
+    OrderCheckoutComponent,
+    CountdownTimerComponent
   ],
   imports: [
     CommonModule,
@@ -131,6 +134,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MembervalueService,
     OrderCheckoutService,
     LoaderService,
+    AppUtilityService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -1,7 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-.custom-pos{
-    margin-top: 3%;
+.custom-pos {
+  margin-top: 3%;
 }
+
 .grid-img {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.card-img-overlay {
+  background-color: rgba(60, 60, 60, 0.6);
+}
+
+.timertxtformat{
+    font-size: 20px;
+    line-height: 12px;
+    display: inline-block;
+    padding: 0px 4px;
 }

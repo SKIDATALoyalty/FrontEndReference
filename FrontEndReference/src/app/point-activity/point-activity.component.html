@@ -1,58 +1,82 @@
 <div class="container custom-pos">
-    <div class="row">
-        <div class="col-12 col-sm-10 mx-auto">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>{{'Pointspage.pointactivity' | translate}}</h1>
-                    <hr class="mb-5">
-                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                        <div class="btn-group btn-group-lg mr-2 mt-3" role="group" aria-label="Second group" *ngIf="pointCategories !== undefined">
-                            <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(defaultCategory, 'All Categories')">All Categories</button>
-                        </div>
-                        <div class="btn-group btn-group-lg mr-2 mt-3" *ngFor="let types of pointCategories" role="group" aria-label="First group">
-                            <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(types.PointActivityTypeId, types.PointActivityTypeName)">{{types.PointActivityTypeName}}</button>
-                        </div>
-                    </div>
-                </div>
+  <div class="row">
+    <div class="col-12 col-sm-10 mx-auto">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>{{'Pointspage.pointactivity' | translate}}</h1>
+          <hr class="mb-5">
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group btn-group-lg mr-2 mt-3" role="group" aria-label="Second group" *ngIf="pointCategories !== undefined">
+              <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(defaultCategory, 'All Categories')">All
+                Categories</button>
             </div>
+            <div class="btn-group btn-group-lg mr-2 mt-3" *ngFor="let types of pointCategories" role="group" aria-label="First group">
+              <button type="button" class="btn btn-secondary" (click)="getSinglePointActivities(types.PointActivityTypeId, types.PointActivityTypeName)">{{types.PointActivityTypeName}}</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="row" *ngIf="pointCategories !== undefined">
-        <div class="col-sm-4 mt-3" *ngFor="let points of pointActivities">
-            <div class="card">
-                <img *ngIf="points.Images.length === 0" class="card-img-top img-fluid grid-img" src="//placehold.jp/400x300.png" alt="Card image cap" (click)="showPointActivityInModal(pointModal, points)">
-                <img *ngIf="points.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="points.Images[0].Src" alt="Card image cap" (click)="showPointActivityInModal(pointModal, points)">
-                <div class="card-body">
-                    <h4 class="card-title">{{points.Title}}</h4>
-                    <p class="card-text"> {{points.TeaserText}}</p>
-                    <button class="btn btn-secondary" (click)="showPointActivityInModal(pointModal, points)">{{'Pointspage.earnbtn' | translate}}</button>
-                </div>
-            </div>
+  <div class="row" *ngIf="pointCategories !== undefined">
+    <div class="col-sm-4 mt-3" *ngFor="let points of pointActivities">
+      <div class="card">
+        <img *ngIf="points.Images.length === 0" class="card-img-top img-fluid grid-img" src="//placehold.jp/400x300.png"
+          alt="Card image cap" (click)="showPointActivityInModal(pointModal, points)">
+        <img *ngIf="points.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="points.Images[0].Src"
+          alt="Card image cap" (click)="showPointActivityInModal(pointModal, points)">
+
+          <!-- Active In overlay -->
+        <div *ngIf="points.activityActiveIn" class="card-img-overlay d-flex">
+          <div class="my-auto mx-auto text-center">
+            <h3 class="card-title font-weight-bold text-white">Active In</h3>
+            <h3 class="card-text font-weight-bold text-white">
+              <app-countdown-timer [end]="points.ActiveEndTime"></app-countdown-timer>
+            </h3>
+          </div>
         </div>
+
+        <!-- Earned overlay -->
+        <div *ngIf="points.PointActivityLifetimeMax !== null && points.PointActivityLifetimeMax > 0 && points.PointsToDate >= points.PointActivityLifetimeMax"
+          class="card-img-overlay d-flex">
+          <div class="my-auto mx-auto text-center">
+            <h3 class="card-title font-weight-bold text-white">Earned</h3>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h4 class="card-title">{{points.Title}}</h4>
+          <p class="card-text"> {{points.TeaserText}}</p>
+          <button class="btn btn-secondary" (click)="showPointActivityInModal(pointModal, points)">{{'Pointspage.earnbtn'
+            | translate}}</button>
+        </div>
+      </div>
     </div>
-    <div class="row" *ngIf="pointCategories === undefined"><h3>No Point Activities Available</h3></div>
+  </div>
+  <div class="row" *ngIf="pointCategories === undefined">
+    <h3>No Point Activities Available</h3>
+  </div>
 </div>
-    
+
 <ng-template #pointModal>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">{{singlePointInfo.Title}}</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body" *ngIf="singlePointInfo.Images.length === 0" >
-        <img class="card-img-top img-fluid" src="//placehold.jp/800x600.png" alt="Card image cap">
-    </div>
-    <div class="modal-body" *ngIf="singlePointInfo.Images.length > 0" >
-        <carousel [(activeSlide)]="activeSlideIndex" >
-            <slide *ngFor="let slide of singlePointInfo.Images; let index=index">
-                <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">  
-                <div class="carousel-caption">
-                <p>{{singlePointInfo.Description}}</p>
-                </div>
-            </slide>
-        </carousel>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{singlePointInfo.Title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="singlePointInfo.Images.length === 0">
+    <img class="card-img-top img-fluid" src="//placehold.jp/800x600.png" alt="Card image cap">
+  </div>
+  <div class="modal-body" *ngIf="singlePointInfo.Images.length > 0">
+    <carousel [(activeSlide)]="activeSlideIndex">
+      <slide *ngFor="let slide of singlePointInfo.Images; let index=index">
+        <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">
+        <div class="carousel-caption">
+          <p>{{singlePointInfo.Description}}</p>
+        </div>
+      </slide>
+    </carousel>
+  </div>
 </ng-template>
-            
