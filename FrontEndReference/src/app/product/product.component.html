@@ -15,6 +15,34 @@
                 <div class="card">
                     <img *ngIf="product.Images.length === 0" class="card-img-top img-fluid grid-img" src="//placehold.jp/400x300.png" alt="Card image cap" (click)="openProductInModal(productModal, product, product.LoyaltyProductID)">
                     <img *ngIf="product.Images.length !== 0" class="card-img-top img-fluid grid-img" [src]="product.Images[0].Src" alt="Card image cap" (click)="openProductInModal(productModal, product, product.LoyaltyProductID)">
+
+                    <!--UNAVAILABLE overlay-->
+                    <div *ngIf="product.QuantityRemaining !== 0 && product.CurrentUserCap === 0" class="card-img-overlay d-flex">
+                        <div class="my-auto mx-auto text-center">
+                            <h3 class="card-title font-weight-bold text-white">UNAVAILABLE</h3>
+                        </div>
+                    </div>
+
+                     <!-- SOLD OUT overlay -->
+                    <div *ngIf="product.QuantityRemaining === 0" class="card-img-overlay d-flex">
+                        <div class="my-auto mx-auto text-center">
+                            <h3 class="card-title font-weight-bold text-white">SOLD OUT</h3>
+                        </div>
+                    </div>
+
+                    <!-- Time left overlay -->
+                    <div *ngIf="product.timeLeft == true && product.yetToStart == false" class="card-img-overlay d-flex">
+                        <div class="my-auto mx-auto text-center">
+                            <h3 class="card-title font-weight-bold text-white">Time Left</h3>
+                            <h3 class="card-text font-weight-bold text-white" *ngIf="product.selectedReward.AvailableEndDate != null">
+                                <app-countdown-timer [end]="product.selectedReward.AvailableEndDate"></app-countdown-timer>
+                            </h3>
+                            <h3 *ngIf="product.selectedReward.AvailableEndDate == null" class="card-text font-weight-bold text-white">
+                                <app-countdown-timer [end]="product.AvailableEndDate"></app-countdown-timer>
+                            </h3>
+                        </div>       
+                    </div>
+
                     <div class="card-body">
                         <h4 class="card-title">{{product.RewardCategoryName}}</h4>
                         <p class="card-text"> {{product.Title}}</p>
