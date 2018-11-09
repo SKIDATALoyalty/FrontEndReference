@@ -31,13 +31,13 @@
                     </div>
 
                     <!-- Time left overlay -->
-                    <div *ngIf="product.timeLeft == true && product.yetToStart == false" class="card-img-overlay d-flex">
+                    <div *ngIf="product.timeLeft == true && product.yetToStart == true" class="card-img-overlay d-flex">
                         <div class="my-auto mx-auto text-center">
                             <h3 class="card-title font-weight-bold text-white">Time Left</h3>
-                            <h3 class="card-text font-weight-bold text-white" *ngIf="product.selectedReward.AvailableEndDate != null">
-                                <app-countdown-timer [end]="product.selectedReward.AvailableEndDate"></app-countdown-timer>
+                            <h3 class="card-text font-weight-bold text-white" *ngIf="product.AvailableEndDate != null">
+                                <app-countdown-timer [end]="product.AvailableEndDate"></app-countdown-timer>
                             </h3>
-                            <h3 *ngIf="product.selectedReward.AvailableEndDate == null" class="card-text font-weight-bold text-white">
+                            <h3 *ngIf="product.AvailableEndDate == null" class="card-text font-weight-bold text-white">
                                 <app-countdown-timer [end]="product.AvailableEndDate"></app-countdown-timer>
                             </h3>
                         </div>       

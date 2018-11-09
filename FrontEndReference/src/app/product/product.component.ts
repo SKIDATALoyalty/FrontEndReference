@@ -27,6 +27,7 @@ export class ProductComponent implements OnInit {
   productForm: FormGroup;
   message: any;
   selectedReward: any;
+  userID: any;
 
   constructor(private productService: ProductService,
     private loaderService: LoaderService,
@@ -50,7 +51,8 @@ export class ProductComponent implements OnInit {
   }
 
   getProductData() {
-    const productTypesUrl = environment.apidocs + 'v2/API/Product';
+    this.userID =  this.authService.decodeJwtToken()['uid'];
+    const productTypesUrl = environment.apidocs + 'v2/API/Product?userID=' + this.userID + '&includeFutureProducts=true';
     this.productService.getAPi(productTypesUrl).subscribe(
       data => {
         this.loaderService.display(false);
