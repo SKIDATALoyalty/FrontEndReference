@@ -4,6 +4,66 @@
 <div class="row"></div><br><br>
 <footer class="container-fluid">
     <nav class="navbar fixed-bottom bg-dark">
-        <div class="text-white small">All Rights Reserved ©{{copyRight}} SKIDATA, Inc.</div>
+        <div style="float: left;">
+            <a class="text-white small">All Rights Reserved ©{{copyRight}} SKIDATA, Inc.</a>
+        </div>
+        <div style="float: right;">
+            <a href="javascript:void(0)" class="text-white small" data-toggle="modal" data-target="#exampleModalCenter">About</a>
+        </div>
     </nav>
 </footer>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">About Front End Reference Site</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Available features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">In Progress Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Current Portal Information</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <ol>
+                        <li>OAuth Login</li>
+                        <li>Point Activities (Earn)</li>
+                        <li>Product</li>
+                        <li>Simple Content</li>
+                        <li>Profile</li>
+                        <li>Leaderboard</li>
+                        <li>Localization</li>
+                        <li>Points Odometer</li>
+                        <li>Profile Image Upload </li>
+                        <li>Member value(Loaded Value, Stored Value & Member Benefits are completed)</li>
+                        <li>Order and Checkout</li>
+                    </ol>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <ol>
+                        <li>Authorize.net integration is pending in Order and Checkout & Member value</li>
+                    </ol>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <ol>
+                        <li>Angular Version: v6.1.9</li>
+                        <li>Portal Id: {{aboutApp.portalId}}</li>
+                        <li>Portal Apidocs: {{aboutApp.apidocs}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

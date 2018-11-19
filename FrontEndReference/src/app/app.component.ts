@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
   copyRight = new Date().getFullYear();
   userDefaultlang: any;
   showLoader: boolean;
+  aboutApp: any;
 
   constructor(private authService: AuthServiceService,
     private loaderService: LoaderService,
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.aboutApp = environment;
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.authService.isLoggedIn.subscribe(status => {
       if (status) {
