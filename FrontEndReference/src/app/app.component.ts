@@ -1,7 +1,6 @@
 import { LoaderService } from './services/loader.service';
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-
+import { Observable, Subscription, timer  } from 'rxjs';
 import { AuthServiceService } from './auth-service.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalizationService } from './services/localization.service';
@@ -39,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     this._counter = 0;
-    this._timer = Observable.timer(1000, 1000);
+    this._timer = timer(1000, 1000);
     this._timerSubscription = this._timer.subscribe(n => {
       this._counter++;
       if (this.authService.getToken() !== null) {
