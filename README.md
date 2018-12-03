@@ -10,15 +10,17 @@ It consumes Loyalty OAuth API.Link : https://developer.skidata-loyalty.com
 Note: New features will be added frequently into front-end reference site.
 
 1.OAuth Login  
-2.Point Activities (Earn)  
+2.Point Activities
 3.Product  
 4.Badges  
-5.Simple Content (list, grid and carousel layouts)  
-6.Profile - It is dynamic to html input types. Supported html input types: text, radio, checkbox and list/country  
+5.Simple Content
+6.Profile
 7.Leaderboard  
 8.Localization - Right now Front End Reference site supports only English and French static text translation, if we want to support more languages then we need to add respective language resource files.  
 9.Odometer  
-10.Profile Image Upload  
+10.Profile Image Upload
+11.Member Value
+12.Order and Checkout
 
 ## IDE
 Use Visual studio code

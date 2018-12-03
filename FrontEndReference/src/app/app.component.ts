@@ -72,7 +72,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
         const defaultLangUrl = environment.apidocs + 'v2/API/Localization/UseLocalization';
         this.localizationService.getUserDefaultLanguage(defaultLangUrl).subscribe(data => {
-          // console.log('lang default in app component', data);
           this.userDefaultlang = data;
           if (this.userDefaultlang !== '') {
             this.translate.setDefaultLang(this.userDefaultlang);
