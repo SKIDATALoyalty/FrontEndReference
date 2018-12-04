@@ -1,7 +1,8 @@
+
+import {timer as observableTimer,  BehaviorSubject, Observable, Subscription, Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription, Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -31,7 +32,7 @@ export class AuthServiceService {
       this.timerSubscription.unsubscribe();
     }
     this._timeoutSeconds = parseInt(localStorage.getItem('expires_in'), 10);
-    this.timer = Observable.timer(this._timeoutSeconds * 1000);
+    this.timer = observableTimer(this._timeoutSeconds * 1000);
     this.timerSubscription = this.timer.subscribe(n => {
       this.timerComplete(n);
     });

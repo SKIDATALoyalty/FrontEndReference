@@ -25,20 +25,23 @@
         <div class="modal-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Available features</a>
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Completed features</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">In Progress Features</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Current Portal Information</a>
+                    <a class="nav-link" id="profile-tab1" data-toggle="tab" href="#profile1" role="tab" aria-controls="profile1" aria-selected="false">Features Not Yet Available</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Portal Information</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <ol>
                         <li>OAuth Login</li>
-                        <li>Point Activities (Earn)</li>
+                        <li>Point Activities</li>
                         <li>Product</li>
                         <li>Simple Content</li>
                         <li>Profile</li>
@@ -55,9 +58,16 @@
                         <li>Authorize.net integration is pending in Order and Checkout & Member value</li>
                     </ol>
                 </div>
+                <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile-tab1">
+                    <ol>
+                        <li>Survey</li>
+                        <li>Events</li>
+                        <li>Dynamic Alerts</li>
+                    </ol>
+                </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <ol>
-                        <li>Angular Version: v6.1.9</li>
+                        <li>Angular Version: v7.1.1</li>
                         <li>Portal Id: {{aboutApp.portalId}}</li>
                         <li>Portal Apidocs: {{aboutApp.apidocs}}</li>
                     </ol>
