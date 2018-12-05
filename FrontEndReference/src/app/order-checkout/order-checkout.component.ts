@@ -45,7 +45,7 @@ export class OrderCheckoutComponent implements OnInit {
         this.getQuantity(orderReceived.Items[i]);
         this.orderlength += orderReceived.Items[i].Quantity;
     }
-    console.log('success in get current order', orderReceived);
+   // console.log('success in get current order', orderReceived);
     return orderReceived;
   }
 

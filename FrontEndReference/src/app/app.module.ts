@@ -7,6 +7,7 @@ import { Ng2OdometerModule } from 'ng2-odometer';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
   ReactiveFormsModule,
@@ -46,6 +47,9 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProgressbarModule } from 'ngx-bootstrap';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 import './rxjs-operators';
 import { ProfileComponent } from './profile/profile.component';
 import { BadgeComponent } from './badge/badge.component';
@@ -57,6 +61,7 @@ import { OrderCheckoutComponent } from './order-checkout/order-checkout.componen
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CountdownTimerComponent } from './shared/countdown-timer.component';
+import { EventsComponent } from './events/events.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -88,16 +93,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadedValueComponent,
     StoredValueComponent,
     OrderCheckoutComponent,
-    CountdownTimerComponent
+    CountdownTimerComponent,
+    EventsComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:3000'],
+        whitelistedDomains: [],
         skipWhenExpired: true
       }
     }),
@@ -117,6 +124,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     PaginationModule.forRoot(),
     ProgressbarModule.forRoot(),
     Ng2OdometerModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

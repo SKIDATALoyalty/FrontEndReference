@@ -1,3 +1,4 @@
+import { EventsComponent } from './events/events.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from './login/login.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'points', component: PointActivityComponent, canActivate: [AuthGuardGuard] },
   { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuardGuard] },
   { path: 'member', component: MemberValueComponent, canActivate: [AuthGuardGuard]},
+  { path: 'events', component: EventsComponent, canActivate: [AuthGuardGuard]},
   { path: 'order', component: OrderCheckoutComponent, canActivate: [AuthGuardGuard]},
   { path: 'faq', component: FaqComponent, canActivate: [AuthGuardGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardGuard]},
@@ -32,7 +34,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

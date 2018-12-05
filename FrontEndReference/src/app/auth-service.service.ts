@@ -1,5 +1,5 @@
 
-import {timer as observableTimer,  BehaviorSubject, Observable, Subscription, Subject } from 'rxjs';
+import { timer as observableTimer, BehaviorSubject, Observable, Subscription, Subject } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';

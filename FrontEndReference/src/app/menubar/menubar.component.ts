@@ -189,14 +189,11 @@ export class MenubarComponent implements OnInit {
     // console.log(event.target.value);
     this.tempLangCode = event.target.value;
     this.translate.use(this.tempLangCode);
-    const langApiUrl = environment.apidocs + 'v1/API/user/' + this.authService.decodeJwtToken()['uid'] + '/properties';
+    const langApiUrl = environment.apidocs + 'v2/API/UserProfile/UpdateProfileProperty';  // 'v1/API/user/' + this.authService.decodeJwtToken()['uid'] + '/properties';
     const propObj = {
       'UserID': Number(this.authService.decodeJwtToken()['uid']),
-      'PortalID': Number(this.authService.decodeJwtToken()['pid']),
-      'ProfileProperties': [{
       'PropertyName': 'PreferredLocale',
       'PropertyValue': this.tempLangCode
-      }]
     };
 
     this.localizationService.updateUserPreferences(langApiUrl, propObj).subscribe(data => {
