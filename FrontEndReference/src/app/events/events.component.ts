@@ -66,7 +66,7 @@ export class EventsComponent implements OnInit {
     event: CalendarEvent;
   };
 
-  activeDayIsOpen = true;
+  activeDayIsOpen = false;
 
   refresh: Subject<any> = new Subject();
 
@@ -109,9 +109,28 @@ export class EventsComponent implements OnInit {
 
   }
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  // dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  //   if (isSameMonth(date, this.viewDate)) {
+  //     this.viewDate = date;
+  //     if (
+  //       (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+  //       events.length === 0
+  //     ) {
+  //       this.activeDayIsOpen = false;
+  //     } else {
+  //       this.activeDayIsOpen = true;
+  //     }
+  //   }
+  // }
+
+  dayClicked({
+    date,
+    events
+  }: {
+    date: Date;
+    events: Array<CalendarEvent<any>>;
+  }): void {
     if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
@@ -119,6 +138,7 @@ export class EventsComponent implements OnInit {
         this.activeDayIsOpen = false;
       } else {
         this.activeDayIsOpen = true;
+        this.viewDate = date;
       }
     }
   }
