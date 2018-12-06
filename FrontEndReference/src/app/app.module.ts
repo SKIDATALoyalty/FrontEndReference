@@ -1,3 +1,4 @@
+import { EventsService } from './events/events.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -146,6 +147,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrderCheckoutService,
     LoaderService,
     AppUtilityService,
+    EventsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

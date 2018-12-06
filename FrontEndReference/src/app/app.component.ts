@@ -13,7 +13,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  isLoggedIn$: Observable<boolean>;
+  isLoggedIn: boolean;
   private _timerSubscription: Subscription;
   public _counter = 0;
   private _timer: Observable<number>;
@@ -51,9 +51,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.aboutApp = environment;
-    this.isLoggedIn$ = this.authService.isLoggedIn;
     this.authService.isLoggedIn.subscribe(status => {
       if (status) {
+        this.isLoggedIn = status;
         this.startCounter();
         this.authService.startTimer();
 
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit, OnDestroy {
           });
 
       } else {
-
+        this.isLoggedIn = status;
       }
     });
 

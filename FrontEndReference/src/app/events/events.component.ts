@@ -1,8 +1,13 @@
+import { AuthServiceService } from './../auth-service.service';
+import { LoaderService } from './../services/loader.service';
+import { environment } from './../../environments/environment';
+import { EventsService } from './events.service';
 import {
   Component,
   ChangeDetectionStrategy,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  OnInit
 } from '@angular/core';
 
 import {
@@ -15,7 +20,7 @@ import {
   isSameMonth,
   addHours
 } from 'date-fns';
-import { Subject } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
@@ -23,6 +28,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
+import { map } from 'rxjs/operators';
 
 const colors: any = {
   red: {
@@ -38,17 +44,17 @@ const colors: any = {
     secondary: '#FDF1BA'
   }
 };
-
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./events.component.css']
 })
-export class EventsComponent {
+export class EventsComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
+  eventTypes: any;
+  eventsData: any;
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -62,66 +68,46 @@ export class EventsComponent {
 
   activeDayIsOpen = true;
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
-
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+  events$: Observable<Array<CalendarEvent<any>>>;
 
-  constructor(private modal: NgbModal) { }
+  constructor(private modal: NgbModal,
+    private eventsService: EventsService,
+    private loaderService: LoaderService,
+    private authService: AuthServiceService) { }
+
+  ngOnInit() {
+    // this.userID =  this.authService.decodeJwtToken()['uid'];
+    const eventsTypeApiUrl = environment.apidocs + 'v2/API/Events/GetEventTypes';
+    this.eventsService.getApi(eventsTypeApiUrl).subscribe(
+      data => {
+        this.loaderService.display(false);
+        this.eventTypes = data['Data'];
+      },
+      error => {
+        this.loaderService.display(false);
+        console.log('events type error', error);
+      });
+
+    const eventsApiUrl = environment.apidocs + 'v2/API/Events/GetEvents?pageSize=50&pageOffset=0&sortField=EventName';
+    this.events$ = this.eventsService.getApi(eventsApiUrl).pipe(
+      map(res => {
+        return res['Data']['Records'].map((item: any, index) => {
+          return {
+            id: item.EventID,
+            start: new Date(item.EventStartDate),
+            end: new Date(item.EventEndDate),
+            title: item.EventName,
+            color: this.isEven(index) ? colors.yellow : colors.blue,
+            allDay: true,
+            meta: item
+          };
+        });
+      })
+    );
+
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -153,19 +139,48 @@ export class EventsComponent {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
-    this.events.push({
-      title: 'New event',
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    });
-    this.refresh.next();
+  getEventTypeData(eventTypeId: any) {
+    // const userID = this.authService.decodeJwtToken()['uid'];
+    // this.events$ =  Observable.of([]);
+    const eventsApiUrl = environment.apidocs + `v2/API/Events/GetEvents?pageSize=50&pageOffset=0&sortField=EventName&eventTypeId=${eventTypeId}`;
+    this.events$ = this.eventsService.getApi(eventsApiUrl).pipe(
+      map(res => {
+        return res['Data']['Records'].map((item: any, index) => {
+          return {
+            id: item.EventID,
+            start: new Date(item.EventStartDate),
+            end: new Date(item.EventEndDate),
+            title: item.EventName,
+            color: this.isEven(index) ? colors.yellow : colors.blue,
+            allDay: true,
+            meta: item
+          };
+        });
+      })
+    );
   }
+
+  isEven(value) {
+    if (value % 2 === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // addEvent(): void {
+  //   this.events$.push({
+  //     title: 'New event',
+  //     start: startOfDay(new Date()),
+  //     end: endOfDay(new Date()),
+  //     color: colors.red,
+  //     draggable: true,
+  //     resizable: {
+  //       beforeStart: true,
+  //       afterEnd: true
+  //     }
+  //   });
+  //   this.refresh.next();
+  // }
 
 }
