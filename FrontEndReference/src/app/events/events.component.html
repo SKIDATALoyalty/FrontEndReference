@@ -2,20 +2,25 @@
 
   <ng-template #modalContent let-close="close()">
     <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
+      <h5 class="modal-title">{{ modalData?.event.title }}</h5>
       <button type="button" class="close" (click)="close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
-      </div>
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
-      </div>
+
+    <div class="modal-body" *ngIf="modalData?.event.meta.Images.length === 0">
+      <img class="card-img-top img-fluid" src="//placehold.jp/800x600.png" alt="Card image cap">
+    </div>
+    <div class="modal-body" *ngIf="modalData?.event.meta.Images.length > 0">
+      <carousel [(activeSlide)]="activeSlideIndex">
+        <slide *ngFor="let slide of modalData?.event.meta.Images; let index=index">
+          <img [src]="slide.Src" alt="image slide" style="display: block; width: 100%;">
+          <div class="carousel-caption">
+            <p>{{modalData?.event.meta.ShortDescription}}</p>
+            <p>{{modalData?.event.meta.LongDescription}}</p>
+          </div>
+        </slide>
+      </carousel>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary" (click)="close">Close</button>
@@ -78,25 +83,12 @@
 
   <div *ngIf="events$ | async; else loading; let events">
     <div [ngSwitch]="view">
-      <mwl-calendar-month-view 
-        *ngSwitchCase="'month'" 
-        [viewDate]="viewDate" 
-        [events]="events" 
-        [activeDayIsOpen]="activeDayIsOpen"
-        (dayClicked)="dayClicked($event.day)" 
-        (eventClicked)="handleEvent('Clicked', $event.event)">
+      <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)">
       </mwl-calendar-month-view>
-      <mwl-calendar-week-view 
-        *ngSwitchCase="'week'" 
-        [viewDate]="viewDate" 
-        [events]="events" 
-        (eventClicked)="handleEvent('Clicked', $event.event)">
+      <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" (eventClicked)="handleEvent('Clicked', $event.event)">
       </mwl-calendar-week-view>
-      <mwl-calendar-day-view 
-        *ngSwitchCase="'day'" 
-        [viewDate]="viewDate" 
-        [events]="events" 
-        (eventClicked)="handleEvent('Clicked', $event.event)">
+      <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" (eventClicked)="handleEvent('Clicked', $event.event)">
       </mwl-calendar-day-view>
     </div>
   </div>

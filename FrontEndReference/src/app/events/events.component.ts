@@ -56,7 +56,7 @@ export class EventsComponent implements OnInit {
   eventTypes: any;
   eventsData: any;
   view: CalendarView = CalendarView.Month;
-
+  activeSlideIndex = 0;
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
