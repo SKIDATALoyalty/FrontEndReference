@@ -91,7 +91,11 @@ export class EventsComponent implements OnInit {
       });
 
     const eventsApiUrl = environment.apidocs + 'v2/API/Events/GetEvents?pageSize=50&pageOffset=0&sortField=EventName';
-    this.events$ = this.eventsService.getApi(eventsApiUrl).pipe(
+    this.getEvents(eventsApiUrl);
+  }
+
+  getEvents(apiurlinfo: string) {
+    this.events$ = this.eventsService.getApi(apiurlinfo).pipe(
       map(res => {
         return res['Data']['Records'].map((item: any, index) => {
           return {
@@ -106,30 +110,16 @@ export class EventsComponent implements OnInit {
         });
       })
     );
-
+    console.log('this.events$', this.events$);
   }
-
-  // dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-  //   if (isSameMonth(date, this.viewDate)) {
-  //     this.viewDate = date;
-  //     if (
-  //       (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-  //       events.length === 0
-  //     ) {
-  //       this.activeDayIsOpen = false;
-  //     } else {
-  //       this.activeDayIsOpen = true;
-  //     }
-  //   }
-  // }
 
   dayClicked({
     date,
     events
   }: {
-    date: Date;
-    events: Array<CalendarEvent<any>>;
-  }): void {
+      date: Date;
+      events: Array<CalendarEvent<any>>;
+    }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -160,24 +150,8 @@ export class EventsComponent implements OnInit {
   }
 
   getEventTypeData(eventTypeId: any) {
-    // const userID = this.authService.decodeJwtToken()['uid'];
-    // this.events$ =  Observable.of([]);
     const eventsApiUrl = environment.apidocs + `v2/API/Events/GetEvents?pageSize=50&pageOffset=0&sortField=EventName&eventTypeId=${eventTypeId}`;
-    this.events$ = this.eventsService.getApi(eventsApiUrl).pipe(
-      map(res => {
-        return res['Data']['Records'].map((item: any, index) => {
-          return {
-            id: item.EventID,
-            start: new Date(item.EventStartDate),
-            end: new Date(item.EventEndDate),
-            title: item.EventName,
-            color: this.isEven(index) ? colors.yellow : colors.blue,
-            allDay: true,
-            meta: item
-          };
-        });
-      })
-    );
+    this.getEvents(eventsApiUrl);
   }
 
   isEven(value) {
