@@ -28,5 +28,8 @@
         "leaderboard": "Leaderboard",
         "faq": "Faq",
         "profile": "My Profile"
+    },
+    "SurveyPage": {
+        "Title": "Surveys"
     }
 }

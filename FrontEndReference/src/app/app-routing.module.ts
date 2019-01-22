@@ -1,3 +1,4 @@
+import { SurveyComponent } from './survey/survey.component';
 import { EventsComponent } from './events/events.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuardGuard] },
   { path: 'member', component: MemberValueComponent, canActivate: [AuthGuardGuard]},
   { path: 'events', component: EventsComponent, canActivate: [AuthGuardGuard]},
+  { path: 'survey', component: SurveyComponent, canActivate: [AuthGuardGuard]},
   { path: 'order', component: OrderCheckoutComponent, canActivate: [AuthGuardGuard]},
   { path: 'faq', component: FaqComponent, canActivate: [AuthGuardGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardGuard]},

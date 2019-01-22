@@ -1,3 +1,4 @@
+import { SurveyService } from './survey/survey.service';
 import { EventsService } from './events/events.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -63,6 +64,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CountdownTimerComponent } from './shared/countdown-timer.component';
 import { EventsComponent } from './events/events.component';
+import { SurveyComponent } from './survey/survey.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -95,7 +97,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     StoredValueComponent,
     OrderCheckoutComponent,
     CountdownTimerComponent,
-    EventsComponent
+    EventsComponent,
+    SurveyComponent
   ],
   imports: [
     CommonModule,
@@ -148,6 +151,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoaderService,
     AppUtilityService,
     EventsService,
+    SurveyService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
