@@ -87,7 +87,7 @@ export class SurveyComponent implements OnInit {
             formGroup[prop['SurveyQuestionID']] = new FormControl('');
           }
           this.surveyForm = new FormGroup(formGroup);
-          console.log('survey form--', this.surveyForm);
+          // console.log('survey form--', this.surveyForm);
         }, 200);
         this.totalPages = this.surveyList.length;
         this.noOfPages = Math.ceil(this.totalPages / this.pageSize);
@@ -98,7 +98,7 @@ export class SurveyComponent implements OnInit {
         }
         this.totalPagesCount = newPageCount;
 
-        // console.log('survey data', this.surveyList);
+        console.log('survey data', this.surveyList);
         this.loaderService.display(false);
       },
       error => {
@@ -109,17 +109,23 @@ export class SurveyComponent implements OnInit {
 
   submitQuestion(form) {
     console.log('survey form', form);
-
-    // const qtyUrl = environment.apidocs + 'v2/API/SimpleSurveyQuestions/' + SurveyQuestionID + '/SubmitQuestionAnswer?answer=' + answerIndex;
-    // const params = [];
-    // const pBody = {};
-
-    // this.surveyService.post<any>(qtyUrl, params, pBody).subscribe(res => {
-    //   console.log('res', res);
-    // },
-    //   error => {
-    //     console.log('error', error);
-    //   });
+    for (const key in form) {
+      if (form.hasOwnProperty(key) && form[key]) {
+        const element = form[key];
+        const qtyUrl = environment.apidocs + 'v2/API/SimpleSurveyQuestions/' + key + '/SubmitQuestionAnswer?answer=' + form[key];
+        const params = [];
+        const pBody = {};
+        console.log('res', form[key]);
+        console.log('res', key);
+        this.surveyService.post<any>(qtyUrl, params, pBody).subscribe(res => {
+          console.log('res', res);
+          form = {};
+        },
+          error => {
+            console.log('error', error);
+          });
+      }
+    }
   }
 
 }

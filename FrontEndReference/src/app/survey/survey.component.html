@@ -39,7 +39,7 @@
             </div>
 
             <!-- radio -->
-            <div *ngIf="survey.question.QuestionType == '3'">
+            <div *ngIf="survey.question.QuestionType == '3' && survey.question.Options.length>0">
               <div class="form-check" *ngFor="let option of survey.question.Options; let i=index">
                 <input class="form-check-input" [formControlName]="survey.SurveyQuestionID" [attr.disabled]="survey.question.isAnswered"
                   type="radio" name="exampleRadios" id="{{option.QuestionOptionID}}" value="{{option.OptionValue}}"
@@ -51,7 +51,7 @@
             </div>
 
             <!-- checkbox -->
-            <div *ngIf="survey.question.QuestionType == '4'">
+            <div *ngIf="survey.question.QuestionType == '4' && survey.question.Options.length>0">
               <div class="form-check" *ngFor="let option of survey.question.Options; let i=index">
                 <input class="form-check-input" [formControlName]="survey.SurveyQuestionID" [attr.disabled]="survey.question.isAnswered"
                   type="checkbox" name="options_{{option.QuestionOptionID}}_{{i}}" id="options_{{option.QuestionOptionID}}_{{i}}">
