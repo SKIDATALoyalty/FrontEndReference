@@ -30,7 +30,7 @@
                 </div>
             </li>
             <!-- <li class="nav-item"><a (click)="loyaltylogout()" class="nav-link show-cursor" title="login" *ngIf="isLoggedIn$ | async">{{'Header.logout' | translate}}</a></li> -->
-            <!-- <li class="nav-item"><a routerLink="/register" routerLinkActive="active" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)" (click)="navbarCollapsed = true">Register</a></li> -->
+            <li class="nav-item"><a routerLink="/register" routerLinkActive="active" class="nav-link" title="register" *ngIf="!(isLoggedIn$ | async)" (click)="navbarCollapsed = true">Register</a></li>
             <li class="nav-item"><a (click)="openSettings(content)" class="nav-link show-cursor" title="register" *ngIf="!(isLoggedIn$ | async)"><i class="fa fa-cog"></i></a></li>
         </ul>
     </div>

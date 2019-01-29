@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { environment } from './../../environments/environment';
 import { LoaderService } from './../services/loader.service';
 import { SurveyService } from './survey.service';
@@ -22,6 +23,7 @@ export class SurveyComponent implements OnInit {
   totalPages = 0;
   noOfPages = 0;
   pageSize = 5;
+  surveyForm: FormGroup;
 
   constructor(private surveyService: SurveyService,
     private loaderService: LoaderService) { }
@@ -54,7 +56,9 @@ export class SurveyComponent implements OnInit {
               'QuestionTypeName': this.allSurveys[i].Questions[j].QuestionTypeName,
               'isAnswered': isAnswered,
               'surveyEndDate': this.allSurveys[i].EndDate,
-              'question': this.allSurveys[i].Questions[j]
+              'question': this.allSurveys[i].Questions[j],
+              'SurveyQuestion': this.allSurveys[i].Questions[j].SurveyQuestion,
+              'SurveyQuestionID': this.allSurveys[i].Questions[j].SurveyQuestion.SurveyQuestionID
             };
             if (isAnswered) {
               this.quizesTaken++;
@@ -69,7 +73,7 @@ export class SurveyComponent implements OnInit {
               this.isNotAnswered = false;
             }
 
-            // pushing only unanswered questions to surveylist array. Fix for OSC-416
+            // pushing only unanswered questions to surveylist array.
             if (!isAnswered) {
               this.surveyList.push(quizObj);
               this.counter++;
@@ -77,6 +81,14 @@ export class SurveyComponent implements OnInit {
           }
         }
 
+        setTimeout(() => {
+          const formGroup = {};
+          for (const prop of this.surveyList) {
+            formGroup[prop['SurveyQuestionID']] = new FormControl('');
+          }
+          this.surveyForm = new FormGroup(formGroup);
+          console.log('survey form--', this.surveyForm);
+        }, 200);
         this.totalPages = this.surveyList.length;
         this.noOfPages = Math.ceil(this.totalPages / this.pageSize);
 
@@ -95,6 +107,21 @@ export class SurveyComponent implements OnInit {
       });
   }
 
+  submitQuestion(form) {
+    console.log('survey form', form);
+
+    // const qtyUrl = environment.apidocs + 'v2/API/SimpleSurveyQuestions/' + SurveyQuestionID + '/SubmitQuestionAnswer?answer=' + answerIndex;
+    // const params = [];
+    // const pBody = {};
+
+    // this.surveyService.post<any>(qtyUrl, params, pBody).subscribe(res => {
+    //   console.log('res', res);
+    // },
+    //   error => {
+    //     console.log('error', error);
+    //   });
+  }
+
 }
 
 export let quizObj = {
@@ -111,5 +138,7 @@ export let quizObj = {
   'QuestionTypeName': null,
   'isAnswered': false,
   'surveyEndDate': null,
-  'question': {}
+  'question': {},
+  'SurveyQuestion': {},
+  'SurveyQuestionID': 0
 };

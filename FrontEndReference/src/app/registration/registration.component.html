@@ -1,42 +1,52 @@
 <div class="container py-12 custom-pos">
+    <div class="row">
+      <div class="col-md-12">
         <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">   
-                        <span class="anchor" id="formRegister"></span>   
-                        <!-- form card register -->
-                        <div class="card card-outline-secondary">
-                            <div class="card-header">
-                                <h3 class="mb-0">Sign Up</h3>
-                            </div>
-                            <div class="card-body">
-                                <form class="form" role="form" autocomplete="off">
-                                    <div class="form-group">
-                                        <label for="inputName">Name</label>
-                                        <input type="text" class="form-control" id="inputName" placeholder="Full name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail3">Email</label>
-                                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword3">Password</label>
-                                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password" required="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputVerify3">Verify</label>
-                                        <input type="password" class="form-control" id="inputVerify3" placeholder="Password (again)" required="">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-success btn-lg float-right">Register</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- /form card register -->    
-                    </div>
-                </div>
+          <div class="col-md-6 offset-md-3">
+            <span class="anchor" id="formRegister"></span>
+            <!-- form card register -->
+            <div class="card card-outline-secondary">
+              <div class="card-header">
+                <h3 class="mb-0">Sign Up</h3>
+              </div>
+              <div class="card-body">
+                <p class="text-center">Don't have an account yet? Sign up below</p>
+                <form (ngSubmit)="registerUser()" #regForm="ngForm">
+                  <div class="form-group">
+                    <label for="firstNameInput">First Name</label>
+                    <input type="text" class="form-control" id="firstNameInput" required placeholder="Your first name"
+                      [(ngModel)]="firstName" name="firstNameInput">
+                  </div>
+                  <div class="form-group">
+                    <label for="lastNameInput">Last Name</label>
+                    <input type="text" class="form-control" id="lastNameInput" placeholder="Your last name" name="lastName"
+                      [(ngModel)]="lastName" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="emailInput">Email</label>
+                    <input type="email" class="form-control" id="emailInput" placeholder="you@example.com" name="email"
+                      [(ngModel)]="email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="usernameInput">Username</label>
+                    <input type="text" class="form-control" id="usernameInput" placeholder="Pick a username" name="userName"
+                      [(ngModel)]="userName" required>
+                  </div>
+                  <div class="alert" role="alert" [hidden]="!errorMessage">
+                    {{errorMessage}}
+                  </div>
+                  <!-- <p class="text-center" [hidden]="regForm.invalid">After creating a password, reach out to your SKIDATA
+                    representative to enable your account</p> -->
+                  <button type="submit" class="btn btn-secondary btn-block" [disabled]="!regForm.form.valid">Sign Up</button>
+                  <a class="d-block text-center mt-2 small" routerLink="/login">Sign In</a>
+                </form>
+              </div>
             </div>
-        </div>     
+            <!-- /form card register -->
+          </div>
+        </div>
+      </div>
     </div>
-    <!--/container-->
+  </div>
+  <!--/container-->
+  

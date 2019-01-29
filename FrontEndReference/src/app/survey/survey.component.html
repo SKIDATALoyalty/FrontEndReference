@@ -10,65 +10,69 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="surveyList.length > 0">
-    <div class="col-sm-4 d-flex align-items-stretch mt-5" *ngFor="let survey of surveyList">
+  <div class="row" *ngIf="surveyList.length > 0 && surveyForm">
+    <!-- <form class="form" role="form" novalidate (ngSubmit)="submitQuestion(surveyForm.value)" [formGroup]="surveyForm"> -->
+    <div class="col-sm-4 mt-5" *ngFor="let survey of surveyList">
       <div class="card">
+        <form class="form" role="form" novalidate (ngSubmit)="submitQuestion(surveyForm.value)" [formGroup]="surveyForm">
+          <div class="card-body" style="width: 20rem">
+            <h4 class="card-title">
+              Developer Quiz
+              <span class="points">
+                {{
+                survey.question.PointActivity != null ? ((survey.question.IsQuiz) ?
+                (survey.question.CorrectAnswerPointActivity != null ? (survey.question.CorrectAnswerPointOverride
+                != -1 ? '(+' + survey.question.CorrectAnswerPointOverride + 'PTS)' : '(+' +
+                survey.question.CorrectAnswerPointActivity.PointValue + 'PTS)') : '(+' +
+                survey.question.PointActivity.PointValue + 'PTS)')
+                : (survey.question.PointOverride != -1 ? ('(+' + survey.question.PointOverride + 'PTS)') : ('(+'
+                + survey.question.PointActivity.PointValue + 'PTS)'))) : ""
+                }}
+              </span>
+            </h4>
+            <p class="card-text">{{survey.question.QuestionText}}</p>
 
-        <div class="card-body" style="width: 20rem">
-          <h4 class="card-title">
-            Developer Quiz
-            <span class="points">
-              {{
-              survey.question.PointActivity != null ? ((survey.question.IsQuiz) ?
-              (survey.question.CorrectAnswerPointActivity != null ? (survey.question.CorrectAnswerPointOverride
-              != -1 ? '(+' + survey.question.CorrectAnswerPointOverride + 'PTS)' : '(+' +
-              survey.question.CorrectAnswerPointActivity.PointValue + 'PTS)') : '(+' +
-              survey.question.PointActivity.PointValue + 'PTS)')
-              : (survey.question.PointOverride != -1 ? ('(+' + survey.question.PointOverride + 'PTS)') : ('(+'
-              + survey.question.PointActivity.PointValue + 'PTS)'))) : ""
-              }}
-            </span>
-          </h4>
-          <p class="card-text">{{survey.question.QuestionText}}</p>
-
-          <!-- text area -->
-          <div class="form-group" *ngIf="(survey.question.QuestionType == '1' || survey.question.QuestionType == '2')">
-            <textarea class="form-control" [attr.disabled]="survey.question.isAnswered"
-              rows="3" maxlength="500"></textarea>
-          </div>
-
-          <!-- radio -->
-          <div *ngIf="survey.question.QuestionType == '3'">
-            <div class="form-check" *ngFor="let option of survey.question.Options">
-              <input class="form-check-input" [attr.disabled]="survey.question.isAnswered" type="radio" name="exampleRadios"
-                id="{{option.QuestionOptionID}}" value="{{option.OptionValue}}" checked>
-              <label class="form-check-label" for="{{option.QuestionOptionID}}">
-                {{option.OptionText}}
-              </label>
+            <!-- text area -->
+            <div class="form-group" *ngIf="(survey.question.QuestionType == '1' || survey.question.QuestionType == '2')">
+              <textarea [formControlName]="survey.SurveyQuestionID" class="form-control" [attr.disabled]="survey.question.isAnswered"
+                rows="3" maxlength="500"></textarea>
             </div>
-          </div>
 
-          <!-- checkbox -->
-          <div *ngIf="survey.question.QuestionType == '4'">
-            <div class="form-check" *ngFor="let option of survey.question.Options">
-              <input class="form-check-input" [attr.disabled]="survey.question.isAnswered" type="checkbox" value="{{option.OptionValue}}"
-                id="{{option.QuestionOptionID}}">
-              <label class="form-check-label" for="{{option.QuestionOptionID}}">
-                {{option.OptionText}}
-              </label>
+            <!-- radio -->
+            <div *ngIf="survey.question.QuestionType == '3'">
+              <div class="form-check" *ngFor="let option of survey.question.Options; let i=index">
+                <input class="form-check-input" [formControlName]="survey.SurveyQuestionID" [attr.disabled]="survey.question.isAnswered"
+                  type="radio" name="exampleRadios" id="{{option.QuestionOptionID}}" value="{{option.OptionValue}}"
+                  checked>
+                <label class="form-check-label" for="{{option.QuestionOptionID}}">
+                  {{option.OptionText}}
+                </label>
+              </div>
             </div>
+
+            <!-- checkbox -->
+            <div *ngIf="survey.question.QuestionType == '4'">
+              <div class="form-check" *ngFor="let option of survey.question.Options; let i=index">
+                <input class="form-check-input" [formControlName]="survey.SurveyQuestionID" [attr.disabled]="survey.question.isAnswered"
+                  type="checkbox" name="options_{{option.QuestionOptionID}}_{{i}}" id="options_{{option.QuestionOptionID}}_{{i}}">
+                <label class="form-check-label" for="options_{{option.QuestionOptionID}}_{{i}}">
+                  {{option.OptionText}}
+                </label>
+              </div>
+            </div>
+
+            <!-- dropdown -->
+            <select class="custom-select" *ngIf="survey.question.QuestionType == '5'" [formControlName]="survey.SurveyQuestionID">
+              <option selected>Select</option>
+              <option *ngFor="let option of survey.question.Options; let i=index" value="{{option.OptionValue}}">{{option.OptionText}}</option>
+            </select>
+
+            <div></div><br />
+            <input type="submit" class="btn btn-primary" value="Submit">
           </div>
-
-          <!-- dropdown -->
-          <select class="custom-select" *ngIf="survey.question.QuestionType == '5'">
-            <option selected>Select</option>
-            <option *ngFor="let option of survey.question.Options" value="{{option.OptionValue}}">{{option.OptionText}}</option>
-          </select>
-
-          <div></div><br />
-          <a href="javascript:void(0)" class="btn btn-primary">Submit</a>
-        </div>
+        </form>
       </div>
     </div>
+    <!-- </form> -->
   </div>
 </div>

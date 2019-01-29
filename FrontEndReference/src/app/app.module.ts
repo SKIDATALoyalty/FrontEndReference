@@ -1,3 +1,4 @@
+import { RegistrationService } from './registration/registration.service';
 import { SurveyService } from './survey/survey.service';
 import { EventsService } from './events/events.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -152,6 +153,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppUtilityService,
     EventsService,
     SurveyService,
+    RegistrationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
