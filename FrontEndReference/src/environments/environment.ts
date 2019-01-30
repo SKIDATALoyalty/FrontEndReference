@@ -20,12 +20,12 @@
 export const environment = {
   production: true,
   apiKey: localStorage.getItem('api_key') || 'gtkh01rtXwaQjLX2SZdZtHDoxM7IMm63g00BH3Hj',
-  portalId: localStorage.getItem('portal_id') || 83,
+  portalId: localStorage.getItem('portal_id') || 56,
   redirectUrl: localStorage.getItem('redirect_url') || 'https://frontend-reference.skidataus.com/login',
   responseType: '&response_type=token',
   apiUrl: localStorage.getItem('api_url') || 'https://id.skidataus.com/oauth2/login/',
-  clientId: localStorage.getItem('client_id') || 'cf734321fe47be03d609',
-  apidocs: localStorage.getItem('portal_api_docs_url') || 'https://developer.skidataus.com/DesktopModules/',
+  clientId: localStorage.getItem('client_id') || '87c0931a0940b56a13f8',
+  apidocs: localStorage.getItem('portal_api_docs_url') || 'https://b2e.skidataus.com/DesktopModules/',
   AUTHORIZE_MERCHANT_NAME: '9T2Nqc38WrQ9',
   AUTHORIZE_TRANSACTION_KEY: '24CZj84ZgB6g3pd7',
   apiBase: 'https://api.skidataus.com'
