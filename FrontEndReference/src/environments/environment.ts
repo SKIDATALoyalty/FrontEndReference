@@ -28,5 +28,5 @@ export const environment = {
   apidocs: localStorage.getItem('portal_api_docs_url') || 'https://developer.skidataus.com/DesktopModules/',
   AUTHORIZE_MERCHANT_NAME: '9T2Nqc38WrQ9',
   AUTHORIZE_TRANSACTION_KEY: '24CZj84ZgB6g3pd7',
-  apiBase: 'https://apistage.skidataus.com'
+  apiBase: 'https://api.skidataus.com'
 };
