@@ -42,9 +42,9 @@
             <div *ngIf="survey.question.QuestionType == '3' && survey.question.Options.length>0">
               <div class="form-check" *ngFor="let option of survey.question.Options; let i=index">
                 <input class="form-check-input" [formControlName]="survey.SurveyQuestionID" [attr.disabled]="survey.question.isAnswered"
-                  type="radio" name="exampleRadios" id="{{option.QuestionOptionID}}" value="{{option.OptionValue}}"
+                  type="radio" [name]="survey.SurveyQuestionID" id="options_{{option.QuestionOptionID}}_{{i}}" value="{{option.OptionValue}}"
                   checked>
-                <label class="form-check-label" for="{{option.QuestionOptionID}}">
+                <label class="form-check-label" for="options_{{option.QuestionOptionID}}_{{i}}">
                   {{option.OptionText}}
                 </label>
               </div>
@@ -54,7 +54,7 @@
             <div *ngIf="survey.question.QuestionType == '4' && survey.question.Options.length>0">
               <div class="form-check" *ngFor="let option of survey.question.Options; let i=index">
                 <input class="form-check-input" [formControlName]="survey.SurveyQuestionID" [attr.disabled]="survey.question.isAnswered"
-                  type="checkbox" name="options_{{option.QuestionOptionID}}_{{i}}" id="options_{{option.QuestionOptionID}}_{{i}}">
+                  type="checkbox" [name]="survey.SurveyQuestionID" id="options_{{option.QuestionOptionID}}_{{i}}">
                 <label class="form-check-label" for="options_{{option.QuestionOptionID}}_{{i}}">
                   {{option.OptionText}}
                 </label>
@@ -62,7 +62,7 @@
             </div>
 
             <!-- dropdown -->
-            <select class="custom-select" *ngIf="survey.question.QuestionType == '5'" [formControlName]="survey.SurveyQuestionID">
+            <select class="custom-select" *ngIf="survey.question.QuestionType == '5' && survey.question.Options.length>0" [formControlName]="survey.SurveyQuestionID">
               <option selected>Select</option>
               <option *ngFor="let option of survey.question.Options; let i=index" value="{{option.OptionValue}}">{{option.OptionText}}</option>
             </select>
