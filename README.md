@@ -16,11 +16,13 @@ Note: New features will be added frequently into front-end reference site.
 5.Simple Content
 6.Profile
 7.Leaderboard  
-8.Localization - Right now Front End Reference site supports only English and French static text translation, if we want to support more languages then we need to add respective language resource files.  
+8.Static Localization
 9.Odometer  
 10.Profile Image Upload
 11.Member Value
 12.Order and Checkout
+13.Events
+14.Surveys
 
 ## IDE
 Use Visual studio code
