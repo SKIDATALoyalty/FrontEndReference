@@ -22,7 +22,8 @@ Note: New features will be added frequently into front-end reference site.
 11.Member Value
 12.Order and Checkout
 13.Events
-14.Surveys
+14.Survey
+15.Registration
 
 ## IDE
 Use Visual studio code
