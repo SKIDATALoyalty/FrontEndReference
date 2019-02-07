@@ -98,7 +98,7 @@ export class SurveyComponent implements OnInit {
         }
         this.totalPagesCount = newPageCount;
 
-        console.log('survey data', this.surveyList);
+        // console.log('survey data', this.surveyList);
         this.loaderService.display(false);
       },
       error => {
@@ -108,24 +108,37 @@ export class SurveyComponent implements OnInit {
   }
 
   submitQuestion(form) {
-    console.log('survey form', form);
+    // console.log('survey form', form);
     for (const key in form) {
       if (form.hasOwnProperty(key) && form[key]) {
-        const element = form[key];
+        // const element = form[key];
         const qtyUrl = environment.apidocs + 'v2/API/SimpleSurveyQuestions/' + key + '/SubmitQuestionAnswer?answer=' + form[key];
         const params = [];
         const pBody = {};
-        console.log('res', form[key]);
-        console.log('res', key);
+        // console.log('res', form[key]);
+        // console.log('res', key);
         this.surveyService.post<any>(qtyUrl, params, pBody).subscribe(res => {
-          console.log('res', res);
+          // console.log('res', res);
           form = {};
+          this.updateSurveyAfterSubmit(res['Data']['Question']);
         },
           error => {
             console.log('error', error);
           });
       }
     }
+  }
+
+  updateSurveyAfterSubmit(data: any) {
+    for (let i = 0; i < this.surveyList.length; i++) {
+      if (this.surveyList[i].SurveyQuestionID  === data.SurveyQuestion.SurveyQuestionID) {
+        this.surveyList[i].isAnswered = true;
+        this.surveyList[i].question.CorrectAnswer = data.CorrectAnswer;
+        this.surveyList[i].question.Feedback = data.Feedback;
+        this.surveyList[i].question.SurveyAnswer = data.SurveyAnswer;
+      }
+    }
+    // console.log('suervey list after up', this.surveyList);
   }
 
 }

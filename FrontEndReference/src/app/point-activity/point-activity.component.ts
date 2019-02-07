@@ -44,6 +44,7 @@ export class PointActivityComponent implements OnInit, OnDestroy {
       const pointTypes = environment.apidocs + 'v1/API/pointActivities';
       this.pointService.getPointActivityAPi(pointTypes).subscribe(
         data => {
+          this.pointActivities = [];
           this.loaderService.display(false);
           this.addExtraProperties(data);
         },
@@ -55,6 +56,7 @@ export class PointActivityComponent implements OnInit, OnDestroy {
       const pointTypes = environment.apidocs + 'v1/API/pointActivities' + '?pointActivityTypeID=' + id;
       this.pointService.getPointActivityAPi(pointTypes).subscribe(
         data => {
+          this.pointActivities = [];
           this.loaderService.display(false);
           this.addExtraProperties(data);
         },

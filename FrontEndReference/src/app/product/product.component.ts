@@ -36,16 +36,17 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.loaderService.display(true);
-    // const productTypesUrl = environment.apidocs + 'v1/API/PointActivityType/GetTypes';
-    // this.productService.getProductAPi(productTypesUrl).subscribe(
-    //   data => {
-    //     this.productCategories = data;
-    //     this.getProductData();
-    //   },
-    //   error => {
-    //      this.loaderService.display(false);
-    //     console.log(error);
-    //   });
+    const productTypesUrl = environment.apidocs + 'v2/API/RewardCategory';
+    this.productService.getAPi(productTypesUrl).subscribe(
+      data => {
+        this.productCategories = data['Data'];
+        // console.log('proudct types', data['Data']);
+        this.getProductData();
+      },
+      error => {
+         this.loaderService.display(false);
+        console.log(error);
+      });
 
     this.getProductData();
   }
@@ -55,6 +56,23 @@ export class ProductComponent implements OnInit {
     const productTypesUrl = environment.apidocs + 'v2/API/Product?userID=' + this.userID + '&includeFutureProducts=true';
     this.productService.getAPi(productTypesUrl).subscribe(
       data => {
+        this.productList = [];
+        this.loaderService.display(false);
+        this.addExtraProperties(data['Data']['Records']);
+        // console.log(this.productList);
+      },
+      error => {
+        this.loaderService.display(false);
+        console.log(error);
+      });
+  }
+
+  getSingleProductData(id: number, name: string) {
+    this.userID =  this.authService.decodeJwtToken()['uid'];
+    const productTypesUrl = environment.apidocs + 'v2/API/Product?userID=' + this.userID + '&includeFutureProducts=true' + '&categoryIDs=' + id;
+    this.productService.getAPi(productTypesUrl).subscribe(
+      data => {
+        this.productList = [];
         this.loaderService.display(false);
         this.addExtraProperties(data['Data']['Records']);
         // console.log(this.productList);

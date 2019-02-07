@@ -1,14 +1,23 @@
 <div class="container pt-3 custom-pos">
         <div class="row">
-            <div class="col-12 col-sm-10 mx-auto">
-                <div class="row">
+                <div class="col-12 col-sm-10 mx-auto">
+                  <div class="row">
                     <div class="col-lg-12">
-                        <h1>{{'Productpage.Title' | translate}}</h1>
-                        <p class="lead">Product Categories goes here</p>
+                      <h1>Product Categories</h1>
+                      <hr class="mb-5">
+                      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group btn-group-lg mr-2 mt-3" role="group" aria-label="Second group" *ngIf="productCategories !== undefined">
+                          <button type="button" class="btn btn-secondary" (click)="getProductData()">All
+                            Categories</button>
+                        </div>
+                        <div class="btn-group btn-group-lg mr-2 mt-3" *ngFor="let types of productCategories" role="group" aria-label="First group">
+                          <button type="button" class="btn btn-secondary" (click)="getSingleProductData(types.RewardCategoryID, types.RewardCategoryName)">{{types.RewardCategoryName}}</button>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
+              </div>
     
         <div class="row">
             <div class="col-sm-4 mt-3"  *ngFor="let product of productList">

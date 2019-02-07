@@ -15,6 +15,22 @@
     <div class="col-sm-4 mt-5" *ngFor="let survey of surveyList">
       <div class="card">
         <form class="form" role="form" novalidate (ngSubmit)="submitQuestion(surveyForm.value)" [formGroup]="surveyForm">
+          <!-- overlay -->
+          <div class="card-img-overlay d-flex" *ngIf="survey.isAnswered">
+            <div class="my-auto mx-auto text-center" *ngIf="survey.question.SurveyAnswer.IsCorrect && survey.question.QuestionType != '1' && survey.question.QuestionType != '2'">
+              <h3 class="card-title font-weight-bold text-white">Correct</h3>
+              <p class="card-title text-white">{{survey.question.Feedback}}</p>
+            </div>
+            <div class="my-auto mx-auto text-center" *ngIf="!survey.question.SurveyAnswer.IsCorrect && survey.question.QuestionType != '1' && survey.question.QuestionType != '2'">
+              <h3 class="card-title font-weight-bold text-white">Incorrect</h3>
+              <p class="card-title text-white">{{survey.question.CorrectFeedback}}</p>
+            </div>
+
+            <div class="my-auto mx-auto text-center" *ngIf="survey.question.SurveyAnswer.IsCorrect && survey.question.QuestionType == '1' && survey.question.QuestionType == '2'">
+              <h3 class="card-title font-weight-bold text-white">Thank you for answering the question</h3>
+              <p class="card-title text-white">{{survey.question.Feedback}}</p>
+            </div>
+          </div>
           <div class="card-body" style="width: 20rem">
             <h4 class="card-title">
               Developer Quiz
@@ -62,7 +78,8 @@
             </div>
 
             <!-- dropdown -->
-            <select class="custom-select" *ngIf="survey.question.QuestionType == '5' && survey.question.Options.length>0" [formControlName]="survey.SurveyQuestionID">
+            <select class="custom-select" *ngIf="survey.question.QuestionType == '5' && survey.question.Options.length>0"
+              [formControlName]="survey.SurveyQuestionID">
               <option selected>Select</option>
               <option *ngFor="let option of survey.question.Options; let i=index" value="{{option.OptionValue}}">{{option.OptionText}}</option>
             </select>

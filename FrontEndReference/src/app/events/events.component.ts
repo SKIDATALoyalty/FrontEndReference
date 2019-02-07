@@ -110,7 +110,7 @@ export class EventsComponent implements OnInit {
         });
       })
     );
-    console.log('this.events$', this.events$);
+    // console.log('this.events$', this.events$);
   }
 
   dayClicked({
