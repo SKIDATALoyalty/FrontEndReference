@@ -7,7 +7,7 @@ This project is for integrators. It consumes services from https://developerdev.
 It consumes Loyalty OAuth API.Link : https://developer.skidata-loyalty.com
 
 ## Current Implemented features in reference site
-**Note:** New features will be added frequently into front-end reference site.
+**Note:** New features will be added frequently.
 
 1. OAuth Login  
 2. Point Activities
@@ -32,7 +32,7 @@ Use Visual studio code
 Run npm install in ./FrontEndReference
 
 ## Build
-Run ng serve --port 3000 in ./FrontEndReference.
+Run ng serve in ./FrontEndReference.
 
 ## production build test in local env
-Run ng serve --port 3000 in ./FrontEndReference.
+Run `ng build -c prod`  in ./FrontEndReference.
