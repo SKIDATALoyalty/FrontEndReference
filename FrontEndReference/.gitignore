@@ -45,3 +45,6 @@ Thumbs.db
 
 # ssl used in local
 /ssl
+
+# env
+/src/environments/environment.local.ts

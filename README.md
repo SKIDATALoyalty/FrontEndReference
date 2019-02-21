@@ -7,23 +7,23 @@ This project is for integrators. It consumes services from https://developerdev.
 It consumes Loyalty OAuth API.Link : https://developer.skidata-loyalty.com
 
 ## Current Implemented features in reference site
-Note: New features will be added frequently into front-end reference site.
+**Note:** New features will be added frequently into front-end reference site.
 
-1.OAuth Login  
-2.Point Activities
-3.Product  
-4.Badges  
-5.Simple Content
-6.Profile
-7.Leaderboard  
-8.Static Localization
-9.Odometer  
-10.Profile Image Upload
-11.Member Value
-12.Order and Checkout
-13.Events
-14.Survey
-15.Registration
+1. OAuth Login  
+2. Point Activities
+3. Product  
+4. Badges  
+5. Simple Content
+6. Profile
+7. Leaderboard  
+8. Static Localization
+9. Odometer  
+10. Profile Image Upload
+11. Member Value
+12. Order and Checkout
+13. Events
+14. Survey
+15. Registration
 
 ## IDE
 Use Visual studio code

@@ -36,14 +36,6 @@
             ]
           },
           "configurations": {
-            "prod": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
             "production": {
               "optimization": true,
               "outputHashing": "all",
@@ -54,21 +46,29 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "serviceWorker": true
+            },
+            "local": {
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.local.ts"
+              }]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "loyalty-front-end-poc:build"
+            "browserTarget": "loyalty-front-end-poc:build",
+            "port": 4200
           },
           "configurations": {
-            "prod": {
-              "browserTarget": "loyalty-front-end-poc:build:prod"
-            },
-            "production": {
-              "browserTarget": "loyalty-front-end-poc:build:production"
+            "local": {
+              "browserTarget": "loyalty-front-end-poc:build:local"
             }
           }
         },
