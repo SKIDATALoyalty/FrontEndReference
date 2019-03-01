@@ -16,6 +16,10 @@ export class LocalizationService {
     return this.http.post(url, data);
   }
 
+  updateUserProfile(url, data) {
+    return this.http.put(url, data);
+  }
+
   getUserDefaultLanguage(url) {
     return this.http.get(url);
   }

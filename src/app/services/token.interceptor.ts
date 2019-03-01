@@ -38,7 +38,7 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           // This is where you can use your various tokens
           'Accept': 'application/json',
-          Authorization: authToken,
+          Authorization: `Bearer ${authToken}`,
           'x-api-key': environment.apiKey
         }
       });

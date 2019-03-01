@@ -20,7 +20,7 @@
                   <h3 class="mb-0">{{'ProfilePage.Profilesection' | translate}}</h3>
               </div>
               <div class="card-body" *ngIf="profileForm">
-                  <form class="form" role="form" novalidate (ngSubmit)="onSubmit(profileForm.value)" [formGroup]="profileForm">
+                  <form class="form" role="form" novalidate (ngSubmit)="onSubmit(profileForm)" [formGroup]="profileForm">
                     <div *ngFor="let prop of profile">
                         <div class="form-group row"  [ngSwitch]="prop.type">
                             <label class="col-lg-3 col-form-label form-control-label" [attr.for]="prop.label">{{prop.name}}</label>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="error" *ngIf="profileForm.get(prop.label).invalid && (profileForm.get(prop.label).dirty || profileForm.get(prop.label).touched)">
-                            <div *ngIf="profileForm.get(prop.label).errors.required">
+                            <div *ngIf="profileForm.get(prop.label).errors">
                               {{ prop.label }} is required.
                             </div>
                         </div>

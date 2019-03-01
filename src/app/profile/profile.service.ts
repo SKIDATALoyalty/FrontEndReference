@@ -16,7 +16,9 @@ export class ProfileService {
 
   postFile(fileToUpload: File, imageUrl: string) {
     const formData: FormData = new FormData();
-    formData.append('image', fileToUpload, fileToUpload.name);
+    const fileName = 'file'; // uncomment if you are using new loyalty 4.0 api's to upload avatar
+   // const fileName = 'image'; //uncomment if you are using old apidocs to upload avatar
+    formData.append(fileName, fileToUpload, fileToUpload.name);
     return this.http.post(imageUrl, formData);
   }
 
