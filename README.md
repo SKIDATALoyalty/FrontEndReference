@@ -25,6 +25,9 @@ It consumes Loyalty OAuth API.Link : https://developer.skidata-loyalty.com
 14. Survey
 15. Registration
 
+## Front End Reference Portal URL
+Link : https://frontend-reference.skidataus.com
+
 ## IDE
 Use Visual studio code
 
