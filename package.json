@@ -34,7 +34,7 @@
     "core-js": "^2.4.1",
     "date-fns": "^1.29.0",
     "font-awesome": "^4.7.0",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "jquery": "^3.5.0",
     "kind-of": "^6.0.3",
     "minimist": "^1.2.5",
